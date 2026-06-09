@@ -2,6 +2,8 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { SEOMeta } from "@/components/SEOMeta";
 import { Zap, Target, BarChart2, Trophy, Users, BookOpen, ChevronDown } from "lucide-react";
 
 const features = [
@@ -63,9 +65,25 @@ const faqs = [
   },
 ];
 
+const homeStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "TrafficPeak Typing Test",
+  applicationCategory: "EducationalApplication",
+  description: "Free online typing speed test with real-time WPM, CPM, and accuracy tracking.",
+  url: "https://trafficpeak.replit.app",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
+      <SEOMeta
+        title="TrafficPeak"
+        description="Improve your typing speed and accuracy with real-time tests, structured lessons, typing games, global leaderboards, and verified certificates. Start free."
+        structuredData={homeStructuredData}
+        keywords="typing speed test, WPM test, typing practice online, learn to type, typing test free, keyboard speed"
+      />
       <Navbar />
 
       {/* Hero */}
@@ -199,24 +217,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border/50 py-8 px-4">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2 font-semibold text-foreground">
-            <div className="w-5 h-5 bg-primary rounded flex items-center justify-center">
-              <Zap className="w-3 h-3 text-white" />
-            </div>
-            TrafficPeak
-          </div>
-          <div className="flex gap-6">
-            <Link href="/typing-test" className="hover:text-foreground transition-colors">Type</Link>
-            <Link href="/learn" className="hover:text-foreground transition-colors">Learn</Link>
-            <Link href="/leaderboard" className="hover:text-foreground transition-colors">Leaderboard</Link>
-            <Link href="/blog" className="hover:text-foreground transition-colors">Blog</Link>
-          </div>
-          <div>© 2025 TrafficPeak. All rights reserved.</div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

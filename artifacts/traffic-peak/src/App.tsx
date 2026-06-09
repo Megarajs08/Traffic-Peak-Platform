@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/auth-context";
+import { CookieBanner } from "@/components/layout/CookieBanner";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import TypingTest from "@/pages/typing-test";
@@ -18,6 +19,15 @@ import Profile from "@/pages/profile";
 import Settings from "@/pages/settings";
 import Login from "@/pages/login";
 import Register from "@/pages/register";
+import About from "@/pages/about";
+import Contact from "@/pages/contact";
+import PrivacyPolicy from "@/pages/privacy-policy";
+import Terms from "@/pages/terms";
+import Disclaimer from "@/pages/disclaimer";
+import CookiePolicy from "@/pages/cookie-policy";
+import SitemapPage from "@/pages/sitemap-page";
+import AdminPanel from "@/pages/admin/index";
+import PostForm from "@/pages/admin/post-form";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +55,18 @@ function Router() {
       <Route path="/settings" component={Settings} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      {/* Info & Legal */}
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/terms" component={Terms} />
+      <Route path="/disclaimer" component={Disclaimer} />
+      <Route path="/cookie-policy" component={CookiePolicy} />
+      <Route path="/sitemap" component={SitemapPage} />
+      {/* Admin */}
+      <Route path="/admin" component={AdminPanel} />
+      <Route path="/admin/posts/new" component={PostForm} />
+      <Route path="/admin/posts/:id/edit" component={PostForm} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -59,6 +81,7 @@ function App() {
             <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
               <Router />
             </WouterRouter>
+            <CookieBanner />
           </AuthProvider>
           <Toaster />
         </TooltipProvider>

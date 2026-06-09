@@ -291,3 +291,8 @@ limit?: number;
 offset?: number;
 };
 
+export type AdminListPostsParams = {
+limit?: number;
+offset?: number;
+};
+

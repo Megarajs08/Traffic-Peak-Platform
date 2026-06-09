@@ -79,6 +79,57 @@ async function seed() {
       category: "Typing Tips",
       published: true,
     },
+    // Typing Lessons category
+    {
+      title: "The Complete Beginner's Guide to Touch Typing",
+      slug: "beginners-guide-touch-typing",
+      content: `Touch typing is the single most high-leverage skill you can develop for productivity on a computer. This guide covers everything you need to start from zero.\n\nStep 1: Learn the home row. Your left-hand fingers rest on A, S, D, F. Your right-hand fingers rest on J, K, L, and semicolon. Your thumbs rest on the spacebar. This is your home position.\n\nStep 2: Never look at the keyboard. This is the hardest habit to break. Cover your hands with a cloth if you have to. Looking at keys reinforces the wrong neural pathways.\n\nStep 3: Use all ten fingers. Each finger is responsible for a specific set of keys. The pinky fingers handle the outer columns, while the index fingers each cover two columns in the center.\n\nStep 4: Start slow. Aim for 100% accuracy at 20 WPM before trying to go faster. Accuracy first, always. Speed is a natural byproduct of well-trained fingers.\n\nStep 5: Practice daily for at least 15 minutes. Consistency matters more than duration. Short daily sessions build muscle memory far more effectively than sporadic long sessions.`,
+      excerpt: "Everything you need to start touch typing from scratch — home row, finger placement, and your first lessons.",
+      category: "Typing Lessons",
+      published: true,
+    },
+    {
+      title: "Mastering the Number Row: A Step-by-Step Guide",
+      slug: "mastering-number-row-typing",
+      content: `The number row is one of the last things most people master in typing, but it's essential for data entry, coding, and professional work.\n\nThe standard number row runs 1-2-3-4-5 on the left side and 6-7-8-9-0 on the right. Your left index finger covers 4 and 5; your right index finger covers 6 and 7.\n\nThe key challenge with numbers is that your fingers must travel further from the home row. This requires precise muscle memory for each key's position relative to your resting fingers.\n\nExercise 1: Practice individual digits in isolation. Type each digit 20 times, focusing on returning to the home row after each press.\n\nExercise 2: Type sequences like 12345 and 67890 until the movement becomes automatic.\n\nExercise 3: Type real-world number patterns: dates (06/09/2026), phone numbers (555-123-4567), prices ($9.99, $1,299.00), and ZIP codes.\n\nMost people can master the number row to 60+ WPM within 2-3 weeks of focused daily practice.`,
+      excerpt: "A structured guide to typing the number row accurately and quickly.",
+      category: "Typing Lessons",
+      published: true,
+    },
+    // Productivity category
+    {
+      title: "10 Keyboard Shortcuts That Will Save You Hours Every Week",
+      slug: "keyboard-shortcuts-save-hours",
+      content: `Keyboard shortcuts are force multipliers for anyone who works on a computer. Mastering the most important ones can save you 30–60 minutes per day.\n\n1. Ctrl+Z / Cmd+Z — Undo. The most important shortcut. Use it freely.\n2. Ctrl+Shift+Z — Redo. Just as important as undo.\n3. Ctrl+F / Cmd+F — Find in page. Faster than scrolling.\n4. Ctrl+L / Cmd+L — Focus the address bar in any browser.\n5. Alt+Tab / Cmd+Tab — Switch between open applications without touching the mouse.\n6. Ctrl+W / Cmd+W — Close the current tab or window.\n7. Ctrl+T / Cmd+T — Open a new browser tab.\n8. Ctrl+Shift+T — Reopen the last closed tab.\n9. Win+D / Cmd+M — Show desktop (minimise all windows).\n10. Ctrl+Shift+N — New incognito/private window.\n\nLearning these is a one-time investment that pays dividends every single day. Start with the ones you would use most and add more each week.`,
+      excerpt: "Stop reaching for the mouse. These 10 shortcuts will transform your daily workflow.",
+      category: "Productivity",
+      published: true,
+    },
+    {
+      title: "How Typing Speed Affects Your Salary and Career Growth",
+      slug: "typing-speed-salary-career-growth",
+      content: `Most people don't think about typing speed as a career skill, but the data tells a clear story. Faster typists produce more output, make fewer errors, and are perceived as more competent.\n\nIn roles with high written output — software engineering, content creation, legal work, journalism, data entry, and customer support — typing speed directly affects the volume of work you can produce.\n\nIn competitive hiring, a typing test is a common filter for administrative and clerical roles. Most government and corporate typing tests require 35–50 WPM minimum, with higher roles requiring 60–80 WPM.\n\nBeyond raw output, fast and accurate typing improves your professional image in meetings (when you're taking notes), in email communication, and in documentation quality.\n\nThe typical knowledge worker types 40 WPM. Improving to 80 WPM effectively doubles your written output capacity. For a 40-hour work week with significant writing tasks, this can mean 4–6 hours of recovered productive time per week.`,
+      excerpt: "Why your typing speed directly impacts your productivity, output quality, and career earnings.",
+      category: "Productivity",
+      published: true,
+    },
+    // Government Exam Preparation category
+    {
+      title: "SSC CHSL Typing Test: Complete Preparation Guide",
+      slug: "ssc-chsl-typing-test-guide",
+      content: `The SSC CHSL (Staff Selection Commission Combined Higher Secondary Level) typing test is a mandatory component for Data Entry Operator (DEO) and Lower Divisional Clerk (LDC) posts.\n\nTyping Speed Requirements:\n- LDC/JSA posts: 35 WPM in English or 30 WPM in Hindi\n- DEO posts: 8,000 key depressions per hour (approximately 26–27 WPM with standard text)\n\nThe test is conducted on a computer with a standard QWERTY keyboard. You are given a printed passage and must type it accurately within the time limit.\n\nKey preparation tips:\n1. Practice on TrafficPeak daily. Use the 5-minute test mode to build sustained concentration.\n2. Focus on accuracy first. Errors in the SSC test are heavily penalised — net speed = gross speed minus error deductions.\n3. Practice with Hindi font if appearing for Hindi typing tests. Krutidev and Mangal fonts are commonly used.\n4. Build your speed gradually. Target 45 WPM in English for a comfortable margin above the 35 WPM requirement.\n5. Practice with exam-style paragraphs containing formal, administrative language.\n\nWith 3–4 months of consistent daily practice, most candidates can comfortably clear the typing component.`,
+      excerpt: "Complete guide to cracking the SSC CHSL typing test for LDC and DEO positions.",
+      category: "Government Exam Preparation",
+      published: true,
+    },
+    {
+      title: "IBPS Clerk Typing Test: Speed and Accuracy Requirements",
+      slug: "ibps-clerk-typing-test-requirements",
+      content: `The IBPS (Institute of Banking Personnel Selection) Clerk exam includes a computer proficiency test that evaluates typing speed and accuracy.\n\nRequirements: Candidates must achieve a minimum typing speed of 20 words per minute (wpm) in English or 15 words per minute in Hindi, with a maximum of 5% errors allowed.\n\nWhile 20 WPM is the minimum, competitive candidates typically aim for 35-40 WPM to demonstrate strong proficiency and confidence during the test.\n\nThe typing test is usually conducted in the online examination hall and consists of typing a passage displayed on screen within a given time.\n\nPreparation Strategy:\n\nWeek 1-2: Master the home row and all letter keys. Aim for zero errors at slow speed.\nWeek 3-4: Build speed with common English words. Push to 25 WPM.\nWeek 5-8: Practice with banking and financial vocabulary. Aim for 35+ WPM.\nWeek 9-12: Full test simulations at exam conditions — 5 minutes, single long passage.\n\nKey mistake to avoid: Over-correcting errors slows you down significantly. Type at a speed where you make fewer than 2-3 errors per 100 words.`,
+      excerpt: "Everything you need to know about the IBPS Clerk typing test and how to clear it comfortably.",
+      category: "Government Exam Preparation",
+      published: true,
+    },
   ];
 
   await db.insert(blogPostsTable).values(posts).onConflictDoNothing();

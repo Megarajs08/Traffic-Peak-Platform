@@ -411,6 +411,73 @@ export const GetPostResponse = zod.object({
 
 
 /**
+ * @summary List all blog posts including drafts (admin only)
+ */
+export const adminListPostsQueryLimitDefault = 50;
+export const adminListPostsQueryOffsetDefault = 0;
+
+export const AdminListPostsQueryParams = zod.object({
+  "limit": zod.coerce.number().default(adminListPostsQueryLimitDefault),
+  "offset": zod.coerce.number().default(adminListPostsQueryOffsetDefault)
+})
+
+export const AdminListPostsResponseItem = zod.object({
+  "id": zod.number(),
+  "title": zod.string(),
+  "slug": zod.string(),
+  "content": zod.string(),
+  "excerpt": zod.string().nullish(),
+  "category": zod.string(),
+  "coverImageUrl": zod.string().nullish(),
+  "published": zod.boolean(),
+  "authorName": zod.string().nullish(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string().optional()
+})
+export const AdminListPostsResponse = zod.array(AdminListPostsResponseItem)
+
+
+/**
+ * @summary Update a blog post (admin only)
+ */
+export const UpdatePostParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdatePostBody = zod.object({
+  "title": zod.string(),
+  "slug": zod.string(),
+  "content": zod.string(),
+  "excerpt": zod.string().optional(),
+  "category": zod.string(),
+  "coverImageUrl": zod.string().optional(),
+  "published": zod.boolean().optional()
+})
+
+export const UpdatePostResponse = zod.object({
+  "id": zod.number(),
+  "title": zod.string(),
+  "slug": zod.string(),
+  "content": zod.string(),
+  "excerpt": zod.string().nullish(),
+  "category": zod.string(),
+  "coverImageUrl": zod.string().nullish(),
+  "published": zod.boolean(),
+  "authorName": zod.string().nullish(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string().optional()
+})
+
+
+/**
+ * @summary Delete a blog post (admin only)
+ */
+export const DeletePostParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+/**
  * @summary Get a public user profile
  */
 export const GetUserProfileParams = zod.object({
