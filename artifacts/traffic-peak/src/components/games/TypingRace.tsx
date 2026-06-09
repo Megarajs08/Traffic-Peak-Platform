@@ -159,10 +159,10 @@ export default function TypingRace({ onExit }: { onExit: () => void }) {
         </div>
 
         {/* Text */}
-        <div className="bg-card border border-border rounded-xl p-6 font-mono text-lg leading-relaxed mb-4 max-h-44 overflow-hidden cursor-text">
+        <div className="bg-card border border-border rounded-xl p-6 font-mono text-xl leading-relaxed mb-4 max-h-44 overflow-hidden cursor-text">
           {chars.map((c, i) => (
             <span key={i} className={`relative ${
-              c.state === "correct" ? "text-green-400" :
+              c.state === "correct" ? "text-foreground" :
               c.state === "incorrect" ? "text-red-400 bg-red-400/10" :
               c.state === "current" ? "text-foreground" :
               "text-muted-foreground/50"
