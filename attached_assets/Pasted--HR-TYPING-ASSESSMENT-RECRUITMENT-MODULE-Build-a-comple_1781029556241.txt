@@ -1,0 +1,412 @@
+# HR TYPING ASSESSMENT & RECRUITMENT MODULE
+
+Build a complete HR Assessment System for the Traffic Peak platform.
+
+This module should allow recruiters, companies, training institutes, and schools to evaluate typing skills through shareable assessment links.
+
+## OVERVIEW
+
+The system should allow:
+
+* HR users to create typing assessments
+* Generate unique assessment links
+* Share links with candidates
+* Track candidate performance
+* Generate reports
+* Rank candidates automatically
+* Download results in PDF and Excel formats
+
+---
+
+## HR DASHBOARD
+
+Create a dedicated HR dashboard.
+
+Features:
+
+### Overview Cards
+
+* Total Assessments
+* Total Candidates
+* Average WPM
+* Average Accuracy
+* Pass Rate
+* Active Assessments
+
+---
+
+## CREATE ASSESSMENT
+
+HR can create a typing assessment.
+
+Fields:
+
+* Assessment Name
+* Company Name
+* Job Position
+* Assessment Description
+* Duration
+* Difficulty Level
+* Language
+* Passing WPM
+* Minimum Accuracy
+* Number of Attempts Allowed
+* Expiry Date
+
+Example:
+
+Company: ABC Technologies
+
+Position: Data Entry Operator
+
+Duration: 5 Minutes
+
+Passing WPM: 40
+
+Minimum Accuracy: 95%
+
+---
+
+## TEST SETTINGS
+
+Allow configuration:
+
+### Duration
+
+* 1 Minute
+* 2 Minutes
+* 5 Minutes
+* 10 Minutes
+
+### Difficulty
+
+* Easy
+* Medium
+* Hard
+
+### Language
+
+* English
+* Tamil
+* Hindi
+
+### Content Types
+
+* Random Words
+* Paragraphs
+* Quotes
+* Numbers
+* Data Entry Simulation
+* Custom Text
+
+---
+
+## CUSTOM TEST CONTENT
+
+HR should be able to:
+
+* Upload custom paragraphs
+* Upload CSV data-entry exercises
+* Paste custom text
+* Select predefined templates
+
+---
+
+## ASSESSMENT LINK GENERATION
+
+Generate secure assessment URLs.
+
+Example:
+
+trafficpeak.com/assessment/ABC123XYZ
+
+Features:
+
+* Unique token generation
+* Expiry support
+* Single-use option
+* Multiple-use option
+
+---
+
+## CANDIDATE EXPERIENCE
+
+Candidate should not need registration.
+
+Before starting:
+
+Collect:
+
+* Full Name
+* Email
+* Mobile Number
+* Resume Upload (Optional)
+
+Display:
+
+* Assessment Instructions
+* Duration
+* Required WPM
+* Required Accuracy
+
+Start button.
+
+---
+
+## LIVE TYPING TEST
+
+Use the same Monkeytype-style engine.
+
+Display:
+
+* WPM
+* CPM
+* Accuracy
+* Error Count
+* Time Remaining
+
+Features:
+
+* Character-level rendering
+* Smooth caret animation
+* Instant feedback
+* Responsive design
+
+---
+
+## ANTI-CHEATING FEATURES
+
+Implement:
+
+* Disable copy-paste
+* Disable right-click
+* Tab switching detection
+* Fullscreen mode
+* Multiple attempt prevention
+* IP tracking
+* Browser fingerprinting
+* Suspicious activity logging
+
+Display warning if candidate leaves test window.
+
+---
+
+## AUTOMATIC EVALUATION
+
+Calculate:
+
+* Final WPM
+* Final CPM
+* Accuracy
+* Error Count
+* Completion Status
+
+Status:
+
+* Pass
+* Fail
+
+Based on:
+
+Passing WPM
+
+Minimum Accuracy
+
+---
+
+## CANDIDATE REPORTS
+
+Generate detailed reports.
+
+Include:
+
+* Candidate Details
+* WPM
+* Accuracy
+* Errors
+* Test Duration
+* Completion Time
+* Rank
+
+Export:
+
+* PDF
+* Excel
+
+---
+
+## HR RESULTS DASHBOARD
+
+Show candidate table.
+
+Columns:
+
+* Candidate Name
+* Email
+* Mobile Number
+* WPM
+* Accuracy
+* Errors
+* Rank
+* Status
+
+Filters:
+
+* Pass
+* Fail
+* Highest WPM
+* Highest Accuracy
+* Date Range
+
+Search functionality included.
+
+---
+
+## LEADERBOARD
+
+Rank candidates automatically.
+
+Ranking based on:
+
+1. Accuracy
+2. WPM
+3. Lowest Errors
+
+Display:
+
+* Top Performers
+* Average Performance
+* Assessment Statistics
+
+---
+
+## CERTIFICATE GENERATION
+
+Generate certificates for passing candidates.
+
+Certificate should include:
+
+* Candidate Name
+* Company Name
+* WPM
+* Accuracy
+* Date
+* Certificate ID
+
+Download:
+
+* PDF
+* PNG
+
+Verification URL:
+
+trafficpeak.com/verify-certificate
+
+---
+
+## EMAIL AUTOMATION
+
+Automatically send:
+
+### Candidate Email
+
+* Assessment Invitation
+* Completion Confirmation
+* Certificate
+
+### HR Email
+
+* Assessment Completion Notification
+* Candidate Report
+
+---
+
+## BUSINESS SUBSCRIPTIONS
+
+Create plans:
+
+### Free
+
+* 1 Active Assessment
+* 20 Candidates
+
+### Starter
+
+* 10 Assessments
+* 500 Candidates
+
+### Professional
+
+* Unlimited Assessments
+* Unlimited Candidates
+* Advanced Analytics
+
+### Enterprise
+
+* Team Management
+* Custom Branding
+* API Access
+
+---
+
+## ANALYTICS
+
+Provide charts:
+
+* Average WPM
+* Average Accuracy
+* Pass Rate
+* Candidate Growth
+* Assessment Completion Rate
+
+Use Recharts.
+
+---
+
+## ADMIN PANEL
+
+Admin can:
+
+* Manage Companies
+* Manage Assessments
+* Manage Certificates
+* Manage Subscriptions
+* View Revenue
+* View Usage Statistics
+
+---
+
+## TECHNICAL REQUIREMENTS
+
+Frontend:
+
+* React
+* TypeScript
+* Tailwind CSS
+
+Backend:
+
+* Node.js
+* Express
+
+Database:
+
+* PostgreSQL
+
+Authentication:
+
+* JWT
+* Google Login
+
+Storage:
+
+* Candidate Resume Uploads
+* Assessment Files
+
+Architecture:
+
+* Scalable
+* Modular
+* Production Ready
+
+Generate complete folder structure, database schema, APIs, UI components, dashboard pages, authentication flow, assessment workflow, reporting system, and deployment instructions.

@@ -25,6 +25,10 @@ tags:
     description: User profiles
   - name: stats
     description: Dashboard stats
+  - name: hr
+    description: HR assessment management
+  - name: assessment
+    description: Public candidate assessment flow
 
 paths:
   /healthz:
@@ -606,6 +610,228 @@ paths:
               schema:
                 $ref: "#/components/schemas/User"
 
+  # ── HR Assessments ────────────────────────────────────────────────────
+  /hr/assessments:
+    get:
+      operationId: listHrAssessments
+      tags: [hr]
+      summary: List assessments created by the current user
+      responses:
+        "200":
+          description: Assessment list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HrAssessment"
+        "401":
+          description: Unauthorized
+    post:
+      operationId: createHrAssessment
+      tags: [hr]
+      summary: Create a new assessment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HrAssessmentInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HrAssessment"
+        "400":
+          description: Validation error
+        "401":
+          description: Unauthorized
+
+  /hr/assessments/{id}:
+    get:
+      operationId: getHrAssessment
+      tags: [hr]
+      summary: Get assessment detail with results
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Assessment detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HrAssessmentDetail"
+        "404":
+          description: Not found
+    put:
+      operationId: updateHrAssessment
+      tags: [hr]
+      summary: Update assessment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HrAssessmentInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HrAssessment"
+    delete:
+      operationId: deleteHrAssessment
+      tags: [hr]
+      summary: Delete assessment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /hr/assessments/{id}/results:
+    get:
+      operationId: listAssessmentResults
+      tags: [hr]
+      summary: Get candidate results for an assessment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: sort
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Results list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CandidateResult"
+
+  /hr/dashboard/stats:
+    get:
+      operationId: getHrDashboardStats
+      tags: [hr]
+      summary: HR overview stats
+      responses:
+        "200":
+          description: Stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HrDashboardStats"
+
+  # ── Public Assessment (Candidate) ──────────────────────────────────────
+  /assessment/{token}:
+    get:
+      operationId: getAssessmentByToken
+      tags: [assessment]
+      summary: Get public assessment info (no auth)
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Assessment info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PublicAssessment"
+        "404":
+          description: Not found or expired
+
+  /assessment/{token}/start:
+    post:
+      operationId: startAssessment
+      tags: [assessment]
+      summary: Register candidate and start session
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CandidateIntakeInput"
+      responses:
+        "201":
+          description: Candidate session created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CandidateSession"
+        "400":
+          description: Already attempted or validation error
+        "404":
+          description: Assessment not found
+
+  /assessment/{token}/submit:
+    post:
+      operationId: submitAssessment
+      tags: [assessment]
+      summary: Submit assessment result
+      parameters:
+        - name: token
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssessmentSubmitInput"
+      responses:
+        "200":
+          description: Result saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssessmentSubmitResult"
+        "400":
+          description: Validation error
+        "404":
+          description: Not found
+
 components:
   schemas:
     HealthStatus:
@@ -963,4 +1189,293 @@ components:
         name:
           type: string
         avatarUrl:
+          type: string
+
+    # ── HR Assessments ─────────────────────────────────────────────────
+    HrAssessmentInput:
+      type: object
+      required: [name, companyName, jobPosition]
+      properties:
+        name:
+          type: string
+        companyName:
+          type: string
+        jobPosition:
+          type: string
+        description:
+          type: ["string", "null"]
+        durationSeconds:
+          type: integer
+        difficulty:
+          type: string
+        language:
+          type: string
+        contentType:
+          type: string
+        customText:
+          type: ["string", "null"]
+        passingWpm:
+          type: integer
+        minAccuracy:
+          type: number
+        maxAttempts:
+          type: integer
+        active:
+          type: boolean
+        expiresAt:
+          type: ["string", "null"]
+
+    HrAssessment:
+      type: object
+      required: [id, token, name, companyName, jobPosition, durationSeconds, difficulty, language, contentType, passingWpm, minAccuracy, maxAttempts, active, createdAt, updatedAt]
+      properties:
+        id:
+          type: integer
+        token:
+          type: string
+        createdById:
+          type: integer
+        name:
+          type: string
+        companyName:
+          type: string
+        jobPosition:
+          type: string
+        description:
+          type: ["string", "null"]
+        durationSeconds:
+          type: integer
+        difficulty:
+          type: string
+        language:
+          type: string
+        contentType:
+          type: string
+        customText:
+          type: ["string", "null"]
+        passingWpm:
+          type: integer
+        minAccuracy:
+          type: number
+        maxAttempts:
+          type: integer
+        active:
+          type: boolean
+        expiresAt:
+          type: ["string", "null"]
+        candidateCount:
+          type: integer
+        passCount:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+    CandidateResult:
+      type: object
+      required: [id, fullName, email, wpm, accuracy, passed, rank]
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        tabSwitches:
+          type: integer
+        wpm:
+          type: number
+        cpm:
+          type: number
+        accuracy:
+          type: number
+        errorCount:
+          type: integer
+        passed:
+          type: boolean
+        rank:
+          type: integer
+        completedAt:
+          type: ["string", "null"]
+
+    HrAssessmentDetail:
+      type: object
+      required: [id, token, name, companyName, jobPosition, durationSeconds, passingWpm, minAccuracy, candidates]
+      properties:
+        id:
+          type: integer
+        token:
+          type: string
+        name:
+          type: string
+        companyName:
+          type: string
+        jobPosition:
+          type: string
+        description:
+          type: ["string", "null"]
+        durationSeconds:
+          type: integer
+        difficulty:
+          type: string
+        language:
+          type: string
+        contentType:
+          type: string
+        customText:
+          type: ["string", "null"]
+        passingWpm:
+          type: integer
+        minAccuracy:
+          type: number
+        maxAttempts:
+          type: integer
+        active:
+          type: boolean
+        expiresAt:
+          type: ["string", "null"]
+        candidateCount:
+          type: integer
+        passCount:
+          type: integer
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/CandidateResult"
+
+    HrDashboardStats:
+      type: object
+      required: [totalAssessments, activeAssessments, totalCandidates, avgWpm, avgAccuracy, passRate]
+      properties:
+        totalAssessments:
+          type: integer
+        activeAssessments:
+          type: integer
+        totalCandidates:
+          type: integer
+        avgWpm:
+          type: number
+        avgAccuracy:
+          type: number
+        passRate:
+          type: number
+
+    PublicAssessment:
+      type: object
+      required: [id, token, name, companyName, jobPosition, durationSeconds, passingWpm, minAccuracy, maxAttempts]
+      properties:
+        id:
+          type: integer
+        token:
+          type: string
+        name:
+          type: string
+        companyName:
+          type: string
+        jobPosition:
+          type: string
+        description:
+          type: ["string", "null"]
+        durationSeconds:
+          type: integer
+        difficulty:
+          type: string
+        language:
+          type: string
+        contentType:
+          type: string
+        customText:
+          type: ["string", "null"]
+        passingWpm:
+          type: integer
+        minAccuracy:
+          type: number
+        maxAttempts:
+          type: integer
+        expiresAt:
+          type: ["string", "null"]
+
+    CandidateIntakeInput:
+      type: object
+      required: [fullName, email]
+      properties:
+        fullName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        fingerprint:
+          type: string
+
+    CandidateSession:
+      type: object
+      required: [candidateId, assessmentId, durationSeconds, passingWpm, minAccuracy]
+      properties:
+        candidateId:
+          type: integer
+        assessmentId:
+          type: integer
+        durationSeconds:
+          type: integer
+        contentType:
+          type: string
+        customText:
+          type: ["string", "null"]
+        passingWpm:
+          type: integer
+        minAccuracy:
+          type: number
+
+    AssessmentSubmitInput:
+      type: object
+      required: [candidateId, wpm, cpm, accuracy, errorCount, charCount, durationSeconds]
+      properties:
+        candidateId:
+          type: integer
+        wpm:
+          type: number
+        cpm:
+          type: number
+        accuracy:
+          type: number
+        errorCount:
+          type: integer
+        charCount:
+          type: integer
+        durationSeconds:
+          type: integer
+        tabSwitches:
+          type: integer
+
+    AssessmentSubmitResult:
+      type: object
+      required: [id, wpm, cpm, accuracy, errorCount, passed, passingWpm, minAccuracy]
+      properties:
+        id:
+          type: integer
+        wpm:
+          type: number
+        cpm:
+          type: number
+        accuracy:
+          type: number
+        errorCount:
+          type: integer
+        passed:
+          type: boolean
+        passingWpm:
+          type: integer
+        minAccuracy:
+          type: number
+        companyName:
+          type: string
+        jobPosition:
           type: string

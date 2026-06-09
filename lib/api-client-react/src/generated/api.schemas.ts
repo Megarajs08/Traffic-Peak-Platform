@@ -224,6 +224,169 @@ export interface UserProfileUpdate {
   avatarUrl?: string;
 }
 
+export interface HrAssessmentInput {
+  name: string;
+  companyName: string;
+  jobPosition: string;
+  /** @nullable */
+  description?: string | null;
+  durationSeconds?: number;
+  difficulty?: string;
+  language?: string;
+  contentType?: string;
+  /** @nullable */
+  customText?: string | null;
+  passingWpm?: number;
+  minAccuracy?: number;
+  maxAttempts?: number;
+  active?: boolean;
+  /** @nullable */
+  expiresAt?: string | null;
+}
+
+export interface HrAssessment {
+  id: number;
+  token: string;
+  createdById?: number;
+  name: string;
+  companyName: string;
+  jobPosition: string;
+  /** @nullable */
+  description?: string | null;
+  durationSeconds: number;
+  difficulty: string;
+  language: string;
+  contentType: string;
+  /** @nullable */
+  customText?: string | null;
+  passingWpm: number;
+  minAccuracy: number;
+  maxAttempts: number;
+  active: boolean;
+  /** @nullable */
+  expiresAt?: string | null;
+  candidateCount?: number;
+  passCount?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CandidateResult {
+  id: number;
+  fullName: string;
+  email: string;
+  /** @nullable */
+  phone?: string | null;
+  tabSwitches?: number;
+  wpm: number;
+  cpm?: number;
+  accuracy: number;
+  errorCount?: number;
+  passed: boolean;
+  rank: number;
+  /** @nullable */
+  completedAt?: string | null;
+}
+
+export interface HrAssessmentDetail {
+  id: number;
+  token: string;
+  name: string;
+  companyName: string;
+  jobPosition: string;
+  /** @nullable */
+  description?: string | null;
+  durationSeconds: number;
+  difficulty?: string;
+  language?: string;
+  contentType?: string;
+  /** @nullable */
+  customText?: string | null;
+  passingWpm: number;
+  minAccuracy: number;
+  maxAttempts?: number;
+  active?: boolean;
+  /** @nullable */
+  expiresAt?: string | null;
+  candidateCount?: number;
+  passCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
+  candidates: CandidateResult[];
+}
+
+export interface HrDashboardStats {
+  totalAssessments: number;
+  activeAssessments: number;
+  totalCandidates: number;
+  avgWpm: number;
+  avgAccuracy: number;
+  passRate: number;
+}
+
+export interface PublicAssessment {
+  id: number;
+  token: string;
+  name: string;
+  companyName: string;
+  jobPosition: string;
+  /** @nullable */
+  description?: string | null;
+  durationSeconds: number;
+  difficulty?: string;
+  language?: string;
+  contentType?: string;
+  /** @nullable */
+  customText?: string | null;
+  passingWpm: number;
+  minAccuracy: number;
+  maxAttempts: number;
+  /** @nullable */
+  expiresAt?: string | null;
+}
+
+export interface CandidateIntakeInput {
+  fullName: string;
+  email: string;
+  phone?: string;
+  fingerprint?: string;
+}
+
+export interface CandidateSession {
+  candidateId: number;
+  assessmentId: number;
+  durationSeconds: number;
+  contentType?: string;
+  /** @nullable */
+  customText?: string | null;
+  passingWpm: number;
+  minAccuracy: number;
+}
+
+export interface AssessmentSubmitInput {
+  candidateId: number;
+  wpm: number;
+  cpm: number;
+  accuracy: number;
+  errorCount: number;
+  charCount: number;
+  durationSeconds: number;
+  tabSwitches?: number;
+}
+
+export interface AssessmentSubmitResult {
+  id: number;
+  wpm: number;
+  cpm: number;
+  accuracy: number;
+  errorCount: number;
+  passed: boolean;
+  passingWpm: number;
+  minAccuracy: number;
+  companyName?: string;
+  jobPosition?: string;
+}
+
 export type ListTestsParams = {
 limit?: number;
 offset?: number;
@@ -294,5 +457,11 @@ offset?: number;
 export type AdminListPostsParams = {
 limit?: number;
 offset?: number;
+};
+
+export type ListAssessmentResultsParams = {
+status?: string;
+search?: string;
+sort?: string;
 };
 

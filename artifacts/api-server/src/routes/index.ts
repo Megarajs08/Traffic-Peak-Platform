@@ -9,6 +9,8 @@ import certificatesRouter from "./certificates";
 import blogRouter from "./blog";
 import adminRouter from "./admin";
 import usersRouter from "./users";
+import hrRouter from "./hr";
+import assessmentRouter from "./assessment";
 
 const router: IRouter = Router();
 
@@ -22,5 +24,7 @@ router.use(certificatesRouter);
 router.use(blogRouter);
 router.use(adminRouter);
 router.use(usersRouter);
+router.use(hrRouter);
+router.use(assessmentRouter);
 
 export default router;

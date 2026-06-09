@@ -28,6 +28,10 @@ import CookiePolicy from "@/pages/cookie-policy";
 import SitemapPage from "@/pages/sitemap-page";
 import AdminPanel from "@/pages/admin/index";
 import PostForm from "@/pages/admin/post-form";
+import HrDashboard from "@/pages/hr/index";
+import AssessmentForm from "@/pages/hr/assessment-form";
+import AssessmentDetail from "@/pages/hr/assessment-detail";
+import CandidateAssessment from "@/pages/assessment/index";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,6 +71,13 @@ function Router() {
       <Route path="/admin" component={AdminPanel} />
       <Route path="/admin/posts/new" component={PostForm} />
       <Route path="/admin/posts/:id/edit" component={PostForm} />
+      {/* HR Assessment Panel */}
+      <Route path="/hr" component={HrDashboard} />
+      <Route path="/hr/assessments/new" component={AssessmentForm} />
+      <Route path="/hr/assessments/:id/edit" component={AssessmentForm} />
+      <Route path="/hr/assessments/:id" component={AssessmentDetail} />
+      {/* Public Candidate Assessment */}
+      <Route path="/assessment/:token" component={CandidateAssessment} />
       <Route component={NotFound} />
     </Switch>
   );

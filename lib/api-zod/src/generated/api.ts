@@ -515,3 +515,271 @@ export const UpdateMyProfileResponse = zod.object({
 })
 
 
+/**
+ * @summary List assessments created by the current user
+ */
+export const ListHrAssessmentsResponseItem = zod.object({
+  "id": zod.number(),
+  "token": zod.string(),
+  "createdById": zod.number().optional(),
+  "name": zod.string(),
+  "companyName": zod.string(),
+  "jobPosition": zod.string(),
+  "description": zod.string().nullish(),
+  "durationSeconds": zod.number(),
+  "difficulty": zod.string(),
+  "language": zod.string(),
+  "contentType": zod.string(),
+  "customText": zod.string().nullish(),
+  "passingWpm": zod.number(),
+  "minAccuracy": zod.number(),
+  "maxAttempts": zod.number(),
+  "active": zod.boolean(),
+  "expiresAt": zod.string().nullish(),
+  "candidateCount": zod.number().optional(),
+  "passCount": zod.number().optional(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string()
+})
+export const ListHrAssessmentsResponse = zod.array(ListHrAssessmentsResponseItem)
+
+
+/**
+ * @summary Create a new assessment
+ */
+export const CreateHrAssessmentBody = zod.object({
+  "name": zod.string(),
+  "companyName": zod.string(),
+  "jobPosition": zod.string(),
+  "description": zod.string().nullish(),
+  "durationSeconds": zod.number().optional(),
+  "difficulty": zod.string().optional(),
+  "language": zod.string().optional(),
+  "contentType": zod.string().optional(),
+  "customText": zod.string().nullish(),
+  "passingWpm": zod.number().optional(),
+  "minAccuracy": zod.number().optional(),
+  "maxAttempts": zod.number().optional(),
+  "active": zod.boolean().optional(),
+  "expiresAt": zod.string().nullish()
+})
+
+
+/**
+ * @summary Get assessment detail with results
+ */
+export const GetHrAssessmentParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const GetHrAssessmentResponse = zod.object({
+  "id": zod.number(),
+  "token": zod.string(),
+  "name": zod.string(),
+  "companyName": zod.string(),
+  "jobPosition": zod.string(),
+  "description": zod.string().nullish(),
+  "durationSeconds": zod.number(),
+  "difficulty": zod.string().optional(),
+  "language": zod.string().optional(),
+  "contentType": zod.string().optional(),
+  "customText": zod.string().nullish(),
+  "passingWpm": zod.number(),
+  "minAccuracy": zod.number(),
+  "maxAttempts": zod.number().optional(),
+  "active": zod.boolean().optional(),
+  "expiresAt": zod.string().nullish(),
+  "candidateCount": zod.number().optional(),
+  "passCount": zod.number().optional(),
+  "createdAt": zod.string().optional(),
+  "updatedAt": zod.string().optional(),
+  "candidates": zod.array(zod.object({
+  "id": zod.number(),
+  "fullName": zod.string(),
+  "email": zod.string(),
+  "phone": zod.string().nullish(),
+  "tabSwitches": zod.number().optional(),
+  "wpm": zod.number(),
+  "cpm": zod.number().optional(),
+  "accuracy": zod.number(),
+  "errorCount": zod.number().optional(),
+  "passed": zod.boolean(),
+  "rank": zod.number(),
+  "completedAt": zod.string().nullish()
+}))
+})
+
+
+/**
+ * @summary Update assessment
+ */
+export const UpdateHrAssessmentParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdateHrAssessmentBody = zod.object({
+  "name": zod.string(),
+  "companyName": zod.string(),
+  "jobPosition": zod.string(),
+  "description": zod.string().nullish(),
+  "durationSeconds": zod.number().optional(),
+  "difficulty": zod.string().optional(),
+  "language": zod.string().optional(),
+  "contentType": zod.string().optional(),
+  "customText": zod.string().nullish(),
+  "passingWpm": zod.number().optional(),
+  "minAccuracy": zod.number().optional(),
+  "maxAttempts": zod.number().optional(),
+  "active": zod.boolean().optional(),
+  "expiresAt": zod.string().nullish()
+})
+
+export const UpdateHrAssessmentResponse = zod.object({
+  "id": zod.number(),
+  "token": zod.string(),
+  "createdById": zod.number().optional(),
+  "name": zod.string(),
+  "companyName": zod.string(),
+  "jobPosition": zod.string(),
+  "description": zod.string().nullish(),
+  "durationSeconds": zod.number(),
+  "difficulty": zod.string(),
+  "language": zod.string(),
+  "contentType": zod.string(),
+  "customText": zod.string().nullish(),
+  "passingWpm": zod.number(),
+  "minAccuracy": zod.number(),
+  "maxAttempts": zod.number(),
+  "active": zod.boolean(),
+  "expiresAt": zod.string().nullish(),
+  "candidateCount": zod.number().optional(),
+  "passCount": zod.number().optional(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string()
+})
+
+
+/**
+ * @summary Delete assessment
+ */
+export const DeleteHrAssessmentParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+/**
+ * @summary Get candidate results for an assessment
+ */
+export const ListAssessmentResultsParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const ListAssessmentResultsQueryParams = zod.object({
+  "status": zod.coerce.string().optional(),
+  "search": zod.coerce.string().optional(),
+  "sort": zod.coerce.string().optional()
+})
+
+export const ListAssessmentResultsResponseItem = zod.object({
+  "id": zod.number(),
+  "fullName": zod.string(),
+  "email": zod.string(),
+  "phone": zod.string().nullish(),
+  "tabSwitches": zod.number().optional(),
+  "wpm": zod.number(),
+  "cpm": zod.number().optional(),
+  "accuracy": zod.number(),
+  "errorCount": zod.number().optional(),
+  "passed": zod.boolean(),
+  "rank": zod.number(),
+  "completedAt": zod.string().nullish()
+})
+export const ListAssessmentResultsResponse = zod.array(ListAssessmentResultsResponseItem)
+
+
+/**
+ * @summary HR overview stats
+ */
+export const GetHrDashboardStatsResponse = zod.object({
+  "totalAssessments": zod.number(),
+  "activeAssessments": zod.number(),
+  "totalCandidates": zod.number(),
+  "avgWpm": zod.number(),
+  "avgAccuracy": zod.number(),
+  "passRate": zod.number()
+})
+
+
+/**
+ * @summary Get public assessment info (no auth)
+ */
+export const GetAssessmentByTokenParams = zod.object({
+  "token": zod.coerce.string()
+})
+
+export const GetAssessmentByTokenResponse = zod.object({
+  "id": zod.number(),
+  "token": zod.string(),
+  "name": zod.string(),
+  "companyName": zod.string(),
+  "jobPosition": zod.string(),
+  "description": zod.string().nullish(),
+  "durationSeconds": zod.number(),
+  "difficulty": zod.string().optional(),
+  "language": zod.string().optional(),
+  "contentType": zod.string().optional(),
+  "customText": zod.string().nullish(),
+  "passingWpm": zod.number(),
+  "minAccuracy": zod.number(),
+  "maxAttempts": zod.number(),
+  "expiresAt": zod.string().nullish()
+})
+
+
+/**
+ * @summary Register candidate and start session
+ */
+export const StartAssessmentParams = zod.object({
+  "token": zod.coerce.string()
+})
+
+export const StartAssessmentBody = zod.object({
+  "fullName": zod.string(),
+  "email": zod.string(),
+  "phone": zod.string().optional(),
+  "fingerprint": zod.string().optional()
+})
+
+
+/**
+ * @summary Submit assessment result
+ */
+export const SubmitAssessmentParams = zod.object({
+  "token": zod.coerce.string()
+})
+
+export const SubmitAssessmentBody = zod.object({
+  "candidateId": zod.number(),
+  "wpm": zod.number(),
+  "cpm": zod.number(),
+  "accuracy": zod.number(),
+  "errorCount": zod.number(),
+  "charCount": zod.number(),
+  "durationSeconds": zod.number(),
+  "tabSwitches": zod.number().optional()
+})
+
+export const SubmitAssessmentResponse = zod.object({
+  "id": zod.number(),
+  "wpm": zod.number(),
+  "cpm": zod.number(),
+  "accuracy": zod.number(),
+  "errorCount": zod.number(),
+  "passed": zod.boolean(),
+  "passingWpm": zod.number(),
+  "minAccuracy": zod.number(),
+  "companyName": zod.string().optional(),
+  "jobPosition": zod.string().optional()
+})
+
+

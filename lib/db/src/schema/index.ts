@@ -4,3 +4,4 @@ export * from "./lessons";
 export * from "./certificates";
 export * from "./blog";
 export * from "./sessions";
+export * from "./assessments";
