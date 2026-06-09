@@ -1,22 +1,37 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Traffic Peak typing platform API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication
+  - name: tests
+    description: Typing test results
+  - name: lessons
+    description: Learn to type lessons
+  - name: leaderboard
+    description: Rankings
+  - name: certificates
+    description: Certificate generation and verification
+  - name: blog
+    description: Blog posts
+  - name: users
+    description: User profiles
+  - name: stats
+    description: Dashboard stats
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +39,854 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # ── Auth ──────────────────────────────────────────────────────────────
+  /auth/register:
+    post:
+      operationId: register
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterInput"
+      responses:
+        "201":
+          description: Registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Validation error
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Invalid credentials
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Logout current user
+      responses:
+        "200":
+          description: Logged out
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current authenticated user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthenticated
+
+  # ── Typing Tests ─────────────────────────────────────────────────────
+  /tests:
+    get:
+      operationId: listTests
+      tags: [tests]
+      summary: Get recent test results for current user
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: mode
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of test results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TestResult"
+    post:
+      operationId: submitTest
+      tags: [tests]
+      summary: Submit a completed typing test
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TestResultInput"
+      responses:
+        "201":
+          description: Test result saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestResult"
+
+  /tests/{id}:
+    get:
+      operationId: getTest
+      tags: [tests]
+      summary: Get a single test result
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Test result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestResult"
+        "404":
+          description: Not found
+
+  # ── Stats / Dashboard ─────────────────────────────────────────────────
+  /stats/me:
+    get:
+      operationId: getMyStats
+      tags: [stats]
+      summary: Get current user's overall stats
+      responses:
+        "200":
+          description: User stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserStats"
+
+  /stats/progress:
+    get:
+      operationId: getProgress
+      tags: [stats]
+      summary: Get WPM/accuracy progress over time
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+            default: weekly
+      responses:
+        "200":
+          description: Progress data points
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProgressPoint"
+
+  /stats/summary:
+    get:
+      operationId: getStatsSummary
+      tags: [stats]
+      summary: Dashboard summary — best WPM, tests today, streak, avg accuracy
+      responses:
+        "200":
+          description: Summary stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsSummary"
+
+  # ── Lessons ───────────────────────────────────────────────────────────
+  /lessons:
+    get:
+      operationId: listLessons
+      tags: [lessons]
+      summary: List all available lessons
+      parameters:
+        - name: level
+          in: query
+          schema:
+            type: string
+            enum: [beginner, intermediate, advanced]
+      responses:
+        "200":
+          description: Lessons list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Lesson"
+
+  /lessons/{id}:
+    get:
+      operationId: getLesson
+      tags: [lessons]
+      summary: Get a lesson and its content
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Lesson details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lesson"
+        "404":
+          description: Not found
+
+  /lessons/{id}/progress:
+    post:
+      operationId: saveLessonProgress
+      tags: [lessons]
+      summary: Save user progress on a lesson
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LessonProgressInput"
+      responses:
+        "200":
+          description: Progress saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LessonProgress"
+
+  /lessons/progress/all:
+    get:
+      operationId: listLessonProgress
+      tags: [lessons]
+      summary: Get all lesson progress for current user
+      responses:
+        "200":
+          description: Progress list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LessonProgress"
+
+  # ── Leaderboard ───────────────────────────────────────────────────────
+  /leaderboard:
+    get:
+      operationId: getLeaderboard
+      tags: [leaderboard]
+      summary: Get leaderboard rankings
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [all, weekly, monthly]
+            default: all
+        - name: mode
+          in: query
+          schema:
+            type: string
+        - name: duration
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        "200":
+          description: Leaderboard entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaderboardEntry"
+
+  /leaderboard/rank:
+    get:
+      operationId: getMyRank
+      tags: [leaderboard]
+      summary: Get current user's rank
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [all, weekly, monthly]
+            default: all
+      responses:
+        "200":
+          description: Rank info
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RankInfo"
+
+  # ── Certificates ──────────────────────────────────────────────────────
+  /certificates:
+    get:
+      operationId: listCertificates
+      tags: [certificates]
+      summary: List certificates for current user
+      responses:
+        "200":
+          description: Certificates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Certificate"
+    post:
+      operationId: generateCertificate
+      tags: [certificates]
+      summary: Generate a certificate for a test result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CertificateInput"
+      responses:
+        "201":
+          description: Certificate generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Certificate"
+
+  /certificates/verify/{certificateId}:
+    get:
+      operationId: verifyCertificate
+      tags: [certificates]
+      summary: Verify a certificate by ID (public)
+      parameters:
+        - name: certificateId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Certificate is valid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Certificate"
+        "404":
+          description: Certificate not found
+
+  # ── Blog ──────────────────────────────────────────────────────────────
+  /blog:
+    get:
+      operationId: listPosts
+      tags: [blog]
+      summary: List published blog posts
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        "200":
+          description: Blog posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BlogPost"
+    post:
+      operationId: createPost
+      tags: [blog]
+      summary: Create a blog post (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlogPostInput"
+      responses:
+        "201":
+          description: Post created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+
+  /blog/{slug}:
+    get:
+      operationId: getPost
+      tags: [blog]
+      summary: Get a blog post by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Blog post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+        "404":
+          description: Not found
+
+  # ── Users ─────────────────────────────────────────────────────────────
+  /users/{username}:
+    get:
+      operationId: getUserProfile
+      tags: [users]
+      summary: Get a public user profile
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "404":
+          description: Not found
+
+  /users/me/profile:
+    patch:
+      operationId: updateMyProfile
+      tags: [users]
+      summary: Update current user's profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserProfileUpdate"
+      responses:
+        "200":
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
         status:
           type: string
-      required:
-        - status
 
+    MessageResponse:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+
+    # ── Auth ──────────────────────────────────────────────────────────
+    RegisterInput:
+      type: object
+      required: [email, username, password]
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+
+    LoginInput:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      required: [user]
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+
+    User:
+      type: object
+      required: [id, email, username, role, createdAt]
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        username:
+          type: string
+        name:
+          type: ["string", "null"]
+        avatarUrl:
+          type: ["string", "null"]
+        role:
+          type: string
+          enum: [user, admin]
+        createdAt:
+          type: string
+
+    # ── Test Results ──────────────────────────────────────────────────
+    TestResultInput:
+      type: object
+      required: [wpm, cpm, accuracy, duration, mode, errorCount, charCount]
+      properties:
+        wpm:
+          type: number
+        cpm:
+          type: number
+        accuracy:
+          type: number
+        duration:
+          type: integer
+        mode:
+          type: string
+        errorCount:
+          type: integer
+        charCount:
+          type: integer
+        language:
+          type: string
+
+    TestResult:
+      type: object
+      required: [id, wpm, cpm, accuracy, duration, mode, errorCount, charCount, createdAt]
+      properties:
+        id:
+          type: integer
+        userId:
+          type: ["integer", "null"]
+        wpm:
+          type: number
+        cpm:
+          type: number
+        accuracy:
+          type: number
+        duration:
+          type: integer
+        mode:
+          type: string
+        errorCount:
+          type: integer
+        charCount:
+          type: integer
+        language:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    # ── Stats ─────────────────────────────────────────────────────────
+    UserStats:
+      type: object
+      required: [bestWpm, avgWpm, avgAccuracy, totalTests, practiceMinutes, currentStreak]
+      properties:
+        bestWpm:
+          type: number
+        avgWpm:
+          type: number
+        avgAccuracy:
+          type: number
+        totalTests:
+          type: integer
+        practiceMinutes:
+          type: integer
+        currentStreak:
+          type: integer
+
+    ProgressPoint:
+      type: object
+      required: [date, avgWpm, avgAccuracy, testCount]
+      properties:
+        date:
+          type: string
+        avgWpm:
+          type: number
+        avgAccuracy:
+          type: number
+        testCount:
+          type: integer
+
+    StatsSummary:
+      type: object
+      required: [bestWpm, testsToday, currentStreak, avgAccuracy, totalTests, rank]
+      properties:
+        bestWpm:
+          type: number
+        testsToday:
+          type: integer
+        currentStreak:
+          type: integer
+        avgAccuracy:
+          type: number
+        totalTests:
+          type: integer
+        rank:
+          type: ["integer", "null"]
+
+    # ── Lessons ───────────────────────────────────────────────────────
+    Lesson:
+      type: object
+      required: [id, title, level, category, content, order]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        level:
+          type: string
+          enum: [beginner, intermediate, advanced]
+        category:
+          type: string
+        content:
+          type: string
+        description:
+          type: ["string", "null"]
+        order:
+          type: integer
+
+    LessonProgressInput:
+      type: object
+      required: [wpm, accuracy, completed]
+      properties:
+        wpm:
+          type: number
+        accuracy:
+          type: number
+        completed:
+          type: boolean
+
+    LessonProgress:
+      type: object
+      required: [id, lessonId, wpm, accuracy, completed]
+      properties:
+        id:
+          type: integer
+        lessonId:
+          type: integer
+        userId:
+          type: ["integer", "null"]
+        wpm:
+          type: number
+        accuracy:
+          type: number
+        completed:
+          type: boolean
+        bestWpm:
+          type: number
+        completedAt:
+          type: ["string", "null"]
+
+    # ── Leaderboard ───────────────────────────────────────────────────
+    LeaderboardEntry:
+      type: object
+      required: [rank, username, wpm, accuracy, testCount]
+      properties:
+        rank:
+          type: integer
+        userId:
+          type: integer
+        username:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+        wpm:
+          type: number
+        accuracy:
+          type: number
+        testCount:
+          type: integer
+
+    RankInfo:
+      type: object
+      required: [rank, wpm, accuracy, totalUsers]
+      properties:
+        rank:
+          type: ["integer", "null"]
+        wpm:
+          type: number
+        accuracy:
+          type: number
+        totalUsers:
+          type: integer
+
+    # ── Certificates ──────────────────────────────────────────────────
+    CertificateInput:
+      type: object
+      required: [testResultId, recipientName]
+      properties:
+        testResultId:
+          type: integer
+        recipientName:
+          type: string
+
+    Certificate:
+      type: object
+      required: [id, certificateId, recipientName, wpm, accuracy, duration, mode, issuedAt]
+      properties:
+        id:
+          type: integer
+        certificateId:
+          type: string
+        userId:
+          type: ["integer", "null"]
+        testResultId:
+          type: ["integer", "null"]
+        recipientName:
+          type: string
+        wpm:
+          type: number
+        accuracy:
+          type: number
+        duration:
+          type: integer
+        mode:
+          type: string
+        issuedAt:
+          type: string
+
+    # ── Blog ──────────────────────────────────────────────────────────
+    BlogPostInput:
+      type: object
+      required: [title, slug, content, category]
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+        excerpt:
+          type: string
+        category:
+          type: string
+        coverImageUrl:
+          type: string
+        published:
+          type: boolean
+
+    BlogPost:
+      type: object
+      required: [id, title, slug, content, category, published, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        content:
+          type: string
+        excerpt:
+          type: ["string", "null"]
+        category:
+          type: string
+        coverImageUrl:
+          type: ["string", "null"]
+        published:
+          type: boolean
+        authorName:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+
+    # ── Users ─────────────────────────────────────────────────────────
+    UserProfile:
+      type: object
+      required: [username, bestWpm, avgWpm, avgAccuracy, totalTests, createdAt]
+      properties:
+        username:
+          type: string
+        name:
+          type: ["string", "null"]
+        avatarUrl:
+          type: ["string", "null"]
+        bestWpm:
+          type: number
+        avgWpm:
+          type: number
+        avgAccuracy:
+          type: number
+        totalTests:
+          type: integer
+        createdAt:
+          type: string
+
+    UserProfileUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        avatarUrl:
+          type: string

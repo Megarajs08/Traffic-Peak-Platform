@@ -1,0 +1,405 @@
+TRAFFIC PEAK TYPING PLATFORM - MASTER REPLIT PROMPT
+
+Create a production-ready typing platform called Traffic Peak.
+
+The website should combine the minimalist typing experience of Monkeytype with the learning features of Typing.com and modern SaaS UI standards.
+
+CORE OBJECTIVE
+
+The typing experience must feel extremely smooth and responsive.
+
+Prioritize:
+
+Fast typing performance
+Clean UI
+Modern animations
+SEO optimization
+Mobile responsiveness
+Accessibility
+Scalability
+
+The website should feel premium, lightweight, and professional.
+
+TECH STACK
+
+Frontend:
+
+React
+TypeScript
+Vite
+Tailwind CSS
+Framer Motion
+
+Backend:
+
+Node.js
+Express
+
+Database:
+
+PostgreSQL
+
+Authentication:
+
+Email Login
+Google Login
+
+Charts:
+
+Recharts
+
+Icons:
+
+Lucide React
+DESIGN SYSTEM
+
+Design inspiration:
+
+Monkeytype
+Linear
+Notion
+Stripe
+
+Requirements:
+
+Clean typography
+Large spacing
+Rounded corners
+Smooth hover effects
+Dark mode
+Light mode
+Modern SaaS feel
+
+Colors:
+
+Primary:
+#2563EB
+
+Accent:
+#7C3AED
+
+Success:
+#10B981
+
+Warning:
+#F59E0B
+
+Error:
+#EF4444
+
+WEBSITE STRUCTURE
+
+Create the following modules exactly.
+
+HOME / LANDING PAGE
+
+Hero section:
+
+Headline:
+
+"Improve Your Typing Speed and Accuracy"
+
+Subheading:
+
+"Practice, compete, learn, and get certified."
+
+Buttons:
+
+Start Typing Test
+Learn To Type
+
+Sections:
+
+Features
+Statistics
+Testimonials
+FAQ
+Blog Preview
+Footer
+TYPING TEST MODULE
+
+The typing experience should feel similar to Monkeytype.
+
+Requirements:
+
+Typing Modes
+Words
+Paragraph
+Quotes
+Code
+Numbers
+Symbols
+Timer Modes
+15 seconds
+30 seconds
+60 seconds
+120 seconds
+300 seconds
+Live Statistics
+
+Display:
+
+WPM
+CPM
+Accuracy
+Error Count
+Time Remaining
+Typing Engine
+
+Requirements:
+
+Character-by-character rendering
+Current character highlight
+Correct characters in green
+Incorrect characters in red
+Smooth caret animation
+Auto-scroll
+Instant feedback
+No lag
+
+Calculations should happen locally in browser.
+
+No API requests during typing.
+
+LEARN TO TYPE
+
+Create lesson system.
+
+Beginner:
+
+Home Row
+Top Row
+Bottom Row
+
+Intermediate:
+
+Common Words
+Sentence Practice
+
+Advanced:
+
+Long Paragraphs
+Speed Drills
+Code Typing
+
+Track:
+
+Completion
+Accuracy
+Best WPM
+TYPING GAMES
+
+Game 1:
+
+Word Rain
+
+Words fall from top.
+
+Game 2:
+
+Alphabet Sprint
+
+Type A-Z as fast as possible.
+
+Game 3:
+
+Word Scramble
+
+Unscramble words.
+
+Game 4:
+
+Typing Race Against AI
+
+CERTIFICATE SYSTEM
+
+After test completion:
+
+Generate certificate.
+
+Include:
+
+Name
+WPM
+Accuracy
+Date
+Certificate ID
+
+Download formats:
+
+PDF
+PNG
+
+Verification page:
+
+/verify-certificate
+
+USER PROFILE
+
+Authenticated users only.
+
+Show:
+
+Best WPM
+Average WPM
+Accuracy
+Total Tests
+Practice Time
+Current Streak
+DASHBOARD ANALYTICS
+
+Create charts:
+
+Daily Progress
+Weekly Progress
+Monthly Progress
+
+Track:
+
+WPM Trends
+Accuracy Trends
+Improvement Rate
+LEADERBOARD
+
+Global Rankings
+
+Weekly Rankings
+
+Monthly Rankings
+
+Columns:
+
+Rank
+Username
+WPM
+Accuracy
+
+Filters:
+
+Duration
+Mode
+PRACTICE MODES
+
+Create special practice modes:
+
+Quotes
+Numbers
+Symbols
+Programming Code
+Tamil Typing
+English Typing
+MULTIPLAYER RACE
+
+Real-time typing race.
+
+Features:
+
+Public Matchmaking
+Private Room
+Invite Friends
+
+Live ranking updates.
+
+BUSINESS / HR MODULE
+
+Allow recruiters to:
+
+Create typing tests
+Invite candidates
+View results
+Download reports
+
+Admin dashboard included.
+
+CLASSROOM TOOLS
+
+Allow teachers to:
+
+Create classes
+Assign lessons
+Track student performance
+View reports
+BLOG SYSTEM
+
+Create SEO-friendly blog.
+
+Categories:
+
+Typing Tips
+Productivity
+Keyboard Guides
+Career Skills
+
+Admin should:
+
+Create posts
+Edit posts
+Delete posts
+ADMIN PANEL
+
+Admin features:
+
+Manage users
+Manage blogs
+Manage certificates
+Manage leaderboards
+View analytics
+Site settings
+SEO REQUIREMENTS
+
+Create:
+
+Dynamic meta tags
+Open Graph tags
+Twitter cards
+XML sitemap
+robots.txt
+Canonical URLs
+
+Pages:
+
+/typing-test
+/1-minute-typing-test
+/2-minute-typing-test
+/5-minute-typing-test
+/10-minute-typing-test
+/tamil-typing-test
+/english-typing-test
+/typing-games
+/wpm-calculator
+/cpm-calculator
+
+PERFORMANCE REQUIREMENTS
+
+Target:
+
+Lighthouse Score 95+
+Fast page load
+Optimized bundle size
+Lazy loading
+Image optimization
+Code splitting
+FOLDER STRUCTURE
+
+Generate:
+
+Complete project structure
+Components folder
+Pages folder
+Hooks folder
+Context folder
+Services folder
+API folder
+Database schema
+
+Use clean architecture and scalable coding standards.
+
+IMPORTANT
+
+The typing engine must be the highest priority.
+
+The typing experience should feel as smooth as Monkeytype.
+
+Use character-level rendering, optimized React state management, memoization, and efficient event handling to ensure zero input lag.
+
+Generate production-quality code with comments and best practices.
