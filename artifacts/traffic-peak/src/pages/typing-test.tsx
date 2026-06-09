@@ -342,7 +342,7 @@ export default function TypingTest() {
               ref={c.state === "current" ? currentCharRef : null}
               className={`relative ${
                 c.state === "correct"
-                  ? "text-green-400"
+                  ? "text-foreground"
                   : c.state === "incorrect"
                   ? "text-red-400 bg-red-400/10"
                   : c.state === "current"

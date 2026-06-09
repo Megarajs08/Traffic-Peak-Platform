@@ -145,7 +145,7 @@ export default function LessonPlayer({ lesson, progress, onBack }: LessonPlayerP
           <span
             key={i}
             className={`relative ${
-              c.state === "correct" ? "text-green-400"
+              c.state === "correct" ? "text-foreground"
               : c.state === "incorrect" ? "text-red-400 bg-red-400/10"
               : c.state === "current" ? "text-foreground"
               : "text-muted-foreground/50"

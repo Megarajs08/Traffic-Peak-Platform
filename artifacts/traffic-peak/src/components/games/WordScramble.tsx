@@ -71,7 +71,7 @@ export default function WordScramble({ onExit }: { onExit: () => void }) {
 
         <div
           className={`text-5xl font-mono font-extrabold tracking-widest mb-10 transition-colors ${
-            feedback === "correct" ? "text-green-400" : feedback === "wrong" ? "text-red-400 animate-pulse" : "text-foreground"
+            feedback === "correct" ? "text-foreground" : feedback === "wrong" ? "text-red-400 animate-pulse" : "text-foreground"
           }`}
           data-testid="scrambled-word"
         >

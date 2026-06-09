@@ -89,7 +89,7 @@ export default function AlphabetSprint({ onExit }: { onExit: () => void }) {
             <span
               key={letter}
               className={`${
-                i < currentIdx ? "text-green-400" :
+                i < currentIdx ? "text-foreground" :
                 i === currentIdx ? `text-primary ${error ? "animate-pulse text-red-400" : ""}` :
                 "text-muted-foreground/30"
               }`}
