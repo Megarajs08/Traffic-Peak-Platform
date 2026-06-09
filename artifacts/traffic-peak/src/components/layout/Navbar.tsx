@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/games", label: "Games" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/blog", label: "Blog" },
+  { href: "/hr", label: "HR" },
 ];
 
 export function Navbar() {
