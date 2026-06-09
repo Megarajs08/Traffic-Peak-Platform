@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/auth-context";
 import { useLogout } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getGetMeQueryKey } from "@workspace/api-client-react";
-import { Moon, Sun, Menu, X, Zap, ShieldCheck, ClipboardList } from "lucide-react";
+import { Moon, Sun, Menu, X, Zap, ShieldCheck } from "lucide-react";
 
 const navLinks = [
   { href: "/typing-test", label: "Type" },
@@ -13,7 +13,6 @@ const navLinks = [
   { href: "/games", label: "Games" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/blog", label: "Blog" },
-  { href: "/hr", label: "HR" },
 ];
 
 export function Navbar() {
@@ -98,17 +97,6 @@ export function Navbar() {
                   </Button>
                 </Link>
               )}
-              <Link href="/hr">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className={`gap-1.5 text-xs ${isActive("/hr") ? "bg-primary/10 text-primary" : ""}`}
-                  data-testid="nav-hr"
-                >
-                  <ClipboardList className="w-3.5 h-3.5" />
-                  HR
-                </Button>
-              </Link>
               <Link href="/dashboard">
                 <Button variant="ghost" size="sm" data-testid="nav-dashboard">Dashboard</Button>
               </Link>
@@ -165,9 +153,6 @@ export function Navbar() {
               {isAdmin && (
                 <Link href="/admin" className="block px-3 py-2 rounded-md text-sm text-primary hover:bg-primary/10" onClick={() => setMobileOpen(false)}>Admin Panel</Link>
               )}
-              <Link href="/hr" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted" onClick={() => setMobileOpen(false)}>
-                <ClipboardList className="w-3.5 h-3.5" /> HR Assessments
-              </Link>
               <Link href="/dashboard" className="block px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted" onClick={() => setMobileOpen(false)}>Dashboard</Link>
               <button onClick={() => { handleLogout(); setMobileOpen(false); }} className="block w-full text-left px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted">Logout</button>
             </div>
