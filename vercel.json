@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "cd artifacts/traffic-peak && pnpm install --frozen-lockfile && pnpm run build",
+  "installCommand": "npm install -g pnpm && pnpm install --frozen-lockfile --ignore-scripts",
+  "buildCommand": "pnpm --filter @workspace/api-client-react build 2>/dev/null; pnpm --filter @workspace/traffic-peak run build",
   "outputDirectory": "artifacts/traffic-peak/dist/public",
-  "installCommand": "npm install -g pnpm && pnpm install --frozen-lockfile",
   "framework": null,
   "rewrites": [
     {
