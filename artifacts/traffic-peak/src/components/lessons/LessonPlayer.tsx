@@ -71,12 +71,14 @@ export default function LessonPlayer({ lesson, progress, onBack }: LessonPlayerP
     if (key.length !== 1) return;
     e.preventDefault();
 
+    const expected = chars[currentIndex]?.char;
+    if (expected === " " && key !== " ") return;
+
     if (!started) {
       setStarted(true);
       setStartTime(Date.now());
     }
 
-    const expected = chars[currentIndex]?.char;
     const isCorrect = key === expected;
     setTotalTyped((t) => t + 1);
     if (isCorrect) setCorrectChars((c) => c + 1);

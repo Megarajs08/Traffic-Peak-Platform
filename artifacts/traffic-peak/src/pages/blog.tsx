@@ -30,13 +30,13 @@ const categoryDescriptions: Record<string, string> = {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  name: "TrafficPeak Blog",
+  name: "TypingPeak Blog",
   description: "Typing tips, productivity guides, keyboard deep-dives, and government exam preparation resources.",
-  url: "https://trafficpeak.replit.app/blog",
+  url: "https://typingpeak.replit.app/blog",
   publisher: {
     "@type": "Organization",
-    name: "TrafficPeak",
-    url: "https://trafficpeak.replit.app",
+    name: "TypingPeak",
+    url: "https://typingpeak.replit.app",
   },
 };
 
@@ -60,7 +60,7 @@ export default function Blog() {
   const activeCategory = category || "All";
   const pageTitle = category ? `${category} — Blog` : "Blog";
   const pageDesc = category
-    ? categoryDescriptions[category] ?? `Blog posts about ${category} on TrafficPeak.`
+    ? categoryDescriptions[category] ?? `Blog posts about ${category} on TypingPeak.`
     : "Typing tips, productivity guides, keyboard deep-dives, and government exam preparation resources.";
 
   return (
@@ -69,7 +69,7 @@ export default function Blog() {
         title={pageTitle}
         description={pageDesc}
         structuredData={structuredData}
-        keywords={`typing blog, ${category ?? "typing tips, typing lessons, productivity, keyboard guides"}, trafficpeak`}
+        keywords={`typing blog, ${category ?? "typing tips, typing lessons, productivity, keyboard guides"}, typingpeak`}
       />
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12 max-w-5xl">

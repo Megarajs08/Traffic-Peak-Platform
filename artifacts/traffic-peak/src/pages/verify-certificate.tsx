@@ -32,7 +32,7 @@ export default function VerifyCertificate() {
               <Award className="w-16 h-16 text-primary mx-auto mb-4" />
               <CheckCircle2 className="w-6 h-6 text-green-400 mx-auto mb-6" />
               <h1 className="text-2xl font-bold mb-1">Valid Certificate</h1>
-              <p className="text-muted-foreground text-sm mb-8">This certificate is authentic and verified by TrafficPeak.</p>
+              <p className="text-muted-foreground text-sm mb-8">This certificate is authentic and verified by TypingPeak.</p>
 
               <div className="text-2xl font-bold mb-6" data-testid="cert-recipient">{cert.recipientName}</div>
 

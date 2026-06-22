@@ -20,7 +20,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
       "@type": "ListItem",
       position: index + 1,
       name: item.label,
-      ...(item.href ? { item: `https://trafficpeak.replit.app${item.href}` } : {}),
+      ...(item.href ? { item: `https://typingpeak.replit.app${item.href}` } : {}),
     })),
   };
 

@@ -19,8 +19,8 @@ export default function Disclaimer() {
     <div className="min-h-screen flex flex-col">
       <SEOMeta
         title="Disclaimer"
-        description="Read TrafficPeak's disclaimer covering the accuracy of information, no warranties, external links, and limitations of liability."
-        keywords="disclaimer, trafficpeak disclaimer, no warranty"
+        description="Read TypingPeak's disclaimer covering the accuracy of information, no warranties, external links, and limitations of liability."
+        keywords="disclaimer, typingpeak disclaimer, no warranty"
       />
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12 max-w-3xl">
@@ -34,7 +34,7 @@ export default function Disclaimer() {
         <div className="prose prose-invert max-w-none">
           <Section title="1. General Information">
             <p>
-              The information provided by TrafficPeak on this website is for general informational and
+              The information provided by TypingPeak on this website is for general informational and
               educational purposes only. All information is provided in good faith; however, we make no
               representation or warranty of any kind regarding the accuracy, adequacy, validity, reliability,
               availability, or completeness of any information on the site.
@@ -43,7 +43,7 @@ export default function Disclaimer() {
 
           <Section title="2. No Professional Advice">
             <p>
-              Nothing on TrafficPeak constitutes professional advice of any kind — including but not limited
+              Nothing on TypingPeak constitutes professional advice of any kind — including but not limited
               to medical, ergonomic, employment, or career advice. Typing speed requirements for specific jobs
               or examinations vary by employer and jurisdiction. Always verify requirements directly with the
               relevant authority.
@@ -52,13 +52,13 @@ export default function Disclaimer() {
 
           <Section title="3. Typing Scores and Certificates">
             <p>
-              WPM, CPM, and accuracy scores displayed by TrafficPeak are calculated using standard industry
+              WPM, CPM, and accuracy scores displayed by TypingPeak are calculated using standard industry
               formulas and reflect performance on our platform under the specific test conditions at the time
               of testing. These scores may not directly correspond to performance in other typing tests or
               real-world applications.
             </p>
             <p>
-              Certificates issued by TrafficPeak are evidence of performance on our platform only. We do not
+              Certificates issued by TypingPeak are evidence of performance on our platform only. We do not
               guarantee their acceptance by employers, examination boards, government agencies, or any other
               third parties.
             </p>
@@ -67,7 +67,7 @@ export default function Disclaimer() {
           <Section title="4. External Links">
             <p>
               Our Service may contain links to external websites. These links are provided for convenience
-              and information only. TrafficPeak has no control over the content or privacy practices of
+              and information only. TypingPeak has no control over the content or privacy practices of
               external sites and accepts no responsibility for them. The inclusion of a link does not imply
               endorsement.
             </p>
@@ -75,7 +75,7 @@ export default function Disclaimer() {
 
           <Section title="5. Blog Content">
             <p>
-              Blog articles on TrafficPeak are written for informational purposes. Typing tips, productivity
+              Blog articles on TypingPeak are written for informational purposes. Typing tips, productivity
               advice, and keyboard recommendations represent the opinions of their authors and are not
               guaranteed to be accurate, current, or complete. Readers should independently verify
               information before acting on it.
@@ -84,7 +84,7 @@ export default function Disclaimer() {
 
           <Section title="6. Limitation of Liability">
             <p>
-              Under no circumstances shall TrafficPeak, its operators, partners, or contributors be liable
+              Under no circumstances shall TypingPeak, its operators, partners, or contributors be liable
               for any direct, indirect, incidental, consequential, special, or punitive damages arising
               from your use of or reliance upon this Service or any information contained herein.
             </p>
@@ -92,7 +92,7 @@ export default function Disclaimer() {
 
           <Section title="7. Availability">
             <p>
-              TrafficPeak does not warrant that the Service will be available at any particular time or
+              TypingPeak does not warrant that the Service will be available at any particular time or
               that the Service will be free from errors, viruses, or other harmful components. We reserve
               the right to modify or discontinue the Service at any time without notice.
             </p>

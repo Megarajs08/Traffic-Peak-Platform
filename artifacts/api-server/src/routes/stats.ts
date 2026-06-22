@@ -57,6 +57,7 @@ router.get("/stats/progress", async (req, res) => {
 
   const since = new Date();
   since.setDate(since.getDate() - daysBack);
+  const sinceStr = since.toISOString();
 
   const rows = await db
     .select({
@@ -69,7 +70,7 @@ router.get("/stats/progress", async (req, res) => {
     .where(
       and(
         eq(testResultsTable.userId, user.id),
-        gte(testResultsTable.createdAt, since)
+        gte(testResultsTable.createdAt, sinceStr)
       )
     )
     .groupBy(sql`DATE(${testResultsTable.createdAt})`)
@@ -94,6 +95,7 @@ router.get("/stats/summary", async (req, res) => {
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const todayStr = today.toISOString();
 
   const [overall] = await db
     .select({
@@ -110,7 +112,7 @@ router.get("/stats/summary", async (req, res) => {
     .where(
       and(
         eq(testResultsTable.userId, user.id),
-        gte(testResultsTable.createdAt, today)
+        gte(testResultsTable.createdAt, todayStr)
       )
     );
 

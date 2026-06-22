@@ -126,8 +126,8 @@ router.post("/lessons/:id/progress", async (req, res) => {
         accuracy,
         completed: completed || existing.completed,
         bestWpm: Math.max(existing.bestWpm, wpm),
-        completedAt: completed && !existing.completed ? new Date() : existing.completedAt,
-        updatedAt: new Date(),
+        completedAt: completed && !existing.completed ? new Date().toISOString() : existing.completedAt,
+        updatedAt: new Date().toISOString(),
       })
       .where(eq(lessonProgressTable.id, existing.id))
       .returning();
@@ -142,8 +142,8 @@ router.post("/lessons/:id/progress", async (req, res) => {
         accuracy,
         bestWpm: wpm,
         completed,
-        completedAt: completed ? new Date() : null,
-        updatedAt: new Date(),
+        completedAt: completed ? new Date().toISOString() : null,
+        updatedAt: new Date().toISOString(),
       })
       .returning();
     progressRow = inserted;

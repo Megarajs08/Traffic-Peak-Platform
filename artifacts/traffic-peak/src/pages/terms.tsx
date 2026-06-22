@@ -19,8 +19,8 @@ export default function Terms() {
     <div className="min-h-screen flex flex-col">
       <SEOMeta
         title="Terms & Conditions"
-        description="Read TrafficPeak's Terms and Conditions governing your use of the typing platform, including user responsibilities, account rules, and limitations of liability."
-        keywords="terms and conditions, terms of service, trafficpeak terms"
+        description="Read TypingPeak's Terms and Conditions governing your use of the typing platform, including user responsibilities, account rules, and limitations of liability."
+        keywords="terms and conditions, terms of service, typingpeak terms"
       />
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12 max-w-3xl">
@@ -34,14 +34,14 @@ export default function Terms() {
         <div className="prose prose-invert max-w-none">
           <Section title="1. Acceptance of Terms">
             <p>
-              By accessing or using TrafficPeak ("Service"), you agree to be bound by these Terms and
+              By accessing or using TypingPeak ("Service"), you agree to be bound by these Terms and
               Conditions ("Terms"). If you do not agree, you must not use the Service.
             </p>
           </Section>
 
           <Section title="2. Description of Service">
             <p>
-              TrafficPeak provides an online typing practice platform including typing tests, structured
+              TypingPeak provides an online typing practice platform including typing tests, structured
               lessons, typing games, leaderboards, certificate generation, and educational blog content.
               Some features require account registration.
             </p>
@@ -77,8 +77,8 @@ export default function Terms() {
 
           <Section title="5. Certificates">
             <p>
-              Certificates generated through TrafficPeak are based on test results recorded in our system.
-              They are intended as personal achievement records. TrafficPeak makes no guarantee that any
+              Certificates generated through TypingPeak are based on test results recorded in our system.
+              They are intended as personal achievement records. TypingPeak makes no guarantee that any
               employer, institution, or third party will accept or recognize these certificates. Generating
               a certificate with false information or attempting to tamper with certificate data is prohibited
               and may result in account termination.
@@ -88,11 +88,11 @@ export default function Terms() {
           <Section title="6. Intellectual Property">
             <p>
               All content on the Service — including text, graphics, logos, software, and curricula — is
-              owned by or licensed to TrafficPeak and protected by applicable intellectual property laws.
+              owned by or licensed to TypingPeak and protected by applicable intellectual property laws.
               You may not reproduce, distribute, or create derivative works without prior written permission.
             </p>
             <p>
-              By submitting content (such as a username or profile information), you grant TrafficPeak a
+              By submitting content (such as a username or profile information), you grant TypingPeak a
               non-exclusive, royalty-free license to use that content for operating the Service.
             </p>
           </Section>
@@ -108,14 +108,14 @@ export default function Terms() {
           <Section title="8. Disclaimer of Warranties">
             <p>
               THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER
-              EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, TRAFFICPEAK DISCLAIMS ALL
+              EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, TYPINGPEAK DISCLAIMS ALL
               WARRANTIES, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
             </p>
           </Section>
 
           <Section title="9. Limitation of Liability">
             <p>
-              TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TRAFFICPEAK SHALL NOT BE LIABLE FOR ANY
+              TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, TYPINGPEAK SHALL NOT BE LIABLE FOR ANY
               INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM YOUR USE OF
               OR INABILITY TO USE THE SERVICE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. OUR
               TOTAL LIABILITY SHALL NOT EXCEED THE GREATER OF $100 OR THE AMOUNTS PAID BY YOU IN THE
@@ -133,7 +133,7 @@ export default function Terms() {
 
           <Section title="11. Governing Law">
             <p>
-              These Terms are governed by the laws of the jurisdiction in which TrafficPeak operates,
+              These Terms are governed by the laws of the jurisdiction in which TypingPeak operates,
               without regard to conflict of law principles. Any disputes shall be resolved through
               binding arbitration or in competent courts of that jurisdiction.
             </p>

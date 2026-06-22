@@ -1,20 +1,20 @@
-import { pgTable, serial, text, varchar, boolean, timestamp, integer } from "drizzle-orm/pg-core";
+import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 import { usersTable } from "./users";
 
-export const blogPostsTable = pgTable("blog_posts", {
-  id: serial("id").primaryKey(),
-  title: varchar("title", { length: 300 }).notNull(),
-  slug: varchar("slug", { length: 300 }).notNull().unique(),
+export const blogPostsTable = sqliteTable("blog_posts", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
   content: text("content").notNull(),
   excerpt: text("excerpt"),
-  category: varchar("category", { length: 100 }).notNull(),
+  category: text("category").notNull(),
   coverImageUrl: text("cover_image_url"),
-  published: boolean("published").notNull().default(false),
+  published: integer("published", { mode: "boolean" }).notNull().default(false),
   authorId: integer("author_id").references(() => usersTable.id),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  createdAt: text("created_at").notNull().default(""),
+  updatedAt: text("updated_at").notNull().default(""),
 });
 
 export const insertBlogPostSchema = createInsertSchema(blogPostsTable).omit({ id: true, createdAt: true, updatedAt: true });

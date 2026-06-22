@@ -32,6 +32,8 @@ import HrDashboard from "@/pages/hr/index";
 import AssessmentForm from "@/pages/hr/assessment-form";
 import AssessmentDetail from "@/pages/hr/assessment-detail";
 import CandidateAssessment from "@/pages/assessment/index";
+import MultilingualTyping from "@/pages/multilingual";
+import WeeklyVoucher from "@/pages/weekly-voucher";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -78,6 +80,9 @@ function Router() {
       <Route path="/hr/assessments/:id" component={AssessmentDetail} />
       {/* Public Candidate Assessment */}
       <Route path="/assessment/:token" component={CandidateAssessment} />
+      {/* Tools */}
+      <Route path="/tools/multilingual" component={MultilingualTyping} />
+      <Route path="/weekly-voucher" component={WeeklyVoucher} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -85,7 +90,7 @@ function Router() {
 
 function App() {
   return (
-    <div className="dark bg-background text-foreground min-h-screen">
+    <div className="light bg-background text-foreground min-h-screen">
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <AuthProvider>

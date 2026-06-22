@@ -31,16 +31,16 @@ export default function BlogPost() {
         dateModified: post.updatedAt,
         author: {
           "@type": "Person",
-          name: post.authorName ?? "TrafficPeak",
+          name: post.authorName ?? "TypingPeak",
         },
         publisher: {
           "@type": "Organization",
-          name: "TrafficPeak",
-          url: "https://trafficpeak.replit.app",
+          name: "TypingPeak",
+          url: "https://typingpeak.replit.app",
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `https://trafficpeak.replit.app/blog/${post.slug}`,
+          "@id": `https://typingpeak.replit.app/blog/${post.slug}`,
         },
         ...(post.coverImageUrl
           ? { image: { "@type": "ImageObject", url: post.coverImageUrl } }
@@ -53,8 +53,8 @@ export default function BlogPost() {
       {post && (
         <SEOMeta
           title={post.title}
-          description={post.excerpt ?? `Read "${post.title}" on TrafficPeak — the typing speed platform.`}
-          canonical={`https://trafficpeak.replit.app/blog/${post.slug}`}
+          description={post.excerpt ?? `Read "${post.title}" on TypingPeak — the typing speed platform.`}
+          canonical={`https://typingpeak.replit.app/blog/${post.slug}`}
           ogImage={post.coverImageUrl ?? undefined}
           ogType="article"
           structuredData={structuredData}

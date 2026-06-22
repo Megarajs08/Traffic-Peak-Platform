@@ -63,6 +63,7 @@ export default function PostForm() {
   const [autoSlug, setAutoSlug] = useState(true);
   const [errors, setErrors] = useState<Partial<FormState>>({});
   const [saved, setSaved] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     if (existing) {
@@ -107,6 +108,7 @@ export default function PostForm() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSubmitError(null);
     if (!validate()) return;
 
     const data = {
@@ -140,6 +142,10 @@ export default function PostForm() {
             queryClient.invalidateQueries({ queryKey: getListPostsQueryKey({ limit: 20 }) });
             setSaved(true);
             setTimeout(() => navigate("/admin"), 1200);
+          },
+          onError: (err: any) => {
+            const msg = err?.response?.data?.error ?? err?.message ?? "Failed to create post";
+            setSubmitError(msg);
           },
         }
       );
@@ -272,6 +278,12 @@ export default function PostForm() {
               <p className="text-xs text-muted-foreground">Unchecked = draft (not visible to public)</p>
             </div>
           </div>
+
+          {submitError && (
+            <div className="text-sm text-destructive bg-destructive/10 border border-destructive/30 rounded-lg px-4 py-3">
+              {submitError}
+            </div>
+          )}
 
           <div className="flex gap-3 pt-2">
             <Button type="submit" disabled={isPending || saved} className="gap-2 min-w-32">

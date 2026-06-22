@@ -1,17 +1,18 @@
-import { pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
-export const usersTable = pgTable("users", {
-  id: serial("id").primaryKey(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
-  username: varchar("username", { length: 100 }).notNull().unique(),
+export const usersTable = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  email: text("email").notNull().unique(),
+  username: text("username").notNull().unique(),
   name: text("name"),
-  passwordHash: text("password_hash").notNull(),
+  passwordHash: text("password_hash").notNull().default(""),
   avatarUrl: text("avatar_url"),
-  role: varchar("role", { length: 20 }).notNull().default("user"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  role: text("role").notNull().default("user"),
+  googleId: text("google_id").unique(),
+  createdAt: text("created_at").notNull().default(""),
+  updatedAt: text("updated_at").notNull().default(""),
 });
 
 export const insertUserSchema = createInsertSchema(usersTable).omit({

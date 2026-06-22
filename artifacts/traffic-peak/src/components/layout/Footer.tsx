@@ -1,5 +1,43 @@
 import { Link } from "wouter";
-import { Zap } from "lucide-react";
+
+function TypingPeakLogo({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 200 38"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden
+    >
+      <text
+        x="0" y="28"
+        fontFamily="'Inter', 'Glacial Indifference', sans-serif"
+        fontWeight="700"
+        fontSize="26"
+        fill="hsl(var(--foreground))"
+        letterSpacing="-0.5"
+      >typing</text>
+      <rect x="88" y="14" width="32" height="19" rx="3" stroke="hsl(var(--primary))" strokeWidth="1.5" fill="none" />
+      <rect x="91" y="17" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.7" />
+      <rect x="98" y="17" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.7" />
+      <rect x="105" y="17" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.7" />
+      <rect x="112" y="17" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.7" />
+      <rect x="91" y="23" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.5" />
+      <rect x="98" y="23" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.5" />
+      <rect x="105" y="23" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.5" />
+      <rect x="112" y="23" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.5" />
+      <rect x="96" y="29" width="16" height="3" rx="1.5" fill="hsl(var(--primary))" opacity="0.6" />
+      <text
+        x="124" y="28"
+        fontFamily="'Inter', 'Glacial Indifference', sans-serif"
+        fontWeight="400"
+        fontSize="22"
+        fill="hsl(var(--primary))"
+        letterSpacing="-0.3"
+      >peak</text>
+    </svg>
+  );
+}
 
 const productLinks = [
   { href: "/typing-test", label: "Typing Test" },
@@ -33,16 +71,13 @@ const companyLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/50 bg-card/20 mt-auto">
+    <footer className="border-t border-border/60 bg-background mt-auto">
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 font-bold text-lg mb-4">
-              <div className="w-7 h-7 bg-primary rounded-lg flex items-center justify-center">
-                <Zap className="w-4 h-4 text-white" />
-              </div>
-              <span>Traffic<span className="text-primary">Peak</span></span>
+            <Link href="/" className="flex items-center gap-2 font-semibold text-base mb-4 hover:opacity-80 transition-opacity">
+              <TypingPeakLogo className="h-8 w-auto" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
               The typing platform built for people who take their speed seriously. Practice, compete, and get certified.
@@ -107,7 +142,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border/50 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
-          <div>© {new Date().getFullYear()} TrafficPeak. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} TypingPeak. All rights reserved.</div>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/privacy-policy" className="hover:text-foreground transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link>

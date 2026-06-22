@@ -46,8 +46,8 @@ export default function CookiePolicy() {
     <div className="min-h-screen flex flex-col">
       <SEOMeta
         title="Cookie Policy"
-        description="TrafficPeak's Cookie Policy explains what cookies we use, why we use them, and how you can control them."
-        keywords="cookie policy, cookies, trafficpeak cookies, privacy"
+        description="TypingPeak's Cookie Policy explains what cookies we use, why we use them, and how you can control them."
+        keywords="cookie policy, cookies, typingpeak cookies, privacy"
       />
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12 max-w-3xl">
@@ -68,7 +68,7 @@ export default function CookiePolicy() {
 
           <Section title="2. How We Use Cookies">
             <p>
-              TrafficPeak uses cookies in the following categories:
+              TypingPeak uses cookies in the following categories:
             </p>
             <p><strong className="text-foreground">Essential Cookies</strong> — required for the Service to function. You cannot opt out of these.</p>
             <CookieTable
@@ -110,7 +110,7 @@ export default function CookiePolicy() {
 
           <Section title="4. Your Choices">
             <p>
-              When you first visit TrafficPeak, a cookie consent banner will appear. You can:
+              When you first visit TypingPeak, a cookie consent banner will appear. You can:
             </p>
             <ul className="list-disc pl-6 space-y-1">
               <li><strong className="text-foreground">Accept All</strong> — enables essential and analytics cookies.</li>
@@ -132,7 +132,7 @@ export default function CookiePolicy() {
 
           <Section title="6. Do Not Track">
             <p>
-              TrafficPeak respects "Do Not Track" browser signals. If your browser sends a DNT header,
+              TypingPeak respects "Do Not Track" browser signals. If your browser sends a DNT header,
               we will not set analytics cookies regardless of your consent choice.
             </p>
           </Section>

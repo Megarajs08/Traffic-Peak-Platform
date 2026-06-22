@@ -62,8 +62,8 @@ export default function SitemapPage() {
     <div className="min-h-screen flex flex-col">
       <SEOMeta
         title="Sitemap"
-        description="Complete sitemap of TrafficPeak — find all pages including typing tests, lessons, games, blog categories, and legal pages."
-        keywords="sitemap, trafficpeak pages"
+        description="Complete sitemap of TypingPeak — find all pages including typing tests, lessons, games, blog categories, and legal pages."
+        keywords="sitemap, typingpeak pages"
       />
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12 max-w-4xl">
@@ -71,7 +71,7 @@ export default function SitemapPage() {
 
         <div className="mb-10">
           <h1 className="text-3xl font-bold mb-2">Sitemap</h1>
-          <p className="text-muted-foreground">All pages on TrafficPeak, organized by section.</p>
+          <p className="text-muted-foreground">All pages on TypingPeak, organized by section.</p>
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">

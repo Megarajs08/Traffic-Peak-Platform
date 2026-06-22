@@ -1,48 +1,48 @@
-import { pgTable, serial, text, integer, boolean, timestamp, varchar, real } from "drizzle-orm/pg-core";
+import { sqliteTable, integer, real, text } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 import { usersTable } from "./users";
 
-export const hrAssessmentsTable = pgTable("hr_assessments", {
-  id: serial("id").primaryKey(),
-  token: varchar("token", { length: 32 }).notNull().unique(),
+export const hrAssessmentsTable = sqliteTable("hr_assessments", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  token: text("token").notNull().unique(),
   createdById: integer("created_by_id").notNull().references(() => usersTable.id),
   name: text("name").notNull(),
   companyName: text("company_name").notNull(),
   jobPosition: text("job_position").notNull(),
   description: text("description"),
   durationSeconds: integer("duration_seconds").notNull().default(300),
-  difficulty: varchar("difficulty", { length: 20 }).notNull().default("medium"),
-  language: varchar("language", { length: 20 }).notNull().default("english"),
-  contentType: varchar("content_type", { length: 30 }).notNull().default("words"),
+  difficulty: text("difficulty").notNull().default("medium"),
+  language: text("language").notNull().default("english"),
+  contentType: text("content_type").notNull().default("words"),
   customText: text("custom_text"),
   passingWpm: integer("passing_wpm").notNull().default(40),
   minAccuracy: real("min_accuracy").notNull().default(90),
   maxAttempts: integer("max_attempts").notNull().default(1),
-  active: boolean("active").notNull().default(true),
-  expiresAt: timestamp("expires_at"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  active: integer("active", { mode: "boolean" }).notNull().default(true),
+  expiresAt: text("expires_at"),
+  createdAt: text("created_at").notNull().default(""),
+  updatedAt: text("updated_at").notNull().default(""),
 });
 
-export const assessmentCandidatesTable = pgTable("assessment_candidates", {
-  id: serial("id").primaryKey(),
+export const assessmentCandidatesTable = sqliteTable("assessment_candidates", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   assessmentId: integer("assessment_id").notNull().references(() => hrAssessmentsTable.id),
   fullName: text("full_name").notNull(),
-  email: varchar("email", { length: 255 }).notNull(),
-  phone: varchar("phone", { length: 30 }),
+  email: text("email").notNull(),
+  phone: text("phone"),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
   fingerprint: text("fingerprint"),
   tabSwitches: integer("tab_switches").notNull().default(0),
   attemptNumber: integer("attempt_number").notNull().default(1),
-  startedAt: timestamp("started_at"),
-  submittedAt: timestamp("submitted_at"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  startedAt: text("started_at"),
+  submittedAt: text("submitted_at"),
+  createdAt: text("created_at").notNull().default(""),
 });
 
-export const assessmentResultsTable = pgTable("assessment_results", {
-  id: serial("id").primaryKey(),
+export const assessmentResultsTable = sqliteTable("assessment_results", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   candidateId: integer("candidate_id").notNull().references(() => assessmentCandidatesTable.id),
   assessmentId: integer("assessment_id").notNull().references(() => hrAssessmentsTable.id),
   wpm: real("wpm").notNull(),
@@ -51,9 +51,9 @@ export const assessmentResultsTable = pgTable("assessment_results", {
   errorCount: integer("error_count").notNull(),
   charCount: integer("char_count").notNull(),
   durationSeconds: integer("duration_seconds").notNull(),
-  passed: boolean("passed").notNull(),
+  passed: integer("passed", { mode: "boolean" }).notNull(),
   rank: integer("rank"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
+  createdAt: text("created_at").notNull().default(""),
 });
 
 export const insertHrAssessmentSchema = createInsertSchema(hrAssessmentsTable).omit({

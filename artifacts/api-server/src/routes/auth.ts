@@ -51,7 +51,7 @@ router.post("/auth/register", async (req, res) => {
       name: user.name,
       avatarUrl: user.avatarUrl,
       role: user.role,
-      createdAt: user.createdAt.toISOString(),
+      createdAt: user.createdAt || new Date().toISOString(),
     },
   });
 });
@@ -91,7 +91,7 @@ router.post("/auth/login", async (req, res) => {
       name: user.name,
       avatarUrl: user.avatarUrl,
       role: user.role,
-      createdAt: user.createdAt.toISOString(),
+      createdAt: user.createdAt || new Date().toISOString(),
     },
   });
 });
@@ -114,7 +114,7 @@ router.get("/auth/me", async (req, res) => {
     name: user.name,
     avatarUrl: user.avatarUrl,
     role: user.role,
-    createdAt: user.createdAt.toISOString(),
+    createdAt: user.createdAt || new Date().toISOString(),
   });
 });
 

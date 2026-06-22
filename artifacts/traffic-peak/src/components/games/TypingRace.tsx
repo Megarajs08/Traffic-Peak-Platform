@@ -78,9 +78,13 @@ export default function TypingRace({ onExit }: { onExit: () => void }) {
     }
     if (key.length !== 1) return;
     e.preventDefault();
+
+    const expectedChar = chars[currentIndex]?.char;
+    if (expectedChar === " " && key !== " ") return;
+
     if (!started) { setStarted(true); setStartTime(Date.now()); }
 
-    const isCorrect = key === chars[currentIndex]?.char;
+    const isCorrect = key === expectedChar;
     if (isCorrect) setCorrectChars((c) => c + 1);
     else setErrors((err) => err + 1);
 

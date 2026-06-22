@@ -219,8 +219,8 @@ router.put("/hr/assessments/:id", async (req, res) => {
     ...(minAccuracy !== undefined && { minAccuracy }),
     ...(maxAttempts !== undefined && { maxAttempts }),
     ...(active !== undefined && { active }),
-    ...(expiresAt !== undefined && { expiresAt: expiresAt ? new Date(expiresAt) : null }),
-    updatedAt: new Date(),
+    ...(expiresAt !== undefined && { expiresAt: expiresAt ? new Date(expiresAt).toISOString() : null }),
+    updatedAt: new Date().toISOString(),
   }).where(eq(hrAssessmentsTable.id, id)).returning();
 
   res.json(serializeAssessment({ ...updated, candidateCount: 0, passCount: 0 }));

@@ -10,8 +10,9 @@ export async function createSession(userId: number, res: Response): Promise<stri
   const sessionId = randomBytes(32).toString("hex");
   const expiresAt = new Date();
   expiresAt.setDate(expiresAt.getDate() + SESSION_TTL_DAYS);
+  const expiresAtStr = expiresAt.toISOString();
 
-  await db.insert(sessionsTable).values({ id: sessionId, userId, expiresAt });
+  await db.insert(sessionsTable).values({ id: sessionId, userId, expiresAt: expiresAtStr } as any);
 
   res.cookie(SESSION_COOKIE, sessionId, {
     httpOnly: true,
@@ -20,6 +21,7 @@ export async function createSession(userId: number, res: Response): Promise<stri
     expires: expiresAt,
     path: "/",
   });
+
 
   return sessionId;
 }
@@ -34,7 +36,7 @@ export async function getSessionUser(req: Request) {
     .where(eq(sessionsTable.id, sessionId))
     .limit(1);
 
-  if (!session || session.expiresAt < new Date()) return null;
+  if (!session || new Date(session.expiresAt) < new Date()) return null;
 
   const [user] = await db
     .select()

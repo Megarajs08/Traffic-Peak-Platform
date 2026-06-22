@@ -41,16 +41,16 @@ const values = [
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  name: "About TrafficPeak",
-  description: "Learn about TrafficPeak's mission to help people improve their typing speed and accuracy.",
-  url: "https://trafficpeak.replit.app/about",
+  name: "About TypingPeak",
+  description: "Learn about TypingPeak's mission to help people improve their typing speed and accuracy.",
+  url: "https://typingpeak.replit.app/about",
   publisher: {
     "@type": "Organization",
-    name: "TrafficPeak",
-    url: "https://trafficpeak.replit.app",
+    name: "TypingPeak",
+    url: "https://typingpeak.replit.app",
     logo: {
       "@type": "ImageObject",
-      url: "https://trafficpeak.replit.app/favicon.svg",
+      url: "https://typingpeak.replit.app/favicon.svg",
     },
   },
 };
@@ -60,9 +60,9 @@ export default function About() {
     <div className="min-h-screen flex flex-col">
       <SEOMeta
         title="About Us"
-        description="TrafficPeak is a professional typing platform built for people who take their speed seriously. Learn our mission, values, and the team behind the platform."
+        description="TypingPeak is a professional typing platform built for people who take their speed seriously. Learn our mission, values, and the team behind the platform."
         structuredData={structuredData}
-        keywords="about trafficpeak, typing platform, typing speed improvement, typing practice"
+        keywords="about typingpeak, typing platform, typing speed improvement, typing practice"
       />
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12 max-w-4xl">
@@ -73,7 +73,7 @@ export default function About() {
           <div className="inline-flex w-16 h-16 bg-primary/10 rounded-2xl items-center justify-center mb-6">
             <Zap className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-4xl font-bold mb-4">About TrafficPeak</h1>
+          <h1 className="text-4xl font-bold mb-4">About TypingPeak</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             We're on a mission to make everyone a faster, more accurate typist — because keyboard fluency
             is one of the highest-leverage skills in the modern world.
@@ -84,17 +84,17 @@ export default function About() {
         <section className="mb-16 bg-card/50 border border-border/60 rounded-2xl p-8">
           <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
           <p className="text-muted-foreground leading-relaxed mb-4">
-            TrafficPeak was built because every other typing platform felt either too casual or too clinical.
+            TypingPeak was built because every other typing platform felt either too casual or too clinical.
             We wanted something that took the craft seriously — zero input lag, real analytics, structured
             lessons that actually build skill, and certificates that carry real weight.
           </p>
           <p className="text-muted-foreground leading-relaxed mb-4">
             Typing speed directly impacts productivity, programming efficiency, writing output, and exam
-            performance. Yet most people never deliberately practice it. TrafficPeak changes that.
+            performance. Yet most people never deliberately practice it. TypingPeak changes that.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             Whether you're aiming for 60 WPM for your first desk job, 120 WPM for competitive advantage,
-            or preparing for a government typing exam, TrafficPeak has the tools, the curriculum, and the
+            or preparing for a government typing exam, TypingPeak has the tools, the curriculum, and the
             community to get you there.
           </p>
         </section>

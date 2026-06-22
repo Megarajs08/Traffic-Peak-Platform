@@ -5,9 +5,20 @@ import { getSessionUser } from "../lib/session";
 
 const router: IRouter = Router();
 
+const OWNER_EMAIL = "megarajse@gmail.com";
+
 async function requireAdmin(req: any, res: any) {
   const user = await getSessionUser(req);
   if (!user || user.role !== "admin") {
+    res.status(403).json({ error: "Forbidden" });
+    return null;
+  }
+  return user;
+}
+
+async function requireOwner(req: any, res: any) {
+  const user = await getSessionUser(req);
+  if (!user || user.email !== OWNER_EMAIL) {
     res.status(403).json({ error: "Forbidden" });
     return null;
   }
@@ -25,8 +36,8 @@ function serializePost(row: any, authorName?: string | null) {
     coverImageUrl: row.coverImageUrl,
     published: row.published,
     authorName: authorName ?? null,
-    createdAt: row.createdAt.toISOString(),
-    updatedAt: row.updatedAt.toISOString(),
+    createdAt: row.createdAt || "",
+    updatedAt: row.updatedAt || "",
   };
 }
 
@@ -88,7 +99,7 @@ router.put("/admin/posts/:id", async (req, res) => {
       ...(category !== undefined && { category }),
       ...(coverImageUrl !== undefined && { coverImageUrl }),
       ...(published !== undefined && { published }),
-      updatedAt: new Date(),
+      updatedAt: new Date().toISOString(),
     })
     .where(eq(blogPostsTable.id, id))
     .returning();
@@ -114,6 +125,82 @@ router.delete("/admin/posts/:id", async (req, res) => {
 
   await db.delete(blogPostsTable).where(eq(blogPostsTable.id, id));
   res.status(204).send();
+});
+
+// ── User management ──────────────────────────────────────────────────────────
+
+router.get("/admin/users", async (req, res) => {
+  const actor = await requireOwner(req, res);
+  if (!actor) return;
+
+  const users = await db
+    .select({
+      id: usersTable.id,
+      email: usersTable.email,
+      username: usersTable.username,
+      name: usersTable.name,
+      role: usersTable.role,
+      createdAt: usersTable.createdAt,
+    })
+    .from(usersTable)
+    .orderBy(desc(usersTable.createdAt));
+
+  res.json(users);
+});
+
+router.post("/admin/users/grant", async (req, res) => {
+  const actor = await requireOwner(req, res);
+  if (!actor) return;
+
+  const { email } = req.body;
+  if (!email || typeof email !== "string") {
+    res.status(400).json({ error: "email is required" });
+    return;
+  }
+
+  const [target] = await db.select().from(usersTable).where(eq(usersTable.email, email.trim().toLowerCase())).limit(1);
+  if (!target) {
+    res.status(404).json({ error: "No account found with that email" });
+    return;
+  }
+
+  if (target.role === "admin") {
+    res.status(400).json({ error: "User is already an admin" });
+    return;
+  }
+
+  await db.update(usersTable).set({ role: "admin", updatedAt: new Date().toISOString() as any }).where(eq(usersTable.id, target.id));
+  res.json({ message: `${target.email} is now an admin` });
+});
+
+router.post("/admin/users/revoke", async (req, res) => {
+  const actor = await requireOwner(req, res);
+  if (!actor) return;
+
+  const { email } = req.body;
+  if (!email || typeof email !== "string") {
+    res.status(400).json({ error: "email is required" });
+    return;
+  }
+
+  if (email.trim().toLowerCase() === actor.email.toLowerCase()) {
+    res.status(400).json({ error: "You cannot revoke your own admin access" });
+    return;
+  }
+
+  const [target] = await db.select().from(usersTable).where(eq(usersTable.email, email.trim().toLowerCase())).limit(1);
+  if (!target) {
+    res.status(404).json({ error: "No account found with that email" });
+    return;
+  }
+
+  if (target.role !== "admin") {
+    res.status(400).json({ error: "User is not an admin" });
+    return;
+  }
+
+  await db.update(usersTable).set({ role: "user", updatedAt: new Date().toISOString() as any }).where(eq(usersTable.id, target.id));
+  res.json({ message: `${target.email} admin access revoked` });
 });
 
 export default router;

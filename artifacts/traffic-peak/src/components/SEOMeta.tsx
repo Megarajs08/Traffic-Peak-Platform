@@ -11,8 +11,8 @@ interface SEOMetaProps {
   keywords?: string;
 }
 
-const SITE_NAME = "TrafficPeak";
-const BASE_URL = "https://trafficpeak.replit.app";
+const SITE_NAME = "TypingPeak";
+const BASE_URL = "https://typingpeak.replit.app";
 
 function setMetaTag(name: string, content: string, isProperty = false) {
   const attr = isProperty ? "property" : "name";

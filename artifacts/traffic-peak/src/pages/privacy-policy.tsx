@@ -19,8 +19,8 @@ export default function PrivacyPolicy() {
     <div className="min-h-screen flex flex-col">
       <SEOMeta
         title="Privacy Policy"
-        description="TrafficPeak's Privacy Policy explains how we collect, use, and protect your personal information when you use our typing platform."
-        keywords="privacy policy, data protection, trafficpeak privacy"
+        description="TypingPeak's Privacy Policy explains how we collect, use, and protect your personal information when you use our typing platform."
+        keywords="privacy policy, data protection, typingpeak privacy"
       />
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12 max-w-3xl">
@@ -34,9 +34,9 @@ export default function PrivacyPolicy() {
         <div className="prose prose-invert max-w-none">
           <Section title="1. Introduction">
             <p>
-              TrafficPeak ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy
+              TypingPeak ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy
               explains how we collect, use, disclose, and safeguard your information when you visit our website
-              at trafficpeak.replit.app (the "Service").
+              at typingpeak.replit.app (the "Service").
             </p>
             <p>
               Please read this policy carefully. If you disagree with its terms, please discontinue use of the Service.

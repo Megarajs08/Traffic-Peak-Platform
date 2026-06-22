@@ -10,7 +10,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    detail: "support@trafficpeak.app",
+    detail: "support@typingpeak.app",
     note: "For account & billing questions",
   },
   {
@@ -30,9 +30,9 @@ const contactInfo = [
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  name: "Contact TrafficPeak",
-  description: "Get in touch with the TrafficPeak team for support, feedback, or general inquiries.",
-  url: "https://trafficpeak.replit.app/contact",
+  name: "Contact TypingPeak",
+  description: "Get in touch with the TypingPeak team for support, feedback, or general inquiries.",
+  url: "https://typingpeak.replit.app/contact",
 };
 
 export default function Contact() {
@@ -57,9 +57,9 @@ export default function Contact() {
     <div className="min-h-screen flex flex-col">
       <SEOMeta
         title="Contact Us"
-        description="Get in touch with the TrafficPeak team. We're here to help with account questions, feedback, bug reports, and general inquiries."
+        description="Get in touch with the TypingPeak team. We're here to help with account questions, feedback, bug reports, and general inquiries."
         structuredData={structuredData}
-        keywords="contact trafficpeak, typing platform support, help, feedback"
+        keywords="contact typingpeak, typing platform support, help, feedback"
       />
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12 max-w-5xl">

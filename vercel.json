@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "buildCommand": "cd artifacts/traffic-peak && pnpm install --frozen-lockfile && pnpm run build",
+  "outputDirectory": "artifacts/traffic-peak/dist/public",
+  "installCommand": "npm install -g pnpm && pnpm install --frozen-lockfile",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://YOUR-APP-NAME.railway.app/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}

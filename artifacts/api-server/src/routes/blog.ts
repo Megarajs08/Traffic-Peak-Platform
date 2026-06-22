@@ -48,8 +48,8 @@ router.get("/blog", async (req, res) => {
       coverImageUrl: r.coverImageUrl,
       published: r.published,
       authorName: r.authorName,
-      createdAt: r.createdAt.toISOString(),
-      updatedAt: r.updatedAt.toISOString(),
+      createdAt: r.createdAt || "",
+      updatedAt: r.updatedAt || "",
     }))
   );
 });
@@ -67,10 +67,21 @@ router.post("/blog", async (req, res) => {
     return;
   }
 
-  const [post] = await db
-    .insert(blogPostsTable)
-    .values({ ...parsed.data, authorId: user.id })
-    .returning();
+  const now = new Date().toISOString();
+  let post: typeof blogPostsTable.$inferSelect;
+  try {
+    const [inserted] = await db
+      .insert(blogPostsTable)
+      .values({ ...parsed.data, authorId: user.id, createdAt: now, updatedAt: now })
+      .returning();
+    post = inserted;
+  } catch (err: any) {
+    if (err?.message?.includes("UNIQUE constraint failed: blog_posts.slug")) {
+      res.status(409).json({ error: "A post with this slug already exists. Please use a different slug." });
+      return;
+    }
+    throw err;
+  }
 
   res.status(201).json({
     id: post.id,
@@ -82,8 +93,8 @@ router.post("/blog", async (req, res) => {
     coverImageUrl: post.coverImageUrl,
     published: post.published,
     authorName: user.username,
-    createdAt: post.createdAt.toISOString(),
-    updatedAt: post.updatedAt.toISOString(),
+    createdAt: post.createdAt || now,
+    updatedAt: post.updatedAt || now,
   });
 });
 
@@ -128,8 +139,8 @@ router.get("/blog/:slug", async (req, res) => {
     coverImageUrl: row.coverImageUrl,
     published: row.published,
     authorName: row.authorName,
-    createdAt: row.createdAt.toISOString(),
-    updatedAt: row.updatedAt.toISOString(),
+    createdAt: row.createdAt || "",
+    updatedAt: row.updatedAt || "",
   });
 });
 

@@ -11,13 +11,15 @@ router.get("/leaderboard", async (req, res) => {
   const period = parsed.success ? (parsed.data.period ?? "all") : "all";
   const limit = parsed.success ? (parsed.data.limit ?? 50) : 50;
 
-  let since: Date | null = null;
+  let sinceStr: string | null = null;
   if (period === "weekly") {
-    since = new Date();
-    since.setDate(since.getDate() - 7);
+    const d = new Date();
+    d.setDate(d.getDate() - 7);
+    sinceStr = d.toISOString();
   } else if (period === "monthly") {
-    since = new Date();
-    since.setMonth(since.getMonth() - 1);
+    const d = new Date();
+    d.setMonth(d.getMonth() - 1);
+    sinceStr = d.toISOString();
   }
 
   const rows = await db
@@ -32,8 +34,8 @@ router.get("/leaderboard", async (req, res) => {
     .from(testResultsTable)
     .innerJoin(usersTable, eq(testResultsTable.userId, usersTable.id))
     .where(
-      since
-        ? and(sql`${testResultsTable.userId} IS NOT NULL`, gte(testResultsTable.createdAt, since))
+      sinceStr
+        ? and(sql`${testResultsTable.userId} IS NOT NULL`, gte(testResultsTable.createdAt, sinceStr))
         : sql`${testResultsTable.userId} IS NOT NULL`
     )
     .groupBy(testResultsTable.userId, usersTable.username, usersTable.avatarUrl)
@@ -63,13 +65,15 @@ router.get("/leaderboard/rank", async (req, res) => {
   const parsed = GetMyRankQueryParams.safeParse(req.query);
   const period = parsed.success ? (parsed.data.period ?? "all") : "all";
 
-  let since: Date | null = null;
+  let sinceStr2: string | null = null;
   if (period === "weekly") {
-    since = new Date();
-    since.setDate(since.getDate() - 7);
+    const d = new Date();
+    d.setDate(d.getDate() - 7);
+    sinceStr2 = d.toISOString();
   } else if (period === "monthly") {
-    since = new Date();
-    since.setMonth(since.getMonth() - 1);
+    const d = new Date();
+    d.setMonth(d.getMonth() - 1);
+    sinceStr2 = d.toISOString();
   }
 
   const allRows = await db
@@ -80,8 +84,8 @@ router.get("/leaderboard/rank", async (req, res) => {
     })
     .from(testResultsTable)
     .where(
-      since
-        ? and(sql`${testResultsTable.userId} IS NOT NULL`, gte(testResultsTable.createdAt, since))
+      sinceStr2
+        ? and(sql`${testResultsTable.userId} IS NOT NULL`, gte(testResultsTable.createdAt, sinceStr2))
         : sql`${testResultsTable.userId} IS NOT NULL`
     )
     .groupBy(testResultsTable.userId)

@@ -16,7 +16,7 @@ router.get("/assessment/:token", async (req, res) => {
 
   if (!assessment) { res.status(404).json({ error: "Assessment not found" }); return; }
   if (!assessment.active) { res.status(404).json({ error: "Assessment is no longer active" }); return; }
-  if (assessment.expiresAt && assessment.expiresAt < new Date()) {
+  if (assessment.expiresAt && new Date(assessment.expiresAt) < new Date()) {
     res.status(404).json({ error: "Assessment has expired" }); return;
   }
 
@@ -59,7 +59,7 @@ router.post("/assessment/:token/start", async (req, res) => {
     res.status(404).json({ error: "Assessment not found or inactive" });
     return;
   }
-  if (assessment.expiresAt && assessment.expiresAt < new Date()) {
+  if (assessment.expiresAt && new Date(assessment.expiresAt) < new Date()) {
     res.status(404).json({ error: "Assessment has expired" });
     return;
   }
@@ -94,7 +94,7 @@ router.post("/assessment/:token/start", async (req, res) => {
     fingerprint: fingerprint ?? null,
     tabSwitches: 0,
     attemptNumber,
-    startedAt: new Date(),
+    startedAt: new Date().toISOString(),
   }).returning();
 
   res.status(201).json({
@@ -142,11 +142,11 @@ router.post("/assessment/:token/submit", async (req, res) => {
   // Update tab switches
   if (tabSwitches !== undefined) {
     await db.update(assessmentCandidatesTable)
-      .set({ tabSwitches, submittedAt: new Date() })
+      .set({ tabSwitches, submittedAt: new Date().toISOString() })
       .where(eq(assessmentCandidatesTable.id, candidateId));
   } else {
     await db.update(assessmentCandidatesTable)
-      .set({ submittedAt: new Date() })
+      .set({ submittedAt: new Date().toISOString() })
       .where(eq(assessmentCandidatesTable.id, candidateId));
   }
 

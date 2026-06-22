@@ -19,7 +19,7 @@ router.get("/users/me/profile", async (req, res) => {
     name: user.name,
     avatarUrl: user.avatarUrl,
     role: user.role,
-    createdAt: user.createdAt.toISOString(),
+    createdAt: user.createdAt || new Date().toISOString(),
   });
 });
 
@@ -38,7 +38,7 @@ router.patch("/users/me/profile", async (req, res) => {
 
   const [updated] = await db
     .update(usersTable)
-    .set({ ...parsed.data, updatedAt: new Date() })
+    .set({ ...parsed.data, updatedAt: new Date().toISOString() })
     .where(eq(usersTable.id, user.id))
     .returning();
 
@@ -89,7 +89,7 @@ router.get("/users/:username", async (req, res) => {
     avgWpm: Math.round(Number(stats?.avgWpm ?? 0) * 10) / 10,
     avgAccuracy: Math.round(Number(stats?.avgAccuracy ?? 0) * 10) / 10,
     totalTests: Number(stats?.totalTests ?? 0),
-    createdAt: user.createdAt.toISOString(),
+    createdAt: user.createdAt || new Date().toISOString(),
   });
 });
 

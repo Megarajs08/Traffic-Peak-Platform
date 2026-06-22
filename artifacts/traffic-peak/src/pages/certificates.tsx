@@ -40,7 +40,7 @@ export default function Certificates() {
     ctx.fillStyle = "#2563EB";
     ctx.font = "bold 28px Inter, sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("TRAFFIC PEAK", 600, 100);
+    ctx.fillText("TYPING PEAK", 600, 100);
 
     ctx.fillStyle = "#94a3b8";
     ctx.font = "18px Inter, sans-serif";
@@ -74,7 +74,7 @@ export default function Certificates() {
     ctx.font = "14px monospace";
     ctx.fillText(`Certificate ID: ${cert.certificateId}`, 600, 640);
     ctx.fillText(`Issued: ${new Date(cert.issuedAt).toLocaleDateString()}`, 600, 670);
-    ctx.fillText(`Verify at: trafficpeak.app/verify-certificate/${cert.certificateId}`, 600, 700);
+    ctx.fillText(`Verify at: typingpeak.app/verify-certificate/${cert.certificateId}`, 600, 700);
 
     const link = document.createElement("a");
     link.download = `certificate-${cert.certificateId}.png`;
