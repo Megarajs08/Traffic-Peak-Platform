@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 
 interface SEOMetaProps {
   title: string;
@@ -12,7 +12,7 @@ interface SEOMetaProps {
 }
 
 const SITE_NAME = "TypingPeak";
-const BASE_URL = "https://typingpeak.replit.app";
+const BASE_URL = import.meta.env.VITE_BASE_URL ?? "https://typingpeak.vercel.app";
 
 function setMetaTag(name: string, content: string, isProperty = false) {
   const attr = isProperty ? "property" : "name";

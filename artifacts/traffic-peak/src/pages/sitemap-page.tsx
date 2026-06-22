@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/layout/Navbar";
+﻿import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { SEOMeta } from "@/components/SEOMeta";
@@ -62,7 +62,7 @@ export default function SitemapPage() {
     <div className="min-h-screen flex flex-col">
       <SEOMeta
         title="Sitemap"
-        description="Complete sitemap of TypingPeak — find all pages including typing tests, lessons, games, blog categories, and legal pages."
+        description="Complete sitemap of TypingPeak â€” find all pages including typing tests, lessons, games, blog categories, and legal pages."
         keywords="sitemap, typingpeak pages"
       />
       <Navbar />

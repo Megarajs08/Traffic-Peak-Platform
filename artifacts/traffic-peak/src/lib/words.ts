@@ -1,4 +1,4 @@
-// Top 1000 common English words
+﻿// Top 1000 common English words
 export const top1000Words = [
   "the", "of", "to", "and", "a", "in", "is", "it", "you", "that",
   "he", "was", "for", "on", "are", "with", "as", "I", "his", "they",

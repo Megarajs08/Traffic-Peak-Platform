@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Cookie, X } from "lucide-react";
 import { Button } from "@/components/ui/button";

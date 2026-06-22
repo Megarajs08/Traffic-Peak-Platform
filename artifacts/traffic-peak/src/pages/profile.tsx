@@ -1,4 +1,4 @@
-import { useRoute } from "wouter";
+﻿import { useRoute } from "wouter";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { useGetUserProfile, getGetUserProfileQueryKey } from "@workspace/api-client-react";

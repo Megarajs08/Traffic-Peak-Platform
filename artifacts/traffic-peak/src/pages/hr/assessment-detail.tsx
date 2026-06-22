@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useRoute, Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -19,7 +19,7 @@ function exportCSV(candidates: any[], name: string) {
   const rows = candidates.map(c => [
     c.rank, c.fullName, c.email, c.phone ?? "", c.wpm ?? 0, c.accuracy ? c.accuracy.toFixed(1) : 0,
     c.errorCount ?? 0, c.passed ? "Pass" : "Fail", c.tabSwitches ?? 0,
-    c.completedAt ? new Date(c.completedAt).toLocaleString() : "—",
+    c.completedAt ? new Date(c.completedAt).toLocaleString() : "â€”",
   ]);
   const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(",")).join("\n");
   const blob = new Blob([csv], { type: "text/csv" });
@@ -103,7 +103,7 @@ export default function AssessmentDetail() {
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">
               <div>
                 <h1 className="text-2xl font-bold mb-1">{data.name}</h1>
-                <p className="text-muted-foreground text-sm">{data.companyName} · {data.jobPosition}</p>
+                <p className="text-muted-foreground text-sm">{data.companyName} Â· {data.jobPosition}</p>
                 {data.description && <p className="text-sm text-muted-foreground/80 mt-1 max-w-xl">{data.description}</p>}
                 <div className="flex flex-wrap gap-3 mt-3 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{Math.round(data.durationSeconds / 60)} min</span>
@@ -137,7 +137,7 @@ export default function AssessmentDetail() {
                 { icon: Users, label: "Total Candidates", value: total },
                 { icon: CheckCircle2, label: "Passed", value: passCount, color: "text-green-400" },
                 { icon: TrendingUp, label: "Pass Rate", value: `${passRate}%` },
-                { icon: TrendingUp, label: "Avg WPM", value: avgWpm || "—" },
+                { icon: TrendingUp, label: "Avg WPM", value: avgWpm || "â€”" },
               ].map(({ icon: Icon, label, value, color }) => (
                 <div key={label} className="bg-card border border-border/60 rounded-xl p-4">
                   <div className="text-xl font-bold">{value}</div>
@@ -162,7 +162,7 @@ export default function AssessmentDetail() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                 <input
                   value={search} onChange={e => setSearch(e.target.value)}
-                  placeholder="Search by name or email…"
+                  placeholder="Search by name or emailâ€¦"
                   className="w-full pl-9 pr-3 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
@@ -205,10 +205,10 @@ export default function AssessmentDetail() {
                         <td className="px-4 py-3 font-mono text-xs text-muted-foreground">#{c.rank}</td>
                         <td className="px-4 py-3 font-medium">{c.fullName}</td>
                         <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{c.email}</td>
-                        <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">{c.phone ?? "—"}</td>
-                        <td className="px-4 py-3 text-right font-mono font-semibold">{c.wpm ?? "—"}</td>
-                        <td className="px-4 py-3 text-right">{c.accuracy != null ? `${c.accuracy.toFixed(1)}%` : "—"}</td>
-                        <td className="px-4 py-3 text-right hidden md:table-cell">{c.errorCount ?? "—"}</td>
+                        <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">{c.phone ?? "â€”"}</td>
+                        <td className="px-4 py-3 text-right font-mono font-semibold">{c.wpm ?? "â€”"}</td>
+                        <td className="px-4 py-3 text-right">{c.accuracy != null ? `${c.accuracy.toFixed(1)}%` : "â€”"}</td>
+                        <td className="px-4 py-3 text-right hidden md:table-cell">{c.errorCount ?? "â€”"}</td>
                         <td className="px-4 py-3 text-right hidden lg:table-cell">
                           {(c.tabSwitches ?? 0) > 0
                             ? <span className="text-yellow-400">{c.tabSwitches}</span>

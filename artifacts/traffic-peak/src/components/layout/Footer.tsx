@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+﻿import { Link } from "wouter";
 
 function TypingPeakLogo({ className = "" }: { className?: string }) {
   return (
@@ -142,7 +142,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-border/50 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
-          <div>© {new Date().getFullYear()} TypingPeak. All rights reserved.</div>
+          <div>Â© {new Date().getFullYear()} TypingPeak. All rights reserved.</div>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/privacy-policy" className="hover:text-foreground transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link>

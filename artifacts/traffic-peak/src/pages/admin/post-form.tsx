@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useRoute, useLocation, Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { SEOMeta } from "@/components/SEOMeta";

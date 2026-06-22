@@ -1,4 +1,4 @@
-import { useRoute, Link } from "wouter";
+﻿import { useRoute, Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
@@ -36,11 +36,11 @@ export default function BlogPost() {
         publisher: {
           "@type": "Organization",
           name: "TypingPeak",
-          url: "https://typingpeak.replit.app",
+          url: "https://typingpeak.vercel.app",
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `https://typingpeak.replit.app/blog/${post.slug}`,
+          "@id": `https://typingpeak.vercel.app/blog/${post.slug}`,
         },
         ...(post.coverImageUrl
           ? { image: { "@type": "ImageObject", url: post.coverImageUrl } }
@@ -53,8 +53,8 @@ export default function BlogPost() {
       {post && (
         <SEOMeta
           title={post.title}
-          description={post.excerpt ?? `Read "${post.title}" on TypingPeak — the typing speed platform.`}
-          canonical={`https://typingpeak.replit.app/blog/${post.slug}`}
+          description={post.excerpt ?? `Read "${post.title}" on TypingPeak â€” the typing speed platform.`}
+          canonical={`https://typingpeak.vercel.app/blog/${post.slug}`}
           ogImage={post.coverImageUrl ?? undefined}
           ogType="article"
           structuredData={structuredData}
@@ -81,7 +81,7 @@ export default function BlogPost() {
           <div className="text-center py-16" data-testid="post-not-found">
             <h2 className="text-xl font-bold mb-2">Post not found</h2>
             <p className="text-muted-foreground mb-4">This post may have been removed or the URL is incorrect.</p>
-            <Link href="/blog" className="text-primary hover:underline text-sm">← Back to Blog</Link>
+            <Link href="/blog" className="text-primary hover:underline text-sm">â† Back to Blog</Link>
           </div>
         ) : (
           <>

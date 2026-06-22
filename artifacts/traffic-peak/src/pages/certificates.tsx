@@ -1,4 +1,4 @@
-import { useLocation } from "wouter";
+﻿import { useLocation } from "wouter";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";

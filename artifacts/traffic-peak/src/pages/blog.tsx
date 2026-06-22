@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { Link, useSearch } from "wouter";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
@@ -32,11 +32,11 @@ const structuredData = {
   "@type": "Blog",
   name: "TypingPeak Blog",
   description: "Typing tips, productivity guides, keyboard deep-dives, and government exam preparation resources.",
-  url: "https://typingpeak.replit.app/blog",
+  url: "https://typingpeak.vercel.app/blog",
   publisher: {
     "@type": "Organization",
     name: "TypingPeak",
-    url: "https://typingpeak.replit.app",
+    url: "https://typingpeak.vercel.app",
   },
 };
 
@@ -58,7 +58,7 @@ export default function Blog() {
   );
 
   const activeCategory = category || "All";
-  const pageTitle = category ? `${category} — Blog` : "Blog";
+  const pageTitle = category ? `${category} â€” Blog` : "Blog";
   const pageDesc = category
     ? categoryDescriptions[category] ?? `Blog posts about ${category} on TypingPeak.`
     : "Typing tips, productivity guides, keyboard deep-dives, and government exam preparation resources.";

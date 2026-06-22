@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { SEOMeta } from "@/components/SEOMeta";
@@ -17,7 +17,7 @@ import {
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 
-// ── Types ────────────────────────────────────────────────────────────────────
+// â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface AdminUser {
   id: number;
@@ -28,7 +28,7 @@ interface AdminUser {
   createdAt: string;
 }
 
-// ── API helpers ───────────────────────────────────────────────────────────────
+// â”€â”€ API helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 async function fetchAdminUsers(): Promise<AdminUser[]> {
   const res = await fetch("/api/admin/users", { credentials: "include" });
@@ -60,7 +60,7 @@ async function revokeAdmin(email: string) {
   return data;
 }
 
-// ── Sub-components ────────────────────────────────────────────────────────────
+// â”€â”€ Sub-components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function BlogTab() {
   const queryClient = useQueryClient();
@@ -257,7 +257,7 @@ function UsersTab({ currentUserEmail }: { currentUserEmail: string }) {
             className="gap-1.5"
           >
             <UserCheck className="w-3.5 h-3.5" />
-            {grantMutation.isPending ? "Granting…" : "Grant"}
+            {grantMutation.isPending ? "Grantingâ€¦" : "Grant"}
           </Button>
         </div>
       </div>
@@ -287,7 +287,7 @@ function UsersTab({ currentUserEmail }: { currentUserEmail: string }) {
                 onClick={() => revokeMutation.mutate(revokeEmail)}
                 disabled={revokeMutation.isPending}
               >
-                {revokeMutation.isPending ? "Revoking…" : "Confirm Revoke"}
+                {revokeMutation.isPending ? "Revokingâ€¦" : "Confirm Revoke"}
               </Button>
               <Button variant="ghost" size="sm" onClick={() => setConfirmRevoke(null)}>
                 Cancel
@@ -358,7 +358,7 @@ function UsersTab({ currentUserEmail }: { currentUserEmail: string }) {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground text-xs hidden sm:table-cell">@{u.username}</td>
                     <td className="px-4 py-3 text-muted-foreground text-xs hidden md:table-cell">
-                      {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "—"}
+                      {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "â€”"}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <Badge variant="default" className="text-[10px] gap-1">
@@ -413,7 +413,7 @@ function UsersTab({ currentUserEmail }: { currentUserEmail: string }) {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground text-xs hidden sm:table-cell">@{u.username}</td>
                     <td className="px-4 py-3 text-muted-foreground text-xs hidden md:table-cell">
-                      {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "—"}
+                      {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "â€”"}
                     </td>
                     <td className="px-4 py-3 text-right">
                       {u.role === "admin" ? (
@@ -436,7 +436,7 @@ function UsersTab({ currentUserEmail }: { currentUserEmail: string }) {
   );
 }
 
-// ── Main page ─────────────────────────────────────────────────────────────────
+// â”€â”€ Main page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export default function AdminPanel() {
   const { user, isAuthenticated } = useAuth();

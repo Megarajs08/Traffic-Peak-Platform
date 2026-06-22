@@ -1,4 +1,4 @@
-import { useLocation, Link } from "wouter";
+﻿import { useLocation, Link } from "wouter";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -102,7 +102,7 @@ export default function Login() {
               <Input
                 id="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                 className="mt-1"
                 {...register("password")}
                 data-testid="input-password"

@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/layout/Navbar";
+﻿import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { SEOMeta } from "@/components/SEOMeta";
@@ -87,7 +87,7 @@ export default function Terms() {
 
           <Section title="6. Intellectual Property">
             <p>
-              All content on the Service — including text, graphics, logos, software, and curricula — is
+              All content on the Service â€” including text, graphics, logos, software, and curricula â€” is
               owned by or licensed to TypingPeak and protected by applicable intellectual property laws.
               You may not reproduce, distribute, or create derivative works without prior written permission.
             </p>

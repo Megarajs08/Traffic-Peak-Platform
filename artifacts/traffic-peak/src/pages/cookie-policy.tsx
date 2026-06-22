@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/layout/Navbar";
+﻿import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { SEOMeta } from "@/components/SEOMeta";
@@ -70,13 +70,13 @@ export default function CookiePolicy() {
             <p>
               TypingPeak uses cookies in the following categories:
             </p>
-            <p><strong className="text-foreground">Essential Cookies</strong> — required for the Service to function. You cannot opt out of these.</p>
+            <p><strong className="text-foreground">Essential Cookies</strong> â€” required for the Service to function. You cannot opt out of these.</p>
             <CookieTable
               rows={[
                 {
                   name: "tp_session",
                   type: "Essential",
-                  purpose: "Keeps you logged in across page visits. HttpOnly — inaccessible to JavaScript.",
+                  purpose: "Keeps you logged in across page visits. HttpOnly â€” inaccessible to JavaScript.",
                   duration: "30 days",
                 },
                 {
@@ -87,13 +87,13 @@ export default function CookiePolicy() {
                 },
               ]}
             />
-            <p><strong className="text-foreground">Analytics Cookies</strong> — used to understand site usage. Only set with your consent.</p>
+            <p><strong className="text-foreground">Analytics Cookies</strong> â€” used to understand site usage. Only set with your consent.</p>
             <CookieTable
               rows={[
                 {
                   name: "_ga, _gid",
                   type: "Analytics",
-                  purpose: "Google Analytics — measures traffic, pages visited, and time on site. Set only with consent.",
+                  purpose: "Google Analytics â€” measures traffic, pages visited, and time on site. Set only with consent.",
                   duration: "Up to 2 years",
                 },
               ]}
@@ -113,8 +113,8 @@ export default function CookiePolicy() {
               When you first visit TypingPeak, a cookie consent banner will appear. You can:
             </p>
             <ul className="list-disc pl-6 space-y-1">
-              <li><strong className="text-foreground">Accept All</strong> — enables essential and analytics cookies.</li>
-              <li><strong className="text-foreground">Essential Only</strong> — enables only cookies required for the Service to function.</li>
+              <li><strong className="text-foreground">Accept All</strong> â€” enables essential and analytics cookies.</li>
+              <li><strong className="text-foreground">Essential Only</strong> â€” enables only cookies required for the Service to function.</li>
             </ul>
             <p>
               You can clear your cookie preference at any time by clearing your browser's localStorage

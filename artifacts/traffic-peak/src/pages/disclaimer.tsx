@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/layout/Navbar";
+﻿import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { SEOMeta } from "@/components/SEOMeta";
@@ -43,7 +43,7 @@ export default function Disclaimer() {
 
           <Section title="2. No Professional Advice">
             <p>
-              Nothing on TypingPeak constitutes professional advice of any kind — including but not limited
+              Nothing on TypingPeak constitutes professional advice of any kind â€” including but not limited
               to medical, ergonomic, employment, or career advice. Typing speed requirements for specific jobs
               or examinations vary by employer and jurisdiction. Always verify requirements directly with the
               relevant authority.

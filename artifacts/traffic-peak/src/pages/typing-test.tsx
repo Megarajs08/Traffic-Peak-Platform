@@ -1,4 +1,4 @@
-import {
+﻿import {
   useState,
   useEffect,
   useRef,
@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { RotateCcw, Award, RefreshCw } from "lucide-react";
 import { top1000Words } from "@/lib/words";
 
-// â"€â"€â"€ Types â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Types Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
 type Mode = "words" | "paragraph" | "quotes" | "numbers" | "symbols";
 type Duration = 15 | 30 | 60 | 120 | 300;
@@ -25,7 +25,7 @@ interface CharData {
   state: CharState;
 }
 
-// â"€â"€â"€ Constants â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Constants Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
 const MODES: { id: Mode; label: string }[] = [
   { id: "words",     label: "words"     },
@@ -52,7 +52,7 @@ const PARAGRAPHS = [
   "Exercise is one of the most powerful tools available for maintaining physical and mental health across all stages of life. Regular movement strengthens the heart builds muscle and improves flexibility while also boosting mood and reducing anxiety. Simple activities like walking cycling or swimming can make a substantial difference when practiced consistently. Rest and recovery are equally important allowing the body to repair and grow stronger between sessions of physical activity.",
 ];
 
-// â"€â"€â"€ Text generation â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Text generation Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
 function generateText(mode: Mode): string {
   switch (mode) {
@@ -83,7 +83,7 @@ function generateText(mode: Mode): string {
   }
 }
 
-// â"€â"€â"€ Memoised character span â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Memoised character span Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
 const Char = memo(function Char({
   char,
@@ -118,7 +118,7 @@ const Char = memo(function Char({
   );
 });
 
-// â"€â"€â"€ Stat chip â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Stat chip Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
 const StatChip = memo(function StatChip({
   label,
@@ -147,7 +147,7 @@ const StatChip = memo(function StatChip({
   );
 });
 
-// â"€â"€â"€ Speed tier animals â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Speed tier animals Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
 const SnailSvg = () => (
   <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -272,7 +272,7 @@ const TRexSvg = () => (
         <path d="M100 86 Q110 82 118 85" stroke="#1e5c14" strokeWidth="1.5" strokeLinecap="round" opacity=".45"/>
       </g>
 
-      {/* BACK LEGS â€" thick, powerful */}
+      {/* BACK LEGS Ã¢â‚¬" thick, powerful */}
       <path d="M72 100 Q68 118 64 130" stroke="#3a8f2a" strokeWidth="16" strokeLinecap="round"/>
       <path d="M88 100 Q92 118 94 130" stroke="#3a8f2a" strokeWidth="14" strokeLinecap="round"/>
       {/* feet claws */}
@@ -285,7 +285,7 @@ const TRexSvg = () => (
       <path d="M38 72 Q40 50 56 44 Q74 38 92 50 Q104 58 102 78 Q100 96 84 102 Q66 108 50 100 Q36 92 36 80 Q36 76 38 72Z"
         fill="url(#tx-skin)" stroke="#1e5c14" strokeWidth="2.5"/>
 
-      {/* BELLY â€" orange/yellow patch */}
+      {/* BELLY Ã¢â‚¬" orange/yellow patch */}
       <path d="M52 96 Q66 104 82 98 Q92 92 90 76 Q88 62 74 58 Q60 56 52 66 Q46 74 48 86 Q50 92 52 96Z"
         fill="url(#tx-belly)" stroke="#d97706" strokeWidth="1.5"/>
 
@@ -298,7 +298,7 @@ const TRexSvg = () => (
       <path d="M56 44 Q59 32 62 44 M66 41 Q69 29 72 41 M76 40 Q79 28 82 40 M84 44 Q87 33 90 45"
         stroke="#1e5c14" strokeWidth="3" strokeLinecap="round" opacity=".85"/>
 
-      {/* CAPE â€" flowing behind body */}
+      {/* CAPE Ã¢â‚¬" flowing behind body */}
       <g className="tx2-cape">
         <path d="M72 56 Q84 62 88 76 Q84 94 78 106 Q70 100 66 86 Q62 72 66 60 Q68 54 72 56Z"
           fill="url(#tx-cape)" stroke="#ca8a04" strokeWidth="2"/>
@@ -318,10 +318,10 @@ const TRexSvg = () => (
       {/* neck belly */}
       <path d="M44 66 Q48 58 54 62 Q56 68 50 72 Q46 72 44 66Z" fill="url(#tx-belly)" opacity=".7"/>
 
-      {/* HEAD â€" large rounded, side-facing */}
+      {/* HEAD Ã¢â‚¬" large rounded, side-facing */}
       <ellipse cx="50" cy="36" rx="28" ry="22" fill="url(#tx-skin)" stroke="#1e5c14" strokeWidth="2.5"/>
 
-      {/* UPPER SNOUT â€" jutting forward left */}
+      {/* UPPER SNOUT Ã¢â‚¬" jutting forward left */}
       <path d="M28 38 Q18 42 12 50 Q14 52 22 52 Q34 52 46 50 L50 42Z"
         fill="url(#tx-skin)" stroke="#1e5c14" strokeWidth="2"/>
 
@@ -329,7 +329,7 @@ const TRexSvg = () => (
       <path d="M22 44 Q14 50 10 58 Q22 56 36 57 Q44 57 48 52Z"
         fill="url(#tx-belly)"/>
 
-      {/* LOWER JAW â€" animated chomping */}
+      {/* LOWER JAW Ã¢â‚¬" animated chomping */}
       <g className="tx2-jaw">
         <path d="M22 48 Q14 56 10 64 Q24 62 38 63 Q46 63 50 56 L48 46Z"
           fill="url(#tx-skin)" stroke="#1e5c14" strokeWidth="2"/>
@@ -345,7 +345,7 @@ const TRexSvg = () => (
       {/* nostril */}
       <ellipse cx="13" cy="46" rx="2.5" ry="2" fill="#1e5c14" opacity=".8"/>
 
-      {/* EYE â€" large cartoon side-profile */}
+      {/* EYE Ã¢â‚¬" large cartoon side-profile */}
       <circle cx="54" cy="22" r="11" fill="white" stroke="#1e5c14" strokeWidth="2"/>
       <circle cx="54" cy="22" r="8" fill="#111"/>
       <circle cx="54" cy="22" r="5.5" fill="#2d7a1f"/>
@@ -564,7 +564,7 @@ const CheetahSvg = () => (
       {/* back legs */}
       <g className="ch-lC" filter="url(#ch-blur)"><path d="M116 88 Q112 100 108 108" stroke="#92400e" strokeWidth="9" strokeLinecap="round"/></g>
       <g className="ch-lD" filter="url(#ch-blur)"><path d="M136 88 Q138 100 142 108" stroke="#92400e" strokeWidth="9" strokeLinecap="round"/></g>
-      {/* body â€" stretched ellipse for gallop */}
+      {/* body Ã¢â‚¬" stretched ellipse for gallop */}
       <path d="M58 74 Q64 52 90 50 Q130 46 158 60 Q168 66 168 74 Q168 86 150 88 Q118 94 82 90 Q58 86 58 74Z"
         fill="url(#ch-body)" stroke="#92400e" strokeWidth="2"/>
       {/* belly cream */}
@@ -883,11 +883,11 @@ const RocketSvg = () => (
       <path d="M16 70 L58 67" stroke="#fde68a" strokeWidth="1.5" strokeLinecap="round" opacity=".2"/>
     </g>
     <g className="rk-all" filter="url(#rk-glow)">
-      {/* exhaust flame â€" outer */}
+      {/* exhaust flame Ã¢â‚¬" outer */}
       <g className="rk-fo" filter="url(#rk-flame-glow)">
         <path d="M94 88 Q90 108 110 116 Q130 108 126 88Z" fill="url(#rk-fl1)"/>
       </g>
-      {/* exhaust flame â€" mid */}
+      {/* exhaust flame Ã¢â‚¬" mid */}
       <g className="rk-fi">
         <path d="M100 88 Q98 106 110 114 Q122 106 120 88Z" fill="url(#rk-fl2)"/>
         <path d="M104 88 Q104 104 110 112 Q116 104 116 88Z" fill="#ef4444"/>
@@ -927,37 +927,37 @@ interface SpeedTier {
 function getSpeedTier(wpm: number): SpeedTier {
   if (wpm <= 20) return {
     title: "Rising Typist",
-    message: (w, c, a) => `${w} WPM · ${c} CPM · ${a}% accuracy. Every expert was once a beginner — keep pushing!`,
+    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. Every expert was once a beginner â€” keep pushing!`,
     Svg: SnailSvg,
   };
   if (wpm <= 40) return {
     title: "T-Rex Typist",
-    message: (w, c, a) => `${w} WPM · ${c} CPM · ${a}% accuracy. You're stomping through the keys — unstoppable momentum!`,
+    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. You're stomping through the keys â€” unstoppable momentum!`,
     Svg: TRexSvg,
   };
   if (wpm <= 60) return {
     title: "Fast Fingers",
-    message: (w, c, a) => `${w} WPM · ${c} CPM · ${a}% accuracy. Your fingers are flying — well above average!`,
+    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. Your fingers are flying â€” well above average!`,
     Svg: RabbitSvg,
   };
   if (wpm <= 80) return {
     title: "Elite Typist",
-    message: (w, c, a) => `${w} WPM · ${c} CPM · ${a}% accuracy. Elite speed — you're outpacing 90% of typists!`,
+    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. Elite speed â€” you're outpacing 90% of typists!`,
     Svg: CheetahSvg,
   };
   if (wpm <= 100) return {
     title: "Precision Pro",
-    message: (w, c, a) => `${w} WPM · ${c} CPM · ${a}% accuracy. Effortless precision at blazing speed — seriously impressive!`,
+    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. Effortless precision at blazing speed â€” seriously impressive!`,
     Svg: EagleSvg,
   };
   return {
     title: "Lightning Fingers",
-    message: (w, c, a) => `${w} WPM · ${c} CPM · ${a}% accuracy. LEGENDARY. You type faster than most people think!`,
+    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. LEGENDARY. You type faster than most people think!`,
     Svg: LightningSvg,
   };
 }
 
-// â"€â"€â"€ Main component â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+// Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Main component Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
 export default function TypingTest() {
   const [mode, setMode]                 = useState<Mode>("words");
@@ -990,7 +990,7 @@ export default function TypingTest() {
   const submitTest  = useSubmitTest();
   const generateCert = useGenerateCertificate();
 
-  // â"€â"€ Init chars â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ Init chars Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   useEffect(() => {
     setChars(
       text.split("").map((char, i) => ({
@@ -1021,7 +1021,7 @@ export default function TypingTest() {
     reset();
   }, [duration, reset]);
 
-  // â"€â"€ Timer â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ Timer Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   useEffect(() => {
     if (!started || finished) return;
     timerRef.current = setInterval(() => {
@@ -1046,7 +1046,7 @@ export default function TypingTest() {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [started, finished, startTime]);
 
-  // â"€â"€ Auto-submit â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ Auto-submit Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   useEffect(() => {
     if (!finished || correctChars === 0) return;
     const elapsed = (Date.now() - startTime) / 1000 / 60;
@@ -1060,7 +1060,7 @@ export default function TypingTest() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finished]);
 
-  // â"€â"€ Line-snap: scroll up when caret moves onto line 3 â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ Line-snap: scroll up when caret moves onto line 3 Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   // Uses offsetTop (layout position, unaffected by translateY) so the
   // measurement is always accurate regardless of current scroll state.
   useEffect(() => {
@@ -1081,7 +1081,7 @@ export default function TypingTest() {
     setLineOffset(targetOffset);
   }, [currentIndex]);
 
-  // â"€â"€ Tab+Enter to restart â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ Tab+Enter to restart Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   useEffect(() => {
     let tab = false;
     const onKey = (e: KeyboardEvent) => {
@@ -1093,7 +1093,7 @@ export default function TypingTest() {
     return () => window.removeEventListener("keydown", onKey);
   }, [reset]);
 
-  // â"€â"€ Keystroke handler â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ Keystroke handler Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (finished) return;
@@ -1148,7 +1148,7 @@ export default function TypingTest() {
     [finished, started, currentIndex, chars]
   );
 
-  // â"€â"€ Live stats â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ Live stats Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   const elapsedMinutes = useMemo(() => {
     const ms = started ? (finished ? elapsedMs : Date.now() - startTime) : 0;
     return Math.max(ms / 1000 / 60, 0.001);
@@ -1172,7 +1172,7 @@ export default function TypingTest() {
     return elapsed > 0 ? Math.round(correctChars / 5 / elapsed) : 0;
   }, [finished, liveWpm, duration, timeLeft, correctChars, elapsedMs]);
 
-  // â"€â"€ Render â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
+  // Ã¢"â‚¬Ã¢"â‚¬ Render Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   return (
     <div
       className="min-h-screen flex flex-col bg-background"
@@ -1245,7 +1245,7 @@ export default function TypingTest() {
 
         </div>
 
-        {/* â"€â"€ Mode selector (above card) â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
+        {/* Ã¢"â‚¬Ã¢"â‚¬ Mode selector (above card) Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ */}
         <div className="flex items-center gap-0.5 text-sm select-none" data-testid="mode-selector">
           {MODES.map((m) => (
             <button
@@ -1299,7 +1299,7 @@ export default function TypingTest() {
                 {(() => {
                   const maxWpm = 150;
                   const pct = Math.min(liveWpm / maxWpm, 1);
-                  // Arc from 210° to 330° (150° sweep) — left-to-right
+                  // Arc from 210Â° to 330Â° (150Â° sweep) â€” left-to-right
                   const cx = 28, cy = 28, r = 20;
                   const startAngle = 215;
                   const sweep = 110;
@@ -1317,7 +1317,7 @@ export default function TypingTest() {
                   const needleAngle = startAngle + sweep * pct;
                   const nx = cx + (r - 5) * Math.cos(toRad(needleAngle));
                   const ny = cy + (r - 5) * Math.sin(toRad(needleAngle));
-                  // Color: green→yellow→red based on speed
+                  // Color: greenâ†’yellowâ†’red based on speed
                   const color = pct < 0.4 ? "#5cb85c" : pct < 0.75 ? "#e2b714" : "#ca4754";
                   return (
                     <svg width="56" height="40" viewBox="0 0 56 42" fill="none">
@@ -1371,7 +1371,7 @@ export default function TypingTest() {
             {!started && (
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <p className="text-sm text-muted-foreground/30 tracking-widest uppercase font-mono">
-                  start typing…
+                  start typingâ€¦
                 </p>
               </div>
             )}
@@ -1392,7 +1392,7 @@ export default function TypingTest() {
           </div>
         </div>
 
-        {/* â"€â"€ Hidden input â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
+        {/* Ã¢"â‚¬Ã¢"â‚¬ Hidden input Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ */}
         <input
           ref={inputRef}
           className="fixed -top-[999px] opacity-0 w-0 h-0 pointer-events-none"
@@ -1619,7 +1619,7 @@ export default function TypingTest() {
         )}
       </AnimatePresence>
 
-      {/* â"€â"€ Certificate modal â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */}
+      {/* Ã¢"â‚¬Ã¢"â‚¬ Certificate modal Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ */}
       <AnimatePresence>
         {showCertModal && (
           <motion.div
@@ -1674,7 +1674,7 @@ export default function TypingTest() {
                   }}
                   data-testid="button-cert-generate"
                 >
-                  {generateCert.isPending ? "Generatingâ€¦" : "Generate"}
+                  {generateCert.isPending ? "GeneratingÃ¢â‚¬Â¦" : "Generate"}
                 </Button>
               </div>
             </motion.div>

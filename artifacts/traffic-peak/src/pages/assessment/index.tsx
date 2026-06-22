@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+﻿import { useState, useEffect, useRef, useCallback } from "react";
 import { useRoute } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, CheckCircle2, XCircle, Clock, Shield, Eye, Keyboard } from "lucide-react";
 
-// ── Word lists ────────────────────────────────────────────────────────────────
+// â”€â”€ Word lists â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const WORDS_EN = [
   "the", "be", "to", "of", "and", "a", "in", "that", "have", "it",
   "for", "not", "on", "with", "he", "as", "you", "do", "at", "this",
@@ -44,7 +44,7 @@ function generateText(contentType: string, customText: string | null, count = 12
   return picked.join(" ");
 }
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+// â”€â”€ Types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 type Phase = "loading" | "intake" | "instructions" | "test" | "result" | "error";
 
 type AssessmentInfo = {
@@ -86,7 +86,7 @@ type SubmitResult = {
   jobPosition: string;
 };
 
-// ── Main Component ─────────────────────────────────────────────────────────────
+// â”€â”€ Main Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function CandidateAssessment() {
   const [, params] = useRoute("/assessment/:token");
   const token = params?.token ?? "";
@@ -117,7 +117,7 @@ export default function CandidateAssessment() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const tabSwitchesRef = useRef(0);
 
-  // ── Load assessment info ───────────────────────────────────────────────────
+  // â”€â”€ Load assessment info â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   useEffect(() => {
     if (!token) return;
     fetch(`/api/assessment/${token}`)
@@ -126,7 +126,7 @@ export default function CandidateAssessment() {
       .catch((msg: string) => { setErrorMsg(msg ?? "Assessment not found"); setPhase("error"); });
   }, [token]);
 
-  // ── Anti-cheat: tab switch detection ──────────────────────────────────────
+  // â”€â”€ Anti-cheat: tab switch detection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   useEffect(() => {
     if (phase !== "test" || testEnded) return;
 
@@ -148,7 +148,7 @@ export default function CandidateAssessment() {
     return () => document.removeEventListener("visibilitychange", onVisibilityChange);
   }, [phase, testStarted, testEnded]);
 
-  // ── Timer ──────────────────────────────────────────────────────────────────
+  // â”€â”€ Timer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   useEffect(() => {
     if (!testStarted || testEnded || timeLeft <= 0) return;
     timerRef.current = setInterval(() => {
@@ -171,7 +171,7 @@ export default function CandidateAssessment() {
     }
   }, [testEnded]);
 
-  // ── Calculate stats ────────────────────────────────────────────────────────
+  // â”€â”€ Calculate stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function calcStats() {
     if (!candidateSession) return { wpm: 0, cpm: 0, accuracy: 0, errorCount: 0, charCount: 0 };
     const duration = (candidateSession.durationSeconds - timeLeft);
@@ -219,7 +219,7 @@ export default function CandidateAssessment() {
     setAutoSubmitWarning(false);
   }
 
-  // ── Start test ─────────────────────────────────────────────────────────────
+  // â”€â”€ Start test â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   async function handleStart() {
     if (!fullName.trim() || !email.trim()) return;
     try {
@@ -265,14 +265,14 @@ export default function CandidateAssessment() {
     return `${m}:${sec.toString().padStart(2, "0")}`;
   }
 
-  // ── Render ─────────────────────────────────────────────────────────────────
+  // â”€â”€ Render â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (phase === "loading") return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 flex items-center justify-center">
         <div className="space-y-3 text-center">
           <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm text-muted-foreground">Loading assessment…</p>
+          <p className="text-sm text-muted-foreground">Loading assessmentâ€¦</p>
         </div>
       </main>
       <Footer />
@@ -293,7 +293,7 @@ export default function CandidateAssessment() {
     </div>
   );
 
-  // ── Intake Form ────────────────────────────────────────────────────────────
+  // â”€â”€ Intake Form â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (phase === "intake") return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -304,7 +304,7 @@ export default function CandidateAssessment() {
               <Keyboard className="w-7 h-7 text-primary" />
             </div>
             <h1 className="text-2xl font-bold">{info?.name}</h1>
-            <p className="text-muted-foreground text-sm mt-1">{info?.companyName} · {info?.jobPosition}</p>
+            <p className="text-muted-foreground text-sm mt-1">{info?.companyName} Â· {info?.jobPosition}</p>
             {info?.description && <p className="text-sm text-muted-foreground/80 mt-3 max-w-sm mx-auto">{info.description}</p>}
           </div>
 
@@ -346,7 +346,7 @@ export default function CandidateAssessment() {
     </div>
   );
 
-  // ── Instructions ────────────────────────────────────────────────────────────
+  // â”€â”€ Instructions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (phase === "instructions") return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -376,7 +376,7 @@ export default function CandidateAssessment() {
           </div>
 
           <Button className="w-full" onClick={beginTest}>
-            I Understand — Start Test
+            I Understand â€” Start Test
           </Button>
         </motion.div>
       </main>
@@ -384,7 +384,7 @@ export default function CandidateAssessment() {
     </div>
   );
 
-  // ── Test ───────────────────────────────────────────────────────────────────
+  // â”€â”€ Test â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (phase === "test") {
     const chars = testText.split("");
     const pct = typed.length / testText.length;
@@ -412,7 +412,7 @@ export default function CandidateAssessment() {
                 <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span className="text-sm font-medium">
                   {autoSubmitWarning
-                    ? "3 tab switches detected. Auto-submitting in 4 seconds…"
+                    ? "3 tab switches detected. Auto-submitting in 4 secondsâ€¦"
                     : `Warning ${tabWarnings}/3: Do not switch tabs! Next switch will auto-submit.`}
                 </span>
               </motion.div>
@@ -426,11 +426,11 @@ export default function CandidateAssessment() {
               <div className="text-xs text-muted-foreground">time left</div>
             </div>
             <div className="text-center">
-              <div className="text-xl font-bold font-mono">{testStarted ? liveWpm : "—"}</div>
+              <div className="text-xl font-bold font-mono">{testStarted ? liveWpm : "â€”"}</div>
               <div className="text-xs text-muted-foreground">WPM</div>
             </div>
             <div className="text-center">
-              <div className="text-xl font-bold font-mono">{testStarted ? `${errors}` : "—"}</div>
+              <div className="text-xl font-bold font-mono">{testStarted ? `${errors}` : "â€”"}</div>
               <div className="text-xs text-muted-foreground">errors</div>
             </div>
             <div className="text-center">
@@ -477,14 +477,14 @@ export default function CandidateAssessment() {
             className="mt-2 text-center text-xs text-muted-foreground cursor-pointer"
             onClick={() => inputRef.current?.focus()}
           >
-            Click here if the test stops responding · Tab disabled
+            Click here if the test stops responding Â· Tab disabled
           </div>
 
           {/* Submit button */}
           {testStarted && (
             <div className="flex justify-center mt-6">
               <Button variant="outline" onClick={() => setTestEnded(true)} disabled={submitting}>
-                {submitting ? "Submitting…" : "Submit Early"}
+                {submitting ? "Submittingâ€¦" : "Submit Early"}
               </Button>
             </div>
           )}
@@ -494,7 +494,7 @@ export default function CandidateAssessment() {
     );
   }
 
-  // ── Result ─────────────────────────────────────────────────────────────────
+  // â”€â”€ Result â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   if (phase === "result" && submitResult) {
     const passed = submitResult.passed;
     return (

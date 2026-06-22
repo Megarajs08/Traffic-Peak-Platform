@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+﻿import { useState, useCallback, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useSaveLessonProgress, getListLessonProgressQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -167,7 +167,7 @@ export default function LessonPlayer({ lesson, progress, onBack }: LessonPlayerP
         <div className="bg-card border border-border rounded-xl p-6 text-center" data-testid="lesson-complete">
           <CheckCircle2 className="w-10 h-10 text-green-400 mx-auto mb-3" />
           <h3 className="text-lg font-bold mb-1">Lesson Complete!</h3>
-          <p className="text-muted-foreground text-sm mb-4">{wpm} WPM · {accuracy}% accuracy</p>
+          <p className="text-muted-foreground text-sm mb-4">{wpm} WPM Â· {accuracy}% accuracy</p>
           <div className="flex gap-3 justify-center">
             <Button variant="outline" onClick={initChars} className="gap-2" data-testid="button-retry-lesson">
               <RotateCcw className="w-4 h-4" />

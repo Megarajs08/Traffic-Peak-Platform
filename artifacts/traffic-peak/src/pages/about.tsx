@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/layout/Navbar";
+﻿import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { SEOMeta } from "@/components/SEOMeta";
@@ -24,7 +24,7 @@ const values = [
   {
     icon: BookOpen,
     title: "Structured Curriculum",
-    description: "From home row basics to advanced speed drills — a full curriculum that takes any beginner to expert level.",
+    description: "From home row basics to advanced speed drills â€” a full curriculum that takes any beginner to expert level.",
   },
   {
     icon: Award,
@@ -43,14 +43,14 @@ const structuredData = {
   "@type": "AboutPage",
   name: "About TypingPeak",
   description: "Learn about TypingPeak's mission to help people improve their typing speed and accuracy.",
-  url: "https://typingpeak.replit.app/about",
+  url: "https://typingpeak.vercel.app/about",
   publisher: {
     "@type": "Organization",
     name: "TypingPeak",
-    url: "https://typingpeak.replit.app",
+    url: "https://typingpeak.vercel.app",
     logo: {
       "@type": "ImageObject",
-      url: "https://typingpeak.replit.app/favicon.svg",
+      url: "https://typingpeak.vercel.app/favicon.svg",
     },
   },
 };
@@ -75,7 +75,7 @@ export default function About() {
           </div>
           <h1 className="text-4xl font-bold mb-4">About TypingPeak</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We're on a mission to make everyone a faster, more accurate typist — because keyboard fluency
+            We're on a mission to make everyone a faster, more accurate typist â€” because keyboard fluency
             is one of the highest-leverage skills in the modern world.
           </p>
         </div>
@@ -85,7 +85,7 @@ export default function About() {
           <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
           <p className="text-muted-foreground leading-relaxed mb-4">
             TypingPeak was built because every other typing platform felt either too casual or too clinical.
-            We wanted something that took the craft seriously — zero input lag, real analytics, structured
+            We wanted something that took the craft seriously â€” zero input lag, real analytics, structured
             lessons that actually build skill, and certificates that carry real weight.
           </p>
           <p className="text-muted-foreground leading-relaxed mb-4">
@@ -119,7 +119,7 @@ export default function About() {
         <section className="text-center bg-primary/5 border border-primary/20 rounded-2xl p-10">
           <h2 className="text-2xl font-bold mb-3">Ready to hit your peak?</h2>
           <p className="text-muted-foreground mb-6">
-            Start your first typing test right now — no account needed.
+            Start your first typing test right now â€” no account needed.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link href="/typing-test" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors">

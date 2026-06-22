@@ -1,4 +1,4 @@
-import { Link, useLocation } from "wouter";
+﻿import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/auth-context";
@@ -16,7 +16,7 @@ function TypingPeakLogo({ className = "" }: { className?: string }) {
       className={className}
       aria-hidden
     >
-      {/* "typing" — bold, foreground color */}
+      {/* "typing" â€” bold, foreground color */}
       <text
         x="0" y="28"
         fontFamily="'Inter', 'Glacial Indifference', sans-serif"
@@ -29,12 +29,12 @@ function TypingPeakLogo({ className = "" }: { className?: string }) {
       {/* Keyboard icon between the words */}
       {/* Body */}
       <rect x="88" y="14" width="32" height="19" rx="3" stroke="hsl(var(--primary))" strokeWidth="1.5" fill="none" />
-      {/* Key row 1 — 4 small keys */}
+      {/* Key row 1 â€” 4 small keys */}
       <rect x="91" y="17" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.7" />
       <rect x="98" y="17" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.7" />
       <rect x="105" y="17" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.7" />
       <rect x="112" y="17" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.7" />
-      {/* Key row 2 — 3 keys offset */}
+      {/* Key row 2 â€” 3 keys offset */}
       <rect x="91" y="23" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.5" />
       <rect x="98" y="23" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.5" />
       <rect x="105" y="23" width="5" height="4" rx="1" fill="hsl(var(--primary))" opacity="0.5" />
@@ -42,7 +42,7 @@ function TypingPeakLogo({ className = "" }: { className?: string }) {
       {/* Spacebar */}
       <rect x="96" y="29" width="16" height="3" rx="1.5" fill="hsl(var(--primary))" opacity="0.6" />
 
-      {/* "peak" — regular weight, primary color */}
+      {/* "peak" â€” regular weight, primary color */}
       <text
         x="124" y="28"
         fontFamily="'Inter', 'Glacial Indifference', sans-serif"

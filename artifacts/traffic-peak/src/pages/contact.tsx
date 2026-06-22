@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
@@ -32,7 +32,7 @@ const structuredData = {
   "@type": "ContactPage",
   name: "Contact TypingPeak",
   description: "Get in touch with the TypingPeak team for support, feedback, or general inquiries.",
-  url: "https://typingpeak.replit.app/contact",
+  url: "https://typingpeak.vercel.app/contact",
 };
 
 export default function Contact() {

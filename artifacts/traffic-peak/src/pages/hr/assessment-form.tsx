@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useRoute, useLocation, Link } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -180,7 +180,7 @@ export default function AssessmentForm() {
               <label className="block text-sm font-medium mb-1.5">Description (optional)</label>
               <textarea value={form.description} onChange={e => set("description", e.target.value)} rows={3}
                 className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary resize-none"
-                placeholder="Instructions shown to candidates…" />
+                placeholder="Instructions shown to candidatesâ€¦" />
             </div>
           </section>
 
@@ -230,7 +230,7 @@ export default function AssessmentForm() {
                 <label className="block text-sm font-medium mb-1.5">Custom Text</label>
                 <textarea value={form.customText} onChange={e => set("customText", e.target.value)} rows={5}
                   className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-1 focus:ring-primary resize-none"
-                  placeholder="Paste the text candidates will type…" />
+                  placeholder="Paste the text candidates will typeâ€¦" />
               </div>
             )}
           </section>
@@ -275,7 +275,7 @@ export default function AssessmentForm() {
 
           <div className="flex gap-3 justify-end">
             <Link href="/hr"><Button type="button" variant="outline">Cancel</Button></Link>
-            <Button type="submit" disabled={saving}>{saving ? "Saving…" : isEdit ? "Save Changes" : "Create Assessment"}</Button>
+            <Button type="submit" disabled={saving}>{saving ? "Savingâ€¦" : isEdit ? "Save Changes" : "Create Assessment"}</Button>
           </div>
         </form>
       </main>

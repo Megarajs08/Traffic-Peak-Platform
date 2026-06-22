@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+﻿import { Link } from "wouter";
 import { ChevronRight, Home } from "lucide-react";
 
 interface BreadcrumbItem {
@@ -20,7 +20,7 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
       "@type": "ListItem",
       position: index + 1,
       name: item.label,
-      ...(item.href ? { item: `https://typingpeak.replit.app${item.href}` } : {}),
+      ...(item.href ? { item: `https://typingpeak.vercel.app${item.href}` } : {}),
     })),
   };
 

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+﻿import { useState, useCallback, useRef, useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SEOMeta } from "@/components/SEOMeta";
@@ -12,10 +12,10 @@ import {
   ZoomIn, ZoomOut, RotateCcw,
 } from "lucide-react";
 
-// ─── Font size options ────────────────────────────────────────────────────────
+// â”€â”€â”€ Font size options â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const FONT_SIZES = [12, 14, 16, 18, 20, 24, 28, 32, 36, 48];
 
-// ─── Toolbar button ───────────────────────────────────────────────────────────
+// â”€â”€â”€ Toolbar button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function ToolBtn({
   onClick, active, title, children, disabled,
 }: {
@@ -40,7 +40,7 @@ function ToolBtn({
   );
 }
 
-// ─── Language dropdown ────────────────────────────────────────────────────────
+// â”€â”€â”€ Language dropdown â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function LangDropdown({
   current, onChange,
 }: { current: Language; onChange: (l: Language) => void }) {
@@ -89,7 +89,7 @@ function LangDropdown({
   );
 }
 
-// ─── Font size picker ─────────────────────────────────────────────────────────
+// â”€â”€â”€ Font size picker â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function FontSizePicker({ size, onChange }: { size: number; onChange: (s: number) => void }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -144,7 +144,7 @@ function FontSizePicker({ size, onChange }: { size: number; onChange: (s: number
   );
 }
 
-// ─── Main page ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Main page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function MultilingualTyping() {
   const [lang, setLang] = useState<Language>(LANGUAGES[0]); // Tamil default
   const [rawText, setRawText] = useState("");
@@ -239,7 +239,7 @@ export default function MultilingualTyping() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       <SEOMeta
-        title="Multilingual Typing Tool — Type in Tamil, Hindi & More | Typing Peak"
+        title="Multilingual Typing Tool â€” Type in Tamil, Hindi & More | Typing Peak"
         description="Type in Indian languages instantly. Phonetic transliteration for Tamil, Hindi, Telugu, Malayalam, Kannada, Bengali, and Marathi. No software needed."
         keywords="tamil typing, hindi typing, telugu typing, malayalam typing, kannada typing, bengali typing, marathi typing, transliteration, indian language typing"
       />
@@ -247,7 +247,7 @@ export default function MultilingualTyping() {
 
       <main className="flex-1 flex flex-col">
 
-        {/* ── Page header ── */}
+        {/* â”€â”€ Page header â”€â”€ */}
         <div className="border-b border-border/60 bg-card/50">
           <div className="container mx-auto px-4 py-4 max-w-6xl flex items-center justify-between gap-4 flex-wrap">
             <div>
@@ -256,14 +256,14 @@ export default function MultilingualTyping() {
                 Multilingual Typing
               </h1>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Type in English — get Indian language output instantly
+                Type in English â€” get Indian language output instantly
               </p>
             </div>
             <LangDropdown current={lang} onChange={handleLangChange} />
           </div>
         </div>
 
-        {/* ── Word toolbar (Google Docs style) ── */}
+        {/* â”€â”€ Word toolbar (Google Docs style) â”€â”€ */}
         <div className="sticky top-0 z-30 border-b border-border/60 bg-card/95 backdrop-blur-sm shadow-sm">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="flex items-center gap-1 py-1.5 flex-wrap">
@@ -310,7 +310,7 @@ export default function MultilingualTyping() {
                 <Trash2 className="w-4 h-4" />
               </ToolBtn>
 
-              {/* Language quick-select pills — mobile friendly shortcuts */}
+              {/* Language quick-select pills â€” mobile friendly shortcuts */}
               <div className="ml-auto flex items-center gap-1 flex-wrap">
                 {LANGUAGES.map((l) => (
                   <button
@@ -331,7 +331,7 @@ export default function MultilingualTyping() {
           </div>
         </div>
 
-        {/* ── Editor area — two-panel like Google Docs ── */}
+        {/* â”€â”€ Editor area â€” two-panel like Google Docs â”€â”€ */}
         <div className="flex-1 container mx-auto px-4 py-6 max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full" style={{ minHeight: "60vh" }}>
 
@@ -343,7 +343,7 @@ export default function MultilingualTyping() {
                   English Input (Phonetic)
                 </span>
               </div>
-              {/* Suggestion bar — shown while typing a Tamil word */}
+              {/* Suggestion bar â€” shown while typing a Tamil word */}
               {suggestions.length > 0 && (
                 <div className="flex items-center gap-1.5 px-4 py-2 border-b border-border/50 bg-muted/20 flex-wrap">
                   <span className="text-[10px] text-muted-foreground uppercase tracking-wider mr-1">Suggestions:</span>
@@ -364,7 +364,7 @@ export default function MultilingualTyping() {
                 ref={textareaRef}
                 value={rawText}
                 onChange={handleTextChange}
-                placeholder={`Type phonetically in English...\ne.g. "vanakkam" → ${transliterate("vanakkam", lang.code)}`}
+                placeholder={`Type phonetically in English...\ne.g. "vanakkam" â†’ ${transliterate("vanakkam", lang.code)}`}
                 autoFocus
                 spellCheck={false}
                 className="flex-1 w-full bg-transparent px-5 py-4 text-foreground text-base font-mono resize-none outline-none placeholder:text-muted-foreground/40 leading-relaxed"
@@ -382,7 +382,7 @@ export default function MultilingualTyping() {
                 <span className="ml-auto text-xs text-muted-foreground">{lang.nativeName}</span>
               </div>
 
-              {/* Output display — styled by toolbar */}
+              {/* Output display â€” styled by toolbar */}
               <div
                 className="flex-1 px-5 py-4 overflow-y-auto cursor-text select-text"
                 style={{ minHeight: "55vh" }}
@@ -409,17 +409,17 @@ export default function MultilingualTyping() {
             </div>
           </div>
 
-          {/* ── How to use guide ── */}
+          {/* â”€â”€ How to use guide â”€â”€ */}
           <div className="mt-6 rounded-xl border border-border bg-card/60 p-5">
             <h2 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
               <Type className="w-4 h-4 text-primary" />
-              How to type — Phonetic guide for {lang.name}
+              How to type â€” Phonetic guide for {lang.name}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
               {getPhoneticExamples(lang.code).map(([roman, native, meaning]) => (
                 <div key={roman} className="flex items-center gap-2 bg-muted/40 rounded-lg px-3 py-2">
                   <code className="text-xs font-mono text-primary bg-primary/10 px-1.5 py-0.5 rounded">{roman}</code>
-                  <span className="text-sm text-foreground">→</span>
+                  <span className="text-sm text-foreground">â†’</span>
                   <span className="text-sm font-medium">{native}</span>
                   {meaning && <span className="text-xs text-muted-foreground ml-auto">{meaning}</span>}
                 </div>
@@ -428,7 +428,7 @@ export default function MultilingualTyping() {
           </div>
         </div>
 
-        {/* ── Status bar (Word-style bottom bar) ── */}
+        {/* â”€â”€ Status bar (Word-style bottom bar) â”€â”€ */}
         <div className="sticky bottom-0 z-20 border-t border-border/60 bg-card/95 backdrop-blur-sm">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="flex items-center gap-6 py-1.5 text-xs text-muted-foreground select-none flex-wrap">
@@ -444,7 +444,7 @@ export default function MultilingualTyping() {
               <span className="ml-auto flex items-center gap-1.5">
                 <Globe className="w-3 h-3 text-primary" />
                 <span className="text-primary font-medium">{lang.name}</span>
-                <span>·</span>
+                <span>Â·</span>
                 <span>Phonetic transliteration</span>
               </span>
             </div>
@@ -457,78 +457,78 @@ export default function MultilingualTyping() {
   );
 }
 
-// ─── Phonetic examples per language ──────────────────────────────────────────
+// â”€â”€â”€ Phonetic examples per language â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function getPhoneticExamples(lang: LangCode): [string, string, string][] {
   const examples: Record<LangCode, [string, string, string][]> = {
     ta: [
-      ["vanakkam", "வணக்கம்", "Hello"],
-      ["nandri", "நன்றி", "Thank you"],
-      ["amma", "அம்மா", "Mother"],
-      ["tamil", "தமில்", "Tamil"],
-      ["ka", "க", "க"],
-      ["sa", "ச", "ச"],
-      ["na", "ன", "ன"],
-      ["aa", "ஆ", "ஆ"],
+      ["vanakkam", "à®µà®£à®•à¯à®•à®®à¯", "Hello"],
+      ["nandri", "à®¨à®©à¯à®±à®¿", "Thank you"],
+      ["amma", "à®…à®®à¯à®®à®¾", "Mother"],
+      ["tamil", "à®¤à®®à®¿à®²à¯", "Tamil"],
+      ["ka", "à®•", "à®•"],
+      ["sa", "à®š", "à®š"],
+      ["na", "à®©", "à®©"],
+      ["aa", "à®†", "à®†"],
     ],
     hi: [
-      ["namaste", "नमस्ते", "Hello"],
-      ["dhanyavaad", "धन्यवाद", "Thanks"],
-      ["bharat", "भारत", "India"],
-      ["aa", "आ", "ā"],
-      ["ka", "क", "क"],
-      ["bh", "भ", "भ"],
-      ["sh", "श", "श"],
-      ["kh", "ख", "ख"],
+      ["namaste", "à¤¨à¤®à¤¸à¥à¤¤à¥‡", "Hello"],
+      ["dhanyavaad", "à¤§à¤¨à¥à¤¯à¤µà¤¾à¤¦", "Thanks"],
+      ["bharat", "à¤­à¤¾à¤°à¤¤", "India"],
+      ["aa", "à¤†", "Ä"],
+      ["ka", "à¤•", "à¤•"],
+      ["bh", "à¤­", "à¤­"],
+      ["sh", "à¤¶", "à¤¶"],
+      ["kh", "à¤–", "à¤–"],
     ],
     te: [
-      ["namaskaram", "నమస్కారం", "Hello"],
-      ["dhanyavaadalu", "ధన్యవాదాలు", "Thanks"],
-      ["telugu", "తెలుగు", "Telugu"],
-      ["aa", "ఆ", "ā"],
-      ["ka", "క", "క"],
-      ["ga", "గ", "గ"],
-      ["ta", "ట", "ట"],
-      ["bh", "భ", "భ"],
+      ["namaskaram", "à°¨à°®à°¸à±à°•à°¾à°°à°‚", "Hello"],
+      ["dhanyavaadalu", "à°§à°¨à±à°¯à°µà°¾à°¦à°¾à°²à±", "Thanks"],
+      ["telugu", "à°¤à±†à°²à±à°—à±", "Telugu"],
+      ["aa", "à°†", "Ä"],
+      ["ka", "à°•", "à°•"],
+      ["ga", "à°—", "à°—"],
+      ["ta", "à°Ÿ", "à°Ÿ"],
+      ["bh", "à°­", "à°­"],
     ],
     ml: [
-      ["namaskaram", "നമസ്കാരം", "Hello"],
-      ["nanni", "നന്നി", "Thank you"],
-      ["kerala", "കേരല", "Kerala"],
-      ["aa", "ആ", "ā"],
-      ["ka", "ക", "क"],
-      ["zh", "ഴ", "ഴ"],
-      ["ma", "മ", "മ"],
-      ["la", "ല", "ല"],
+      ["namaskaram", "à´¨à´®à´¸àµà´•à´¾à´°à´‚", "Hello"],
+      ["nanni", "à´¨à´¨àµà´¨à´¿", "Thank you"],
+      ["kerala", "à´•àµ‡à´°à´²", "Kerala"],
+      ["aa", "à´†", "Ä"],
+      ["ka", "à´•", "à¤•"],
+      ["zh", "à´´", "à´´"],
+      ["ma", "à´®", "à´®"],
+      ["la", "à´²", "à´²"],
     ],
     kn: [
-      ["namaskara", "ನಮಸ್ಕಾರ", "Hello"],
-      ["dhanyavadagalu", "ಧನ್ಯವಾದಗಳು", "Thanks"],
-      ["kannada", "ಕನ್ನದ", "Kannada"],
-      ["aa", "ಆ", "ā"],
-      ["ka", "ಕ", "ಕ"],
-      ["ga", "ಗ", "ಗ"],
-      ["sha", "ಶ", "ಶ"],
-      ["La", "ಳ", "ಳ"],
+      ["namaskara", "à²¨à²®à²¸à³à²•à²¾à²°", "Hello"],
+      ["dhanyavadagalu", "à²§à²¨à³à²¯à²µà²¾à²¦à²—à²³à³", "Thanks"],
+      ["kannada", "à²•à²¨à³à²¨à²¦", "Kannada"],
+      ["aa", "à²†", "Ä"],
+      ["ka", "à²•", "à²•"],
+      ["ga", "à²—", "à²—"],
+      ["sha", "à²¶", "à²¶"],
+      ["La", "à²³", "à²³"],
     ],
     bn: [
-      ["namaskar", "নমস্কার", "Hello"],
-      ["dhonyabad", "ধন্যবাদ", "Thanks"],
-      ["bangla", "বাংল", "Bengali"],
-      ["aa", "আ", "ā"],
-      ["ka", "ক", "ক"],
-      ["ga", "গ", "গ"],
-      ["bh", "ভ", "ভ"],
-      ["sh", "শ", "শ"],
+      ["namaskar", "à¦¨à¦®à¦¸à§à¦•à¦¾à¦°", "Hello"],
+      ["dhonyabad", "à¦§à¦¨à§à¦¯à¦¬à¦¾à¦¦", "Thanks"],
+      ["bangla", "à¦¬à¦¾à¦‚à¦²", "Bengali"],
+      ["aa", "à¦†", "Ä"],
+      ["ka", "à¦•", "à¦•"],
+      ["ga", "à¦—", "à¦—"],
+      ["bh", "à¦­", "à¦­"],
+      ["sh", "à¦¶", "à¦¶"],
     ],
     mr: [
-      ["namaskar", "नमस्कार", "Hello"],
-      ["dhanyavaad", "धन्यवाद", "Thanks"],
-      ["marathi", "मराठी", "Marathi"],
-      ["aa", "आ", "ā"],
-      ["ka", "क", "क"],
-      ["bh", "भ", "भ"],
-      ["sh", "श", "श"],
-      ["kh", "ख", "ख"],
+      ["namaskar", "à¤¨à¤®à¤¸à¥à¤•à¤¾à¤°", "Hello"],
+      ["dhanyavaad", "à¤§à¤¨à¥à¤¯à¤µà¤¾à¤¦", "Thanks"],
+      ["marathi", "à¤®à¤°à¤¾à¤ à¥€", "Marathi"],
+      ["aa", "à¤†", "Ä"],
+      ["ka", "à¤•", "à¤•"],
+      ["bh", "à¤­", "à¤­"],
+      ["sh", "à¤¶", "à¤¶"],
+      ["kh", "à¤–", "à¤–"],
     ],
   };
   return examples[lang] ?? [];

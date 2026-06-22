@@ -1,4 +1,4 @@
-import { useRoute } from "wouter";
+﻿import { useRoute } from "wouter";
 import { Navbar } from "@/components/layout/Navbar";
 import { useVerifyCertificate, getVerifyCertificateQueryKey } from "@workspace/api-client-react";
 import { Award, CheckCircle2, XCircle } from "lucide-react";

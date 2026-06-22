@@ -1,8 +1,8 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Typing Peak — Multilingual Transliteration Engine
+﻿// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Typing Peak â€” Multilingual Transliteration Engine
 // Tamil: full syllabic phonetic engine (Google Input Tools style)
 // Other languages: robust phoneme-map engine
-// ─────────────────────────────────────────────────────────────────────────────
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export type LangCode = "ta" | "hi" | "te" | "ml" | "kn" | "bn" | "mr";
 
@@ -15,82 +15,82 @@ export interface Language {
 }
 
 export const LANGUAGES: Language[] = [
-  { code: "ta", name: "Tamil",     nativeName: "தமிழ்",   fontClass: "font-tamil",      placeholder: "தமிழில் தட்டச்சு செய்யுங்கள்..." },
-  { code: "hi", name: "Hindi",     nativeName: "हिन्दी",  fontClass: "font-devanagari", placeholder: "हिन्दी में टाइप करें..."           },
-  { code: "te", name: "Telugu",    nativeName: "తెలుగు",  fontClass: "font-telugu",     placeholder: "తెలుగులో టైప్ చేయండి..."          },
-  { code: "ml", name: "Malayalam", nativeName: "മലയാളം", fontClass: "font-malayalam",  placeholder: "മലയാളത്തിൽ ടൈപ്പ് ചെയ്യുക..."     },
-  { code: "kn", name: "Kannada",   nativeName: "ಕನ್ನಡ",  fontClass: "font-kannada",    placeholder: "ಕನ್ನಡದಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ..."           },
-  { code: "bn", name: "Bengali",   nativeName: "বাংলা",   fontClass: "font-bengali",    placeholder: "বাংলায় টাইপ করুন..."              },
-  { code: "mr", name: "Marathi",   nativeName: "मराठी",   fontClass: "font-devanagari", placeholder: "मराठीत टाइप करा..."               },
+  { code: "ta", name: "Tamil",     nativeName: "à®¤à®®à®¿à®´à¯",   fontClass: "font-tamil",      placeholder: "à®¤à®®à®¿à®´à®¿à®²à¯ à®¤à®Ÿà¯à®Ÿà®šà¯à®šà¯ à®šà¯†à®¯à¯à®¯à¯à®™à¯à®•à®³à¯..." },
+  { code: "hi", name: "Hindi",     nativeName: "à¤¹à¤¿à¤¨à¥à¤¦à¥€",  fontClass: "font-devanagari", placeholder: "à¤¹à¤¿à¤¨à¥à¤¦à¥€ à¤®à¥‡à¤‚ à¤Ÿà¤¾à¤‡à¤ª à¤•à¤°à¥‡à¤‚..."           },
+  { code: "te", name: "Telugu",    nativeName: "à°¤à±†à°²à±à°—à±",  fontClass: "font-telugu",     placeholder: "à°¤à±†à°²à±à°—à±à°²à±‹ à°Ÿà±ˆà°ªà± à°šà±‡à°¯à°‚à°¡à°¿..."          },
+  { code: "ml", name: "Malayalam", nativeName: "à´®à´²à´¯à´¾à´³à´‚", fontClass: "font-malayalam",  placeholder: "à´®à´²à´¯à´¾à´³à´¤àµà´¤à´¿àµ½ à´Ÿàµˆà´ªàµà´ªàµ à´šàµ†à´¯àµà´¯àµà´•..."     },
+  { code: "kn", name: "Kannada",   nativeName: "à²•à²¨à³à²¨à²¡",  fontClass: "font-kannada",    placeholder: "à²•à²¨à³à²¨à²¡à²¦à²²à³à²²à²¿ à²Ÿà³ˆà²ªà³ à²®à²¾à²¡à²¿..."           },
+  { code: "bn", name: "Bengali",   nativeName: "à¦¬à¦¾à¦‚à¦²à¦¾",   fontClass: "font-bengali",    placeholder: "à¦¬à¦¾à¦‚à¦²à¦¾à¦¯à¦¼ à¦Ÿà¦¾à¦‡à¦ª à¦•à¦°à§à¦¨..."              },
+  { code: "mr", name: "Marathi",   nativeName: "à¤®à¤°à¤¾à¤ à¥€",   fontClass: "font-devanagari", placeholder: "à¤®à¤°à¤¾à¤ à¥€à¤¤ à¤Ÿà¤¾à¤‡à¤ª à¤•à¤°à¤¾..."               },
 ];
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  SECTION 1 — TAMIL ENGINE
-// ═════════════════════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  SECTION 1 â€” TAMIL ENGINE
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 // Tamil Unicode codepoints
 const TA = {
   // Independent vowels
-  A:   "அ", // அ
-  AA:  "ஆ", // ஆ
-  I:   "இ", // இ
-  II:  "ஈ", // ஈ
-  U:   "உ", // உ
-  UU:  "ஊ", // ஊ
-  E:   "எ", // எ
-  EE:  "ஏ", // ஏ
-  AI:  "ஐ", // ஐ
-  O:   "ஒ", // ஒ
-  OO:  "ஓ", // ஓ
-  AU:  "ஔ", // ஔ
+  A:   "à®…", // à®…
+  AA:  "à®†", // à®†
+  I:   "à®‡", // à®‡
+  II:  "à®ˆ", // à®ˆ
+  U:   "à®‰", // à®‰
+  UU:  "à®Š", // à®Š
+  E:   "à®Ž", // à®Ž
+  EE:  "à®", // à®
+  AI:  "à®", // à®
+  O:   "à®’", // à®’
+  OO:  "à®“", // à®“
+  AU:  "à®”", // à®”
 
-  // Vowel signs (matras) — attached to consonants
-  S_AA:  "ா", // ா
-  S_I:   "ி", // ி
-  S_II:  "ீ", // ீ
-  S_U:   "ு", // ு
-  S_UU:  "ூ", // ூ
-  S_E:   "ெ", // ெ
-  S_EE:  "ே", // ே
-  S_AI:  "ை", // ை
-  S_O:   "ொ", // ொ
-  S_OO:  "ோ", // ோ
-  S_AU:  "ௌ", // ௌ
+  // Vowel signs (matras) â€” attached to consonants
+  S_AA:  "à®¾", // à®¾
+  S_I:   "à®¿", // à®¿
+  S_II:  "à¯€", // à¯€
+  S_U:   "à¯", // à¯
+  S_UU:  "à¯‚", // à¯‚
+  S_E:   "à¯†", // à¯†
+  S_EE:  "à¯‡", // à¯‡
+  S_AI:  "à¯ˆ", // à¯ˆ
+  S_O:   "à¯Š", // à¯Š
+  S_OO:  "à¯‹", // à¯‹
+  S_AU:  "à¯Œ", // à¯Œ
 
-  // Virama (pulli) — removes inherent vowel from consonant
-  VIRAMA: "்", // ்
+  // Virama (pulli) â€” removes inherent vowel from consonant
+  VIRAMA: "à¯", // à¯
 
   // Aaytham
-  AAYTHAM: "ஃ", // ஃ
+  AAYTHAM: "à®ƒ", // à®ƒ
 
   // Consonants
-  K:   "க", // க
-  NG:  "ங", // ங
-  C:   "ச", // ச
-  NJ:  "ஞ", // ஞ
-  T_RET: "ட", // ட  (retroflex T)
-  N_RET: "ண", // ண  (retroflex N)
-  TH:  "த", // த
-  N:   "ந", // ந  (dental n)
-  P:   "ப", // ப
-  M:   "ம", // ம
-  Y:   "ய", // ய
-  R:   "ர", // ர
-  L:   "ல", // ல
-  V:   "வ", // வ
-  ZH:  "ழ", // ழ
-  LL:  "ள", // ள
-  RR:  "ற", // ற
-  NN:  "ன", // ன  (alveolar n)
-  J:   "ஜ", // ஜ
-  SH:  "ஷ", // ஷ
-  S:   "ஸ", // ஸ
-  H:   "ஹ", // ஹ
+  K:   "à®•", // à®•
+  NG:  "à®™", // à®™
+  C:   "à®š", // à®š
+  NJ:  "à®ž", // à®ž
+  T_RET: "à®Ÿ", // à®Ÿ  (retroflex T)
+  N_RET: "à®£", // à®£  (retroflex N)
+  TH:  "à®¤", // à®¤
+  N:   "à®¨", // à®¨  (dental n)
+  P:   "à®ª", // à®ª
+  M:   "à®®", // à®®
+  Y:   "à®¯", // à®¯
+  R:   "à®°", // à®°
+  L:   "à®²", // à®²
+  V:   "à®µ", // à®µ
+  ZH:  "à®´", // à®´
+  LL:  "à®³", // à®³
+  RR:  "à®±", // à®±
+  NN:  "à®©", // à®©  (alveolar n)
+  J:   "à®œ", // à®œ
+  SH:  "à®·", // à®·
+  S:   "à®¸", // à®¸
+  H:   "à®¹", // à®¹
 };
 
 // Vowel: [independent form, matra/sign form]
 // matra "" means virama (no vowel = halant on consonant)
-// matra null means "inherent a" — write consonant only
+// matra null means "inherent a" â€” write consonant only
 interface VowelDef { indep: string; matra: string | null }
 
 const TAMIL_VOWELS: Record<string, VowelDef> = {
@@ -112,7 +112,7 @@ const TAMIL_VOWELS: Record<string, VowelDef> = {
 // Ordered from longest to shortest for greedy matching
 const TAMIL_VOWEL_KEYS = Object.keys(TAMIL_VOWELS).sort((a, b) => b.length - a.length);
 
-// Consonant clusters — ordered longest first
+// Consonant clusters â€” ordered longest first
 const TAMIL_CONSONANTS: [string, string][] = [
   // 3-char clusters first
   ["nng", TA.NG],
@@ -122,25 +122,25 @@ const TAMIL_CONSONANTS: [string, string][] = [
   ["ny",  TA.NJ],
   ["zh",  TA.ZH],
   ["sh",  TA.SH],
-  ["th",  TA.TH],   // த (dental)
+  ["th",  TA.TH],   // à®¤ (dental)
   ["dh",  TA.TH],   // treat dh as dental th in Tamil
-  ["rr",  TA.RR],   // ற
-  ["nn",  TA.NN],   // ன (alveolar n)
-  ["ll",  TA.LL],   // ள
+  ["rr",  TA.RR],   // à®±
+  ["nn",  TA.NN],   // à®© (alveolar n)
+  ["ll",  TA.LL],   // à®³
   ["ch",  TA.C],
   ["dr",  TA.T_RET],
   ["tr",  TA.T_RET],
   // Single consonants
   ["k",   TA.K],
-  ["g",   TA.K],    // Tamil has no voiced stops; map g→க
+  ["g",   TA.K],    // Tamil has no voiced stops; map gâ†’à®•
   ["c",   TA.C],
   ["s",   TA.S],
   ["j",   TA.J],
-  ["t",   TA.T_RET], // default t → retroflex ட
+  ["t",   TA.T_RET], // default t â†’ retroflex à®Ÿ
   ["d",   TA.T_RET],
-  ["n",   TA.N],    // dental ந (will be corrected by context below)
+  ["n",   TA.N],    // dental à®¨ (will be corrected by context below)
   ["p",   TA.P],
-  ["b",   TA.P],    // Tamil has no b; map b→ப
+  ["b",   TA.P],    // Tamil has no b; map bâ†’à®ª
   ["m",   TA.M],
   ["y",   TA.Y],
   ["r",   TA.R],
@@ -148,8 +148,8 @@ const TAMIL_CONSONANTS: [string, string][] = [
   ["v",   TA.V],
   ["w",   TA.V],
   ["h",   TA.H],
-  ["f",   TA.P],    // approximate f→ப
-  ["N",   TA.N_RET], // explicit retroflex ண
+  ["f",   TA.P],    // approximate fâ†’à®ª
+  ["N",   TA.N_RET], // explicit retroflex à®£
   ["L",   TA.LL],
   ["R",   TA.RR],
   ["z",   TA.ZH],
@@ -162,14 +162,14 @@ const MAX_VOWEL_LEN = Math.max(...TAMIL_VOWEL_KEYS.map((k) => k.length));
 // Build a fast lookup map
 const CONS_MAP = new Map<string, string>(TAMIL_CONSONANTS);
 
-// ─── Syllable types ───────────────────────────────────────────────────────────
+// â”€â”€â”€ Syllable types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 type Syllable =
-  | { type: "vowel_only";  vowelKey: string }          // pure vowel: a, i, aa …
+  | { type: "vowel_only";  vowelKey: string }          // pure vowel: a, i, aa â€¦
   | { type: "cv";          cons: string; vowelKey: string }  // consonant + vowel
   | { type: "coda";        cons: string }               // consonant at end (virama)
   | { type: "other";       ch: string }                 // pass-through (digits, punct)
 
-// ─── Syllable parser ──────────────────────────────────────────────────────────
+// â”€â”€â”€ Syllable parser â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Converts a roman word into a list of syllables using greedy longest-match.
 function parseSyllables(word: string): Syllable[] {
   const syllables: Syllable[] = [];
@@ -205,10 +205,10 @@ function parseSyllables(word: string): Syllable[] {
       const afterCons = i + cons.length;
 
       // Detect geminate single-char consonant: e.g. "kk", "pp", "tt", "nn", "mm"
-      // A single-letter key (n, k, p…) followed immediately by the same letter
+      // A single-letter key (n, k, pâ€¦) followed immediately by the same letter
       // should produce coda + cv, not the digraph interpretation.
-      // e.g. "nna" → n(coda=ந்) + na(cv=ன) for words like "enna" (என்ன)
-      // Multi-char cluster keys (ng, th, rr…) are never split as geminates.
+      // e.g. "nna" â†’ n(coda=à®¨à¯) + na(cv=à®©) for words like "enna" (à®Žà®©à¯à®©)
+      // Multi-char cluster keys (ng, th, rrâ€¦) are never split as geminates.
       const isGeminate =
         cons.length === 1 &&
         word[afterCons] === cons;
@@ -240,7 +240,7 @@ function parseSyllables(word: string): Syllable[] {
       continue;
     }
 
-    // No consonant match — try a standalone vowel
+    // No consonant match â€” try a standalone vowel
     let vowelKey: string | null = null;
     for (const vk of TAMIL_VOWEL_KEYS) {
       if (word.slice(i, i + vk.length) === vk) {
@@ -255,7 +255,7 @@ function parseSyllables(word: string): Syllable[] {
       continue;
     }
 
-    // Truly unknown character — pass through
+    // Truly unknown character â€” pass through
     syllables.push({ type: "other", ch: word[i] });
     i++;
   }
@@ -263,13 +263,13 @@ function parseSyllables(word: string): Syllable[] {
   return syllables;
 }
 
-// ─── Render syllables → Tamil Unicode string ──────────────────────────────────
+// â”€â”€â”€ Render syllables â†’ Tamil Unicode string â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Rules:
-//   1. vowel_only    → independent vowel character
-//   2. cv (a)        → consonant only (inherent vowel, no matra needed)
-//   3. cv (other)    → consonant + matra
-//   4. coda followed by another consonant/coda → consonant + virama (cluster)
-//   5. coda at word end → consonant + virama (pulli)
+//   1. vowel_only    â†’ independent vowel character
+//   2. cv (a)        â†’ consonant only (inherent vowel, no matra needed)
+//   3. cv (other)    â†’ consonant + matra
+//   4. coda followed by another consonant/coda â†’ consonant + virama (cluster)
+//   5. coda at word end â†’ consonant + virama (pulli)
 function renderSyllables(syllables: Syllable[]): string {
   let out = "";
 
@@ -289,7 +289,7 @@ function renderSyllables(syllables: Syllable[]): string {
     if (s.type === "cv") {
       const vdef = TAMIL_VOWELS[s.vowelKey];
       if (vdef.matra === null) {
-        // Inherent 'a' — just write the consonant
+        // Inherent 'a' â€” just write the consonant
         out += s.cons;
       } else {
         out += s.cons + vdef.matra;
@@ -298,7 +298,7 @@ function renderSyllables(syllables: Syllable[]): string {
     }
 
     if (s.type === "coda") {
-      // Always add virama — whether mid-word cluster or word-final
+      // Always add virama â€” whether mid-word cluster or word-final
       out += s.cons + TA.VIRAMA;
       continue;
     }
@@ -307,17 +307,17 @@ function renderSyllables(syllables: Syllable[]): string {
   return out;
 }
 
-// ─── Context corrections ──────────────────────────────────────────────────────
+// â”€â”€â”€ Context corrections â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // After rendering, apply known Tamil orthographic rules:
-//   • ன (alveolar NN ன) before vowels at word start → ந (ந)
-//   • Geminate fix: க்க → க்க (already correct from coda+cv)
-//   • ண (retroflex N) between vowels — handled by user typing N
+//   â€¢ à®© (alveolar NN à®©) before vowels at word start â†’ à®¨ (à®¨)
+//   â€¢ Geminate fix: à®•à¯à®• â†’ à®•à¯à®• (already correct from coda+cv)
+//   â€¢ à®£ (retroflex N) between vowels â€” handled by user typing N
 function applyTamilOrthography(text: string): string {
-  // Word-initial ன → ந
-  return text.replace(/(^|[\s஀-௿])(ன)/g, (_, pre, _ch) => pre + TA.N);
+  // Word-initial à®© â†’ à®¨
+  return text.replace(/(^|[\sà®€-à¯¿])(à®©)/g, (_, pre, _ch) => pre + TA.N);
 }
 
-// ─── Public API: transliterate a single Tamil word ────────────────────────────
+// â”€â”€â”€ Public API: transliterate a single Tamil word â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function transliterateTamilWord(word: string): string {
   if (!word) return "";
   const syllables = parseSyllables(word);
@@ -325,108 +325,108 @@ function transliterateTamilWord(word: string): string {
   return rendered;
 }
 
-// ─── Known-word dictionary for common words (ranking / correction) ────────────
+// â”€â”€â”€ Known-word dictionary for common words (ranking / correction) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // These are only used for lookup suggestions, NOT for blocking the engine.
 // The engine always generates output even for unknown words.
 const TAMIL_DICTIONARY: Record<string, string> = {
-  enna:      "என்ன",
-  ennai:     "என்னை",
-  ennal:     "என்னால்",
-  ennamo:    "என்னமோ",
-  yenna:     "என்ன",
-  naan:      "நான்",
-  naam:      "நாம்",
-  amma:      "அம்மா",
-  appa:      "அப்பா",
-  anna:      "அண்ணா",
-  akka:      "அக்கா",
-  thambi:    "தம்பி",
-  thangai:   "தங்கை",
-  vanakkam:  "வணக்கம்",
-  tamil:     "தமிழ்",
-  eppadi:    "எப்படி",
-  irukken:   "இருக்கேன்",
-  irukku:    "இருக்கு",
-  irukkrom:  "இருக்கோம்",
-  ennaku:    "எனக்கு",
-  ungal:     "உங்கள்",
-  engal:     "எங்கள்",
-  naadu:     "நாடு",
-  ooru:      "ஊர்",
-  veedu:     "வீடு",
-  padam:     "படம்",
-  pattanam:  "பட்டணம்",
-  paal:      "பால்",
-  saapadu:   "சாப்பாடு",
-  thanni:    "தண்ணி",
-  kaadu:     "காடு",
-  vaan:      "வான்",
-  mann:      "மண்",
-  penn:      "பெண்",
-  aan:       "ஆண்",
-  kurai:     "குறை",
-  neram:     "நேரம்",
-  maram:     "மரம்",
-  varam:     "வரம்",
-  uyir:      "உயிர்",
-  ullam:     "உள்ளம்",
-  kathal:    "காதல்",
-  manithan:  "மனிதன்",
-  manidhan:  "மனிதன்",
-  azhagu:    "அழகு",
-  azhagin:   "அழகின்",
-  kavithai:  "கவிதை",
-  ilam:      "இளம்",
-  kaalam:    "காலம்",
-  sollu:     "சொல்லு",
-  ketku:     "கேட்கு",
-  padikka:   "படிக்க",
-  ezhuthu:   "எழுத்து",
-  pechchu:   "பேச்சு",
-  theru:     "தெரு",
-  karai:     "கரை",
-  odam:      "ஓடம்",
-  kari:      "கறி",
-  koil:      "கோயில்",
-  endha:     "எந்த",
-  antha:     "அந்த",
-  inga:      "இங்க",
-  anga:      "அங்க",
-  neengal:   "நீங்கள்",
-  neenga:    "நீங்க",
-  nee:       "நீ",
-  avan:      "அவன்",
-  aval:      "அவள்",
-  avanga:    "அவங்க",
-  andha:     "அந்த",
-  indha:     "இந்த",
-  yellam:    "எல்லாம்",
-  yella:     "எல்லா",
-  romba:     "ரொம்ப",
-  konjam:    "கொஞ்சம்",
-  therinju:  "தெரிஞ்சு",
-  theriyum:  "தெரியும்",
-  theriyala: "தெரியல",
-  mudiyum:   "முடியும்",
-  mudiyala:  "முடியல",
-  vaa:       "வா",
-  po:        "போ",
-  porom:     "போறோம்",
-  varom:     "வரோம்",
-  paarom:    "பாரோம்",
-  paaru:     "பாரு",
-  sollu:     "சொல்லு",
-  kettu:     "கேட்டு",
-  paartu:    "பார்த்து",
-  saapta:    "சாப்பிட்ட",
-  kudicha:   "குடிச்ச",
-  pannuven:  "பண்ணுவேன்",
-  pannrom:   "பண்றோம்",
+  enna:      "à®Žà®©à¯à®©",
+  ennai:     "à®Žà®©à¯à®©à¯ˆ",
+  ennal:     "à®Žà®©à¯à®©à®¾à®²à¯",
+  ennamo:    "à®Žà®©à¯à®©à®®à¯‹",
+  yenna:     "à®Žà®©à¯à®©",
+  naan:      "à®¨à®¾à®©à¯",
+  naam:      "à®¨à®¾à®®à¯",
+  amma:      "à®…à®®à¯à®®à®¾",
+  appa:      "à®…à®ªà¯à®ªà®¾",
+  anna:      "à®…à®£à¯à®£à®¾",
+  akka:      "à®…à®•à¯à®•à®¾",
+  thambi:    "à®¤à®®à¯à®ªà®¿",
+  thangai:   "à®¤à®™à¯à®•à¯ˆ",
+  vanakkam:  "à®µà®£à®•à¯à®•à®®à¯",
+  tamil:     "à®¤à®®à®¿à®´à¯",
+  eppadi:    "à®Žà®ªà¯à®ªà®Ÿà®¿",
+  irukken:   "à®‡à®°à¯à®•à¯à®•à¯‡à®©à¯",
+  irukku:    "à®‡à®°à¯à®•à¯à®•à¯",
+  irukkrom:  "à®‡à®°à¯à®•à¯à®•à¯‹à®®à¯",
+  ennaku:    "à®Žà®©à®•à¯à®•à¯",
+  ungal:     "à®‰à®™à¯à®•à®³à¯",
+  engal:     "à®Žà®™à¯à®•à®³à¯",
+  naadu:     "à®¨à®¾à®Ÿà¯",
+  ooru:      "à®Šà®°à¯",
+  veedu:     "à®µà¯€à®Ÿà¯",
+  padam:     "à®ªà®Ÿà®®à¯",
+  pattanam:  "à®ªà®Ÿà¯à®Ÿà®£à®®à¯",
+  paal:      "à®ªà®¾à®²à¯",
+  saapadu:   "à®šà®¾à®ªà¯à®ªà®¾à®Ÿà¯",
+  thanni:    "à®¤à®£à¯à®£à®¿",
+  kaadu:     "à®•à®¾à®Ÿà¯",
+  vaan:      "à®µà®¾à®©à¯",
+  mann:      "à®®à®£à¯",
+  penn:      "à®ªà¯†à®£à¯",
+  aan:       "à®†à®£à¯",
+  kurai:     "à®•à¯à®±à¯ˆ",
+  neram:     "à®¨à¯‡à®°à®®à¯",
+  maram:     "à®®à®°à®®à¯",
+  varam:     "à®µà®°à®®à¯",
+  uyir:      "à®‰à®¯à®¿à®°à¯",
+  ullam:     "à®‰à®³à¯à®³à®®à¯",
+  kathal:    "à®•à®¾à®¤à®²à¯",
+  manithan:  "à®®à®©à®¿à®¤à®©à¯",
+  manidhan:  "à®®à®©à®¿à®¤à®©à¯",
+  azhagu:    "à®…à®´à®•à¯",
+  azhagin:   "à®…à®´à®•à®¿à®©à¯",
+  kavithai:  "à®•à®µà®¿à®¤à¯ˆ",
+  ilam:      "à®‡à®³à®®à¯",
+  kaalam:    "à®•à®¾à®²à®®à¯",
+  sollu:     "à®šà¯Šà®²à¯à®²à¯",
+  ketku:     "à®•à¯‡à®Ÿà¯à®•à¯",
+  padikka:   "à®ªà®Ÿà®¿à®•à¯à®•",
+  ezhuthu:   "à®Žà®´à¯à®¤à¯à®¤à¯",
+  pechchu:   "à®ªà¯‡à®šà¯à®šà¯",
+  theru:     "à®¤à¯†à®°à¯",
+  karai:     "à®•à®°à¯ˆ",
+  odam:      "à®“à®Ÿà®®à¯",
+  kari:      "à®•à®±à®¿",
+  koil:      "à®•à¯‹à®¯à®¿à®²à¯",
+  endha:     "à®Žà®¨à¯à®¤",
+  antha:     "à®…à®¨à¯à®¤",
+  inga:      "à®‡à®™à¯à®•",
+  anga:      "à®…à®™à¯à®•",
+  neengal:   "à®¨à¯€à®™à¯à®•à®³à¯",
+  neenga:    "à®¨à¯€à®™à¯à®•",
+  nee:       "à®¨à¯€",
+  avan:      "à®…à®µà®©à¯",
+  aval:      "à®…à®µà®³à¯",
+  avanga:    "à®…à®µà®™à¯à®•",
+  andha:     "à®…à®¨à¯à®¤",
+  indha:     "à®‡à®¨à¯à®¤",
+  yellam:    "à®Žà®²à¯à®²à®¾à®®à¯",
+  yella:     "à®Žà®²à¯à®²à®¾",
+  romba:     "à®°à¯Šà®®à¯à®ª",
+  konjam:    "à®•à¯Šà®žà¯à®šà®®à¯",
+  therinju:  "à®¤à¯†à®°à®¿à®žà¯à®šà¯",
+  theriyum:  "à®¤à¯†à®°à®¿à®¯à¯à®®à¯",
+  theriyala: "à®¤à¯†à®°à®¿à®¯à®²",
+  mudiyum:   "à®®à¯à®Ÿà®¿à®¯à¯à®®à¯",
+  mudiyala:  "à®®à¯à®Ÿà®¿à®¯à®²",
+  vaa:       "à®µà®¾",
+  po:        "à®ªà¯‹",
+  porom:     "à®ªà¯‹à®±à¯‹à®®à¯",
+  varom:     "à®µà®°à¯‹à®®à¯",
+  paarom:    "à®ªà®¾à®°à¯‹à®®à¯",
+  paaru:     "à®ªà®¾à®°à¯",
+  sollu:     "à®šà¯Šà®²à¯à®²à¯",
+  kettu:     "à®•à¯‡à®Ÿà¯à®Ÿà¯",
+  paartu:    "à®ªà®¾à®°à¯à®¤à¯à®¤à¯",
+  saapta:    "à®šà®¾à®ªà¯à®ªà®¿à®Ÿà¯à®Ÿ",
+  kudicha:   "à®•à¯à®Ÿà®¿à®šà¯à®š",
+  pannuven:  "à®ªà®£à¯à®£à¯à®µà¯‡à®©à¯",
+  pannrom:   "à®ªà®£à¯à®±à¯‹à®®à¯",
 };
 
-// ─── Autocomplete / suggestion engine ─────────────────────────────────────────
-const learnedWords = new Map<string, string>(); // roman → tamil (user-confirmed)
-const learnedFreq  = new Map<string, number>();  // roman → selection count
+// â”€â”€â”€ Autocomplete / suggestion engine â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+const learnedWords = new Map<string, string>(); // roman â†’ tamil (user-confirmed)
+const learnedFreq  = new Map<string, number>();  // roman â†’ selection count
 
 export function learnSelection(roman: string, tamil: string): void {
   learnedWords.set(roman.toLowerCase(), tamil);
@@ -472,7 +472,7 @@ export function getSuggestions(partial: string): Array<{ roman: string; tamil: s
     .map(({ roman, tamil }) => ({ roman, tamil }));
 }
 
-// ─── Main Tamil transliterate word ───────────────────────────────────────────
+// â”€â”€â”€ Main Tamil transliterate word â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Prefers dictionary, then engine output
 function bestTamilWord(word: string): string {
   const lower = word.toLowerCase();
@@ -488,65 +488,65 @@ function bestTamilWord(word: string): string {
   return applyTamilOrthography(engineOut);
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  SECTION 2 — OTHER LANGUAGE ENGINES (phoneme-map based, robust)
-// ═════════════════════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  SECTION 2 â€” OTHER LANGUAGE ENGINES (phoneme-map based, robust)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-// Each entry: [roman_key, unicode] — sorted longest-first inside each group
+// Each entry: [roman_key, unicode] â€” sorted longest-first inside each group
 const DEVANAGARI_MAP: [string, string][] = [
-  ["aa","आ"],["ii","ई"],["uu","ऊ"],["ee","ई"],["oo","ओ"],["ai","ऐ"],["au","औ"],["ou","औ"],
-  ["a","अ"],["i","इ"],["u","उ"],["e","ए"],["o","ओ"],
-  ["kh","ख"],["gh","घ"],["ch","च"],["Ch","छ"],["jh","झ"],["Th","ठ"],["Dh","ढ"],
-  ["th","त"],["dh","द"],["ph","फ"],["bh","भ"],["sh","श"],["Sh","ष"],
-  ["ny","ञ"],["ng","ङ"],["nj","ञ"],["rr","ड़"],["nn","ण"],
-  ["k","क"],["g","ग"],["c","च"],["j","ज"],["t","त"],["d","द"],["n","न"],
-  ["p","प"],["b","ब"],["m","म"],["y","य"],["r","र"],["l","ल"],["v","व"],["w","व"],
-  ["s","स"],["h","ह"],["f","फ"],["z","ज़"],["q","क़"],["N","ण"],["T","ट"],["D","ड"],
-  ["R","ड़"],["L","ळ"],["M","ं"],["H","ः"],
+  ["aa","à¤†"],["ii","à¤ˆ"],["uu","à¤Š"],["ee","à¤ˆ"],["oo","à¤“"],["ai","à¤"],["au","à¤”"],["ou","à¤”"],
+  ["a","à¤…"],["i","à¤‡"],["u","à¤‰"],["e","à¤"],["o","à¤“"],
+  ["kh","à¤–"],["gh","à¤˜"],["ch","à¤š"],["Ch","à¤›"],["jh","à¤"],["Th","à¤ "],["Dh","à¤¢"],
+  ["th","à¤¤"],["dh","à¤¦"],["ph","à¤«"],["bh","à¤­"],["sh","à¤¶"],["Sh","à¤·"],
+  ["ny","à¤ž"],["ng","à¤™"],["nj","à¤ž"],["rr","à¤¡à¤¼"],["nn","à¤£"],
+  ["k","à¤•"],["g","à¤—"],["c","à¤š"],["j","à¤œ"],["t","à¤¤"],["d","à¤¦"],["n","à¤¨"],
+  ["p","à¤ª"],["b","à¤¬"],["m","à¤®"],["y","à¤¯"],["r","à¤°"],["l","à¤²"],["v","à¤µ"],["w","à¤µ"],
+  ["s","à¤¸"],["h","à¤¹"],["f","à¤«"],["z","à¤œà¤¼"],["q","à¤•à¤¼"],["N","à¤£"],["T","à¤Ÿ"],["D","à¤¡"],
+  ["R","à¤¡à¤¼"],["L","à¤³"],["M","à¤‚"],["H","à¤ƒ"],
 ];
 
 const TELUGU_MAP: [string, string][] = [
-  ["aa","ఆ"],["ii","ఈ"],["uu","ఊ"],["ee","ఈ"],["ai","ఐ"],["oo","ఓ"],["au","ఔ"],
-  ["a","అ"],["i","ఇ"],["u","ఉ"],["e","ఎ"],["o","ఒ"],
-  ["kh","ఖ"],["gh","ఘ"],["ch","చ"],["jh","ఝ"],["th","థ"],["dh","ధ"],
-  ["ph","ఫ"],["bh","భ"],["sh","శ"],["ng","ఙ"],["ny","ఞ"],["nj","ఞ"],
-  ["rr","ర్ర"],["nn","న్న"],["ll","ల్ల"],
-  ["k","క"],["g","గ"],["c","చ"],["j","జ"],["t","ట"],["d","డ"],["n","న"],
-  ["p","ప"],["b","బ"],["m","మ"],["y","య"],["r","ర"],["l","ల"],["v","వ"],["w","వ"],
-  ["s","స"],["h","హ"],["f","ఫ"],["z","జ"],["L","ళ"],["N","ణ"],["R","ర"],["T","ఠ"],["D","ఢ"],
+  ["aa","à°†"],["ii","à°ˆ"],["uu","à°Š"],["ee","à°ˆ"],["ai","à°"],["oo","à°“"],["au","à°”"],
+  ["a","à°…"],["i","à°‡"],["u","à°‰"],["e","à°Ž"],["o","à°’"],
+  ["kh","à°–"],["gh","à°˜"],["ch","à°š"],["jh","à°"],["th","à°¥"],["dh","à°§"],
+  ["ph","à°«"],["bh","à°­"],["sh","à°¶"],["ng","à°™"],["ny","à°ž"],["nj","à°ž"],
+  ["rr","à°°à±à°°"],["nn","à°¨à±à°¨"],["ll","à°²à±à°²"],
+  ["k","à°•"],["g","à°—"],["c","à°š"],["j","à°œ"],["t","à°Ÿ"],["d","à°¡"],["n","à°¨"],
+  ["p","à°ª"],["b","à°¬"],["m","à°®"],["y","à°¯"],["r","à°°"],["l","à°²"],["v","à°µ"],["w","à°µ"],
+  ["s","à°¸"],["h","à°¹"],["f","à°«"],["z","à°œ"],["L","à°³"],["N","à°£"],["R","à°°"],["T","à° "],["D","à°¢"],
 ];
 
 const MALAYALAM_MAP: [string, string][] = [
-  ["aa","ആ"],["ii","ഈ"],["uu","ഊ"],["ee","ഈ"],["ai","ഐ"],["oo","ഓ"],["au","ഔ"],
-  ["a","അ"],["i","ഇ"],["u","ഉ"],["e","എ"],["o","ഒ"],
-  ["kh","ഖ"],["gh","ഘ"],["ch","ച"],["jh","ഝ"],["th","ഥ"],["dh","ധ"],
-  ["ph","ഫ"],["bh","ഭ"],["sh","ശ"],["zh","ഴ"],["ng","ങ"],["ny","ഞ"],["nj","ഞ"],
-  ["rr","റ്റ"],["nn","ന്ന"],["ll","ല്ല"],
-  ["k","ക"],["g","ഗ"],["c","ച"],["j","ജ"],["t","ട"],["d","ഡ"],["n","ന"],
-  ["p","പ"],["b","ബ"],["m","മ"],["y","യ"],["r","ര"],["l","ല"],["v","വ"],["w","വ"],
-  ["s","സ"],["h","ഹ"],["f","ഫ"],["z","സ"],["L","ള"],["N","ണ"],["R","ര"],
+  ["aa","à´†"],["ii","à´ˆ"],["uu","à´Š"],["ee","à´ˆ"],["ai","à´"],["oo","à´“"],["au","à´”"],
+  ["a","à´…"],["i","à´‡"],["u","à´‰"],["e","à´Ž"],["o","à´’"],
+  ["kh","à´–"],["gh","à´˜"],["ch","à´š"],["jh","à´"],["th","à´¥"],["dh","à´§"],
+  ["ph","à´«"],["bh","à´­"],["sh","à´¶"],["zh","à´´"],["ng","à´™"],["ny","à´ž"],["nj","à´ž"],
+  ["rr","à´±àµà´±"],["nn","à´¨àµà´¨"],["ll","à´²àµà´²"],
+  ["k","à´•"],["g","à´—"],["c","à´š"],["j","à´œ"],["t","à´Ÿ"],["d","à´¡"],["n","à´¨"],
+  ["p","à´ª"],["b","à´¬"],["m","à´®"],["y","à´¯"],["r","à´°"],["l","à´²"],["v","à´µ"],["w","à´µ"],
+  ["s","à´¸"],["h","à´¹"],["f","à´«"],["z","à´¸"],["L","à´³"],["N","à´£"],["R","à´°"],
 ];
 
 const KANNADA_MAP: [string, string][] = [
-  ["aa","ಆ"],["ii","ಈ"],["uu","ಊ"],["ee","ಈ"],["ai","ಐ"],["oo","ಓ"],["au","ಔ"],
-  ["a","ಅ"],["i","ಇ"],["u","ಉ"],["e","ಎ"],["o","ಒ"],
-  ["kh","ಖ"],["gh","ಘ"],["ch","ಚ"],["jh","ಝ"],["th","ಥ"],["dh","ಧ"],
-  ["ph","ಫ"],["bh","ಭ"],["sh","ಶ"],["ng","ಙ"],["ny","ಞ"],["nj","ಞ"],
-  ["rr","ರ್ರ"],["nn","ನ್ನ"],["ll","ಲ್ಲ"],
-  ["k","ಕ"],["g","ಗ"],["c","ಚ"],["j","ಜ"],["t","ಟ"],["d","ಡ"],["n","ನ"],
-  ["p","ಪ"],["b","ಬ"],["m","ಮ"],["y","ಯ"],["r","ರ"],["l","ಲ"],["v","ವ"],["w","ವ"],
-  ["s","ಸ"],["h","ಹ"],["f","ಫ"],["z","ಜ"],["L","ಳ"],["N","ಣ"],["R","ರ"],["T","ಠ"],["D","ಢ"],
+  ["aa","à²†"],["ii","à²ˆ"],["uu","à²Š"],["ee","à²ˆ"],["ai","à²"],["oo","à²“"],["au","à²”"],
+  ["a","à²…"],["i","à²‡"],["u","à²‰"],["e","à²Ž"],["o","à²’"],
+  ["kh","à²–"],["gh","à²˜"],["ch","à²š"],["jh","à²"],["th","à²¥"],["dh","à²§"],
+  ["ph","à²«"],["bh","à²­"],["sh","à²¶"],["ng","à²™"],["ny","à²ž"],["nj","à²ž"],
+  ["rr","à²°à³à²°"],["nn","à²¨à³à²¨"],["ll","à²²à³à²²"],
+  ["k","à²•"],["g","à²—"],["c","à²š"],["j","à²œ"],["t","à²Ÿ"],["d","à²¡"],["n","à²¨"],
+  ["p","à²ª"],["b","à²¬"],["m","à²®"],["y","à²¯"],["r","à²°"],["l","à²²"],["v","à²µ"],["w","à²µ"],
+  ["s","à²¸"],["h","à²¹"],["f","à²«"],["z","à²œ"],["L","à²³"],["N","à²£"],["R","à²°"],["T","à² "],["D","à²¢"],
 ];
 
 const BENGALI_MAP: [string, string][] = [
-  ["aa","আ"],["ii","ঈ"],["uu","ঊ"],["ee","ঈ"],["oo","ও"],["ai","ঐ"],["au","ঔ"],
-  ["a","অ"],["i","ই"],["u","উ"],["e","এ"],["o","ও"],
-  ["kh","খ"],["gh","ঘ"],["ch","চ"],["jh","ঝ"],["th","থ"],["dh","ধ"],
-  ["ph","ফ"],["bh","ভ"],["sh","শ"],["ng","ঙ"],["ny","ঞ"],["nj","ঞ"],
-  ["rr","ড়"],["nn","ণ"],["ll","ল্ল"],
-  ["k","ক"],["g","গ"],["c","চ"],["j","জ"],["t","ত"],["d","দ"],["n","ন"],
-  ["p","প"],["b","ব"],["m","ম"],["y","য"],["r","র"],["l","ল"],["v","ভ"],["w","ও"],
-  ["s","স"],["h","হ"],["f","ফ"],["z","জ"],["N","ণ"],["T","ট"],["D","ড"],["R","ড়"],
+  ["aa","à¦†"],["ii","à¦ˆ"],["uu","à¦Š"],["ee","à¦ˆ"],["oo","à¦“"],["ai","à¦"],["au","à¦”"],
+  ["a","à¦…"],["i","à¦‡"],["u","à¦‰"],["e","à¦"],["o","à¦“"],
+  ["kh","à¦–"],["gh","à¦˜"],["ch","à¦š"],["jh","à¦"],["th","à¦¥"],["dh","à¦§"],
+  ["ph","à¦«"],["bh","à¦­"],["sh","à¦¶"],["ng","à¦™"],["ny","à¦ž"],["nj","à¦ž"],
+  ["rr","à¦¡à¦¼"],["nn","à¦£"],["ll","à¦²à§à¦²"],
+  ["k","à¦•"],["g","à¦—"],["c","à¦š"],["j","à¦œ"],["t","à¦¤"],["d","à¦¦"],["n","à¦¨"],
+  ["p","à¦ª"],["b","à¦¬"],["m","à¦®"],["y","à¦¯"],["r","à¦°"],["l","à¦²"],["v","à¦­"],["w","à¦“"],
+  ["s","à¦¸"],["h","à¦¹"],["f","à¦«"],["z","à¦œ"],["N","à¦£"],["T","à¦Ÿ"],["D","à¦¡"],["R","à¦¡à¦¼"],
 ];
 
 type PhonemeMap = [string, string][];
@@ -584,9 +584,9 @@ function transliterateWordPhoneme(word: string, map: PhonemeMap): string {
   return result;
 }
 
-// ═════════════════════════════════════════════════════════════════════════════
-//  SECTION 3 — PUBLIC API
-// ═════════════════════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  SECTION 3 â€” PUBLIC API
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 // Transliterate full text, preserving spaces / newlines / punctuation
 export function transliterate(text: string, lang: LangCode): string {
@@ -600,7 +600,7 @@ export function transliterate(text: string, lang: LangCode): string {
   return text.replace(/([a-zA-Z]+)/g, (word) => transliterateWordPhoneme(word, map));
 }
 
-// Transliterate a partial word being typed (no dictionary correction — raw engine)
+// Transliterate a partial word being typed (no dictionary correction â€” raw engine)
 // Used for live preview in the editor input
 export function transliteratePartial(partial: string, lang: LangCode): string {
   if (!partial) return "";

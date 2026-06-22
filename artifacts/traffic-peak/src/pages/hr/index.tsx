@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+﻿import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -87,12 +87,12 @@ export default function HrDashboard() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
-          <StatCard icon={Clipboard} label="Total Assessments" value={stats?.totalAssessments ?? "—"} color="bg-blue-500/10 text-blue-400" />
-          <StatCard icon={ToggleRight} label="Active" value={stats?.activeAssessments ?? "—"} color="bg-green-500/10 text-green-400" />
-          <StatCard icon={Users} label="Candidates" value={stats?.totalCandidates ?? "—"} color="bg-purple-500/10 text-purple-400" />
-          <StatCard icon={TrendingUp} label="Avg WPM" value={stats?.avgWpm ? `${stats.avgWpm}` : "—"} color="bg-orange-500/10 text-orange-400" />
-          <StatCard icon={Target} label="Avg Accuracy" value={stats?.avgAccuracy ? `${stats.avgAccuracy}%` : "—"} color="bg-yellow-500/10 text-yellow-400" />
-          <StatCard icon={CheckCircle2} label="Pass Rate" value={stats?.passRate !== undefined ? `${stats.passRate}%` : "—"} color="bg-teal-500/10 text-teal-400" />
+          <StatCard icon={Clipboard} label="Total Assessments" value={stats?.totalAssessments ?? "â€”"} color="bg-blue-500/10 text-blue-400" />
+          <StatCard icon={ToggleRight} label="Active" value={stats?.activeAssessments ?? "â€”"} color="bg-green-500/10 text-green-400" />
+          <StatCard icon={Users} label="Candidates" value={stats?.totalCandidates ?? "â€”"} color="bg-purple-500/10 text-purple-400" />
+          <StatCard icon={TrendingUp} label="Avg WPM" value={stats?.avgWpm ? `${stats.avgWpm}` : "â€”"} color="bg-orange-500/10 text-orange-400" />
+          <StatCard icon={Target} label="Avg Accuracy" value={stats?.avgAccuracy ? `${stats.avgAccuracy}%` : "â€”"} color="bg-yellow-500/10 text-yellow-400" />
+          <StatCard icon={CheckCircle2} label="Pass Rate" value={stats?.passRate !== undefined ? `${stats.passRate}%` : "â€”"} color="bg-teal-500/10 text-teal-400" />
         </div>
 
         {/* Assessments Table */}
@@ -137,10 +137,10 @@ export default function HrDashboard() {
                           {isExpired ? "Expired" : a.active ? "Active" : "Inactive"}
                         </span>
                       </div>
-                      <div className="text-xs text-muted-foreground">{a.companyName} · {a.jobPosition}</div>
+                      <div className="text-xs text-muted-foreground">{a.companyName} Â· {a.jobPosition}</div>
                       <div className="text-xs text-muted-foreground/60 mt-0.5">
-                        {Math.round(a.durationSeconds / 60)} min · {a.passingWpm} WPM · {a.minAccuracy}% acc required
-                        {(a.candidateCount ?? 0) > 0 && ` · ${a.candidateCount} candidates · ${passRate}% pass`}
+                        {Math.round(a.durationSeconds / 60)} min Â· {a.passingWpm} WPM Â· {a.minAccuracy}% acc required
+                        {(a.candidateCount ?? 0) > 0 && ` Â· ${a.candidateCount} candidates Â· ${passRate}% pass`}
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">

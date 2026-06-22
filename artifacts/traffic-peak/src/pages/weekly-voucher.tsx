@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+﻿import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -14,7 +14,7 @@ const steps = [
     border: "hsl(4 80% 58% / 0.2)",
     step: "01",
     title: "Maintain your streak",
-    desc: "Type at least once every day. Miss a day and your streak resets — consistency is the key to qualifying.",
+    desc: "Type at least once every day. Miss a day and your streak resets â€” consistency is the key to qualifying.",
   },
   {
     icon: Star,
@@ -23,7 +23,7 @@ const steps = [
     border: "hsl(38 88% 52% / 0.2)",
     step: "02",
     title: "Hit WPM milestones",
-    desc: "Your leaderboard score is WPM x test count. Type fast, type often — both speed and frequency matter.",
+    desc: "Your leaderboard score is WPM x test count. Type fast, type often â€” both speed and frequency matter.",
   },
   {
     icon: Crown,
@@ -48,7 +48,7 @@ export default function WeeklyVoucher() {
   return (
     <div className="min-h-screen flex flex-col">
       <SEOMeta
-        title="Weekly Gift Vouchers — TypingPeak"
+        title="Weekly Gift Vouchers â€” TypingPeak"
         description="Win real gift vouchers every week by maintaining your typing streak and climbing the TypingPeak leaderboard."
         keywords="typing reward, weekly voucher, typing leaderboard, streak reward"
       />
@@ -164,7 +164,7 @@ export default function WeeklyVoucher() {
                         Winner
                       </span>
                     ) : (
-                      <span className="text-[10px] text-muted-foreground/40">—</span>
+                      <span className="text-[10px] text-muted-foreground/40">â€”</span>
                     )}
                   </div>
                 </motion.div>
