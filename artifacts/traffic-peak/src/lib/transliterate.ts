@@ -314,7 +314,7 @@ function renderSyllables(syllables: Syllable[]): string {
 //   â€¢ à®£ (retroflex N) between vowels â€” handled by user typing N
 function applyTamilOrthography(text: string): string {
   // Word-initial à®© â†’ à®¨
-  return text.replace(/(^|[\sà®€-à¯¿])(à®©)/g, (_, pre, _ch) => pre + TA.N);
+  return text.replace(/(^|\s)(à®©)/g, (_, pre, _ch) => pre + TA.N);
 }
 
 // â”€â”€â”€ Public API: transliterate a single Tamil word â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
