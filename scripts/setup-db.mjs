@@ -1,9 +1,19 @@
 import Database from "better-sqlite3";
 import path from "path";
 import { fileURLToPath } from "url";
+import { mkdirSync } from "fs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dbPath = path.resolve(__dirname, "../lib/db/db/dev.db");
+
+const rawUrl = process.env.DATABASE_URL ?? "./lib/db/db/dev.db";
+const dbPath = path.resolve(
+  __dirname,
+  "..",
+  rawUrl.replace(/^sqlite:/, "").replace(/^file:/, "")
+);
+
+mkdirSync(path.dirname(dbPath), { recursive: true });
+
 const db = new Database(dbPath);
 
 db.pragma("journal_mode = WAL");
