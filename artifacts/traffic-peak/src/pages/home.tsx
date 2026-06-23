@@ -11,7 +11,7 @@ const features = [
   {
     icon: Zap,
     title: "Zero-Lag Typing Engine",
-    description: "Character-level rendering with instant feedback. Every keystroke processed in real-time â€” no delays, no compromises.",
+    description: "Character-level rendering with instant feedback. Every keystroke processed in real-time — no delays, no compromises.",
   },
   {
     icon: Target,
@@ -54,7 +54,7 @@ const faqs = [
   },
   {
     q: "Are calculations done locally?",
-    a: "Yes. All WPM, CPM, and accuracy calculations happen entirely in your browser. No API calls are made during the typing test â€” zero latency.",
+    a: "Yes. All WPM, CPM, and accuracy calculations happen entirely in your browser. No API calls are made during the typing test — zero latency.",
   },
   {
     q: "How do certificates work?",
@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     q: "Is there a multiplayer mode?",
-    a: "Yes â€” the Typing Race game lets you race against an AI opponent at configurable speeds. Real-time multiplayer is on the roadmap.",
+    a: "Yes — the Typing Race game lets you race against an AI opponent at configurable speeds. Real-time multiplayer is on the roadmap.",
   },
 ];
 
@@ -111,7 +111,7 @@ function TypingDemo() {
 
     if (phase === "typing") {
       if (cursorIdx >= chars.length) {
-        // Finished typing â€” pause then clear
+        // Finished typing — pause then clear
         const t = setTimeout(() => setPhase("pause"), 1400);
         return () => clearTimeout(t);
       }
@@ -136,7 +136,7 @@ function TypingDemo() {
 
     if (phase === "clearing") {
       if (cursorIdx <= 0) {
-        // Done clearing â€” move to next phrase
+        // Done clearing — move to next phrase
         const t = setTimeout(() => setPhraseIdx((i) => (i + 1) % DEMO_PHRASES.length), 300);
         return () => clearTimeout(t);
       }
@@ -155,7 +155,7 @@ function TypingDemo() {
     }
   }, [chars, cursorIdx, phase]);
 
-  // wpm / accuracy counters â€” fake live numbers
+  // wpm / accuracy counters — fake live numbers
   const progress = chars.length > 0 ? cursorIdx / chars.length : 0;
   const fakeWpm = Math.round(phase === "clearing" ? 0 : progress * 94);
   const fakeAcc = phase === "clearing" ? 100 : Math.round(96 + progress * 3);
@@ -307,9 +307,9 @@ export default function Home() {
           style={{ background: "linear-gradient(90deg, hsl(38 88% 52% / 0.10) 0%, hsl(38 88% 52% / 0.06) 100%)", borderBottom: "1px solid hsl(38 88% 52% / 0.18)" }}
         >
           <div className="max-w-5xl mx-auto px-4 py-2.5 flex items-center justify-center gap-3">
-            <span className="text-base">ðŸŽ</span>
+            <span className="text-base">🎁</span>
             <span className="text-sm font-medium" style={{ color: "hsl(38 88% 42%)" }}>
-              Win weekly gift vouchers â€” top typists get rewarded every Sunday
+              Win weekly gift vouchers — top typists get rewarded every Sunday
             </span>
             <span className="text-xs font-semibold px-2 py-0.5 rounded-full group-hover:gap-2 transition-all"
               style={{ background: "hsl(38 88% 52% / 0.15)", color: "hsl(38 88% 42%)" }}>
@@ -470,7 +470,7 @@ export default function Home() {
           className="max-w-xl mx-auto"
         >
           <h2 className="text-3xl font-bold mb-4">Ready to hit your peak?</h2>
-          <p className="text-muted-foreground mb-8">Jump in and take your first test â€” no account required.</p>
+          <p className="text-muted-foreground mb-8">Jump in and take your first test — no account required.</p>
           <Link href="/typing-test">
             <motion.div whileHover={{ scale: 1.04, y: -3 }} whileTap={{ scale: 0.97 }} style={{ display: "inline-block" }}>
               <Button

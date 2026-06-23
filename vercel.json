@@ -1,13 +1,18 @@
 {
   "version": 2,
   "installCommand": "npm install -g pnpm && pnpm install --frozen-lockfile --ignore-scripts",
-  "buildCommand": "pnpm --filter @workspace/api-client-react build && pnpm --filter @workspace/traffic-peak run build",
+  "buildCommand": "pnpm --filter @workspace/api-client-react build && pnpm --filter @workspace/api-server run build && pnpm --filter @workspace/traffic-peak run build",
   "outputDirectory": "artifacts/traffic-peak/dist/public",
   "framework": null,
+  "functions": {
+    "api/index.mjs": {
+      "runtime": "nodejs22.x"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "destination": "/api/index.mjs"
     },
     {
       "source": "/(.*)",
