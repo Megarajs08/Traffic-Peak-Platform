@@ -100,8 +100,9 @@ API: http://localhost:4000
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Create OAuth 2.0 credentials
-3. Add `http://localhost:4173/api/auth/google/callback` as an authorised redirect URI
-4. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in your `.env`
+3. Add `http://localhost:3004/api/auth/google/callback` as an authorised redirect URI for local development
+4. Add your production callback URL too, for example `https://your-domain.com/api/auth/google/callback`
+5. Set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`, and `FRONTEND_URL` in your `.env`
 
 ## License
 
