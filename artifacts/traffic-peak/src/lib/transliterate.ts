@@ -14,7 +14,37 @@ export interface Language {
   placeholder: string;
 }
 
-export const LANGUAGES: Language[] = [
+function decodeMojibake(value: string): string {
+  // Fix strings that were UTF-8 bytes misread as latin-1 (e.g. "à®¤à®®à®¿à®´்" -> "தமிழ்").
+  if (!/[àâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ]/i.test(value)) return value;
+  try {
+    const bytes = Uint8Array.from(value, (ch) => ch.charCodeAt(0) & 0xff);
+    const decoded = new TextDecoder("utf-8").decode(bytes);
+    return decoded.includes("�") ? value : decoded;
+  } catch {
+    return value;
+  }
+}
+
+function decodeRecord<T extends Record<string, string>>(record: T): T {
+  return Object.fromEntries(
+    Object.entries(record).map(([k, v]) => [k, decodeMojibake(v)]),
+  ) as T;
+}
+
+function decodePhonemeMap(map: [string, string][]): [string, string][] {
+  return map.map(([roman, glyph]) => [roman, decodeMojibake(glyph)] as [string, string]);
+}
+
+function escapeRegExp(input: string): string {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function hasTamilScript(input: string): boolean {
+  return /[\u0B80-\u0BFF]/.test(input);
+}
+
+const RAW_LANGUAGES: Language[] = [
   { code: "ta", name: "Tamil",     nativeName: "à®¤à®®à®¿à®´à¯",   fontClass: "font-tamil",      placeholder: "à®¤à®®à®¿à®´à®¿à®²à¯ à®¤à®Ÿà¯à®Ÿà®šà¯à®šà¯ à®šà¯†à®¯à¯à®¯à¯à®™à¯à®•à®³à¯..." },
   { code: "hi", name: "Hindi",     nativeName: "à¤¹à¤¿à¤¨à¥à¤¦à¥€",  fontClass: "font-devanagari", placeholder: "à¤¹à¤¿à¤¨à¥à¤¦à¥€ à¤®à¥‡à¤‚ à¤Ÿà¤¾à¤‡à¤ª à¤•à¤°à¥‡à¤‚..."           },
   { code: "te", name: "Telugu",    nativeName: "à°¤à±†à°²à±à°—à±",  fontClass: "font-telugu",     placeholder: "à°¤à±†à°²à±à°—à±à°²à±‹ à°Ÿà±ˆà°ªà± à°šà±‡à°¯à°‚à°¡à°¿..."          },
@@ -24,69 +54,75 @@ export const LANGUAGES: Language[] = [
   { code: "mr", name: "Marathi",   nativeName: "à¤®à¤°à¤¾à¤ à¥€",   fontClass: "font-devanagari", placeholder: "à¤®à¤°à¤¾à¤ à¥€à¤¤ à¤Ÿà¤¾à¤‡à¤ª à¤•à¤°à¤¾..."               },
 ];
 
+export const LANGUAGES: Language[] = RAW_LANGUAGES.map((lang) => ({
+  ...lang,
+  nativeName: decodeMojibake(lang.nativeName),
+  placeholder: decodeMojibake(lang.placeholder),
+}));
+
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SECTION 1 â€” TAMIL ENGINE
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 // Tamil Unicode codepoints
-const TA = {
+const TA = decodeRecord({
   // Independent vowels
-  A:   "à®…", // à®…
-  AA:  "à®†", // à®†
-  I:   "à®‡", // à®‡
-  II:  "à®ˆ", // à®ˆ
-  U:   "à®‰", // à®‰
-  UU:  "à®Š", // à®Š
-  E:   "à®Ž", // à®Ž
-  EE:  "à®", // à®
-  AI:  "à®", // à®
-  O:   "à®’", // à®’
-  OO:  "à®“", // à®“
-  AU:  "à®”", // à®”
+  A:   "\u0B85", // அ
+  AA:  "\u0B86", // ஆ
+  I:   "\u0B87", // இ
+  II:  "\u0B88", // ஈ
+  U:   "\u0B89", // உ
+  UU:  "\u0B8A", // ஊ
+  E:   "\u0B8E", // எ
+  EE:  "\u0B8F", // ஏ
+  AI:  "\u0B90", // ஐ
+  O:   "\u0B92", // ஒ
+  OO:  "\u0B93", // ஓ
+  AU:  "\u0B94", // ஔ
 
   // Vowel signs (matras) â€” attached to consonants
-  S_AA:  "à®¾", // à®¾
-  S_I:   "à®¿", // à®¿
-  S_II:  "à¯€", // à¯€
-  S_U:   "à¯", // à¯
-  S_UU:  "à¯‚", // à¯‚
-  S_E:   "à¯†", // à¯†
-  S_EE:  "à¯‡", // à¯‡
-  S_AI:  "à¯ˆ", // à¯ˆ
-  S_O:   "à¯Š", // à¯Š
-  S_OO:  "à¯‹", // à¯‹
-  S_AU:  "à¯Œ", // à¯Œ
+  S_AA:  "\u0BBE", // ா
+  S_I:   "\u0BBF", // ி
+  S_II:  "\u0BC0", // ீ
+  S_U:   "\u0BC1", // ு
+  S_UU:  "\u0BC2", // ூ
+  S_E:   "\u0BC6", // ெ
+  S_EE:  "\u0BC7", // ே
+  S_AI:  "\u0BC8", // ை
+  S_O:   "\u0BCA", // ொ
+  S_OO:  "\u0BCB", // ோ
+  S_AU:  "\u0BCC", // ௌ
 
   // Virama (pulli) â€” removes inherent vowel from consonant
-  VIRAMA: "à¯", // à¯
+  VIRAMA: "\u0BCD", // ்
 
   // Aaytham
-  AAYTHAM: "à®ƒ", // à®ƒ
+  AAYTHAM: "\u0B83", // ஃ
 
   // Consonants
-  K:   "à®•", // à®•
-  NG:  "à®™", // à®™
-  C:   "à®š", // à®š
-  NJ:  "à®ž", // à®ž
-  T_RET: "à®Ÿ", // à®Ÿ  (retroflex T)
-  N_RET: "à®£", // à®£  (retroflex N)
-  TH:  "à®¤", // à®¤
-  N:   "à®¨", // à®¨  (dental n)
-  P:   "à®ª", // à®ª
-  M:   "à®®", // à®®
-  Y:   "à®¯", // à®¯
-  R:   "à®°", // à®°
-  L:   "à®²", // à®²
-  V:   "à®µ", // à®µ
-  ZH:  "à®´", // à®´
-  LL:  "à®³", // à®³
-  RR:  "à®±", // à®±
-  NN:  "à®©", // à®©  (alveolar n)
-  J:   "à®œ", // à®œ
-  SH:  "à®·", // à®·
-  S:   "à®¸", // à®¸
-  H:   "à®¹", // à®¹
-};
+  K:   "\u0B95", // க
+  NG:  "\u0B99", // ங
+  C:   "\u0B9A", // ச
+  NJ:  "\u0B9E", // ஞ
+  T_RET: "\u0B9F", // ட  (retroflex T)
+  N_RET: "\u0BA3", // ண  (retroflex N)
+  TH:  "\u0BA4", // த
+  N:   "\u0BA8", // ந  (dental n)
+  P:   "\u0BAA", // ப
+  M:   "\u0BAE", // ம
+  Y:   "\u0BAF", // ய
+  R:   "\u0BB0", // ர
+  L:   "\u0BB2", // ல
+  V:   "\u0BB5", // வ
+  ZH:  "\u0BB4", // ழ
+  LL:  "\u0BB3", // ள
+  RR:  "\u0BB1", // ற
+  NN:  "\u0BA9", // ன  (alveolar n)
+  J:   "\u0B9C", // ஜ
+  SH:  "\u0BB7", // ஷ
+  S:   "\u0BB8", // ஸ
+  H:   "\u0BB9", // ஹ
+});
 
 // Vowel: [independent form, matra/sign form]
 // matra "" means virama (no vowel = halant on consonant)
@@ -313,8 +349,9 @@ function renderSyllables(syllables: Syllable[]): string {
 //   â€¢ Geminate fix: à®•à¯à®• â†’ à®•à¯à®• (already correct from coda+cv)
 //   â€¢ à®£ (retroflex N) between vowels â€” handled by user typing N
 function applyTamilOrthography(text: string): string {
-  // Word-initial à®© â†’ à®¨
-  return text.replace(/(^|\s)(à®©)/g, (_, pre, _ch) => pre + TA.N);
+  // Word-initial ன -> ந
+  const nnAtWordStart = new RegExp(`(^|\\s)(${escapeRegExp(TA.NN)})`, "g");
+  return text.replace(nnAtWordStart, (_, pre) => pre + TA.N);
 }
 
 // â”€â”€â”€ Public API: transliterate a single Tamil word â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -328,7 +365,7 @@ function transliterateTamilWord(word: string): string {
 // â”€â”€â”€ Known-word dictionary for common words (ranking / correction) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // These are only used for lookup suggestions, NOT for blocking the engine.
 // The engine always generates output even for unknown words.
-const TAMIL_DICTIONARY: Record<string, string> = {
+const TAMIL_DICTIONARY: Record<string, string> = decodeRecord({
   enna:      "à®Žà®©à¯à®©",
   ennai:     "à®Žà®©à¯à®©à¯ˆ",
   ennal:     "à®Žà®©à¯à®©à®¾à®²à¯",
@@ -421,6 +458,29 @@ const TAMIL_DICTIONARY: Record<string, string> = {
   kudicha:   "à®•à¯à®Ÿà®¿à®šà¯à®š",
   pannuven:  "à®ªà®£à¯à®£à¯à®µà¯‡à®©à¯",
   pannrom:   "à®ªà®£à¯à®±à¯‹à®®à¯",
+});
+
+const TAMIL_DICTIONARY_OVERRIDES: Record<string, string> = {
+  vanakkam: "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD",
+  tamil: "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD",
+  nandri: "\u0BA8\u0BA9\u0BCD\u0BB1\u0BBF",
+  amma: "\u0B85\u0BAE\u0BCD\u0BAE\u0BBE",
+  appa: "\u0B85\u0BAA\u0BCD\u0BAA\u0BBE",
+  enna: "\u0B8E\u0BA9\u0BCD\u0BA9",
+  enoda: "\u0B8E\u0BA9\u0BCD\u0BA9\u0BCB\u0B9F",
+  ennoda: "\u0B8E\u0BA9\u0BCD\u0BA9\u0BCB\u0B9F",
+  enodae: "\u0B8E\u0BA9\u0BCD\u0BA9\u0BCB\u0B9F\u0BC7",
+  eppadi: "\u0B8E\u0BAA\u0BCD\u0BAA\u0B9F\u0BBF",
+  peyar: "\u0BAA\u0BC6\u0BAF\u0BB0\u0BCD",
+  per: "\u0BAA\u0BC7\u0BB0\u0BCD",
+  megaraj: "\u0BAE\u0BC7\u0B95\u0BB0\u0BBE\u0B9C\u0BCD",
+  megarajh: "\u0BAE\u0BC7\u0B95\u0BB0\u0BBE\u0B9C\u0BCD",
+  megaraja: "\u0BAE\u0BC7\u0B95\u0BB0\u0BBE\u0B9C\u0BBE",
+};
+
+const EFFECTIVE_TAMIL_DICTIONARY: Record<string, string> = {
+  ...Object.fromEntries(Object.entries(TAMIL_DICTIONARY).filter(([, value]) => hasTamilScript(value))),
+  ...TAMIL_DICTIONARY_OVERRIDES,
 };
 
 // â”€â”€â”€ Autocomplete / suggestion engine â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -444,7 +504,7 @@ export function getSuggestions(partial: string): Array<{ roman: string; tamil: s
   }
 
   // 2. Prefix matches from dictionary
-  for (const [roman, tamil] of Object.entries(TAMIL_DICTIONARY)) {
+  for (const [roman, tamil] of Object.entries(EFFECTIVE_TAMIL_DICTIONARY)) {
     if (roman.startsWith(lower) && roman !== lower) {
       results.push({ roman, tamil, score: 100 - roman.length });
     }
@@ -480,7 +540,7 @@ function bestTamilWord(word: string): string {
   if (learnedWords.has(lower)) return learnedWords.get(lower)!;
 
   // Dictionary lookup
-  if (TAMIL_DICTIONARY[lower]) return TAMIL_DICTIONARY[lower];
+  if (EFFECTIVE_TAMIL_DICTIONARY[lower]) return EFFECTIVE_TAMIL_DICTIONARY[lower];
 
   // Engine
   const engineOut = transliterateTamilWord(lower);
@@ -492,7 +552,7 @@ function bestTamilWord(word: string): string {
 // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 // Each entry: [roman_key, unicode] â€” sorted longest-first inside each group
-const DEVANAGARI_MAP: [string, string][] = [
+const DEVANAGARI_MAP: [string, string][] = decodePhonemeMap([
   ["aa","à¤†"],["ii","à¤ˆ"],["uu","à¤Š"],["ee","à¤ˆ"],["oo","à¤“"],["ai","à¤"],["au","à¤”"],["ou","à¤”"],
   ["a","à¤…"],["i","à¤‡"],["u","à¤‰"],["e","à¤"],["o","à¤“"],
   ["kh","à¤–"],["gh","à¤˜"],["ch","à¤š"],["Ch","à¤›"],["jh","à¤"],["Th","à¤ "],["Dh","à¤¢"],
@@ -502,9 +562,9 @@ const DEVANAGARI_MAP: [string, string][] = [
   ["p","à¤ª"],["b","à¤¬"],["m","à¤®"],["y","à¤¯"],["r","à¤°"],["l","à¤²"],["v","à¤µ"],["w","à¤µ"],
   ["s","à¤¸"],["h","à¤¹"],["f","à¤«"],["z","à¤œà¤¼"],["q","à¤•à¤¼"],["N","à¤£"],["T","à¤Ÿ"],["D","à¤¡"],
   ["R","à¤¡à¤¼"],["L","à¤³"],["M","à¤‚"],["H","à¤ƒ"],
-];
+]);
 
-const TELUGU_MAP: [string, string][] = [
+const TELUGU_MAP: [string, string][] = decodePhonemeMap([
   ["aa","à°†"],["ii","à°ˆ"],["uu","à°Š"],["ee","à°ˆ"],["ai","à°"],["oo","à°“"],["au","à°”"],
   ["a","à°…"],["i","à°‡"],["u","à°‰"],["e","à°Ž"],["o","à°’"],
   ["kh","à°–"],["gh","à°˜"],["ch","à°š"],["jh","à°"],["th","à°¥"],["dh","à°§"],
@@ -513,9 +573,9 @@ const TELUGU_MAP: [string, string][] = [
   ["k","à°•"],["g","à°—"],["c","à°š"],["j","à°œ"],["t","à°Ÿ"],["d","à°¡"],["n","à°¨"],
   ["p","à°ª"],["b","à°¬"],["m","à°®"],["y","à°¯"],["r","à°°"],["l","à°²"],["v","à°µ"],["w","à°µ"],
   ["s","à°¸"],["h","à°¹"],["f","à°«"],["z","à°œ"],["L","à°³"],["N","à°£"],["R","à°°"],["T","à° "],["D","à°¢"],
-];
+]);
 
-const MALAYALAM_MAP: [string, string][] = [
+const MALAYALAM_MAP: [string, string][] = decodePhonemeMap([
   ["aa","à´†"],["ii","à´ˆ"],["uu","à´Š"],["ee","à´ˆ"],["ai","à´"],["oo","à´“"],["au","à´”"],
   ["a","à´…"],["i","à´‡"],["u","à´‰"],["e","à´Ž"],["o","à´’"],
   ["kh","à´–"],["gh","à´˜"],["ch","à´š"],["jh","à´"],["th","à´¥"],["dh","à´§"],
@@ -524,9 +584,9 @@ const MALAYALAM_MAP: [string, string][] = [
   ["k","à´•"],["g","à´—"],["c","à´š"],["j","à´œ"],["t","à´Ÿ"],["d","à´¡"],["n","à´¨"],
   ["p","à´ª"],["b","à´¬"],["m","à´®"],["y","à´¯"],["r","à´°"],["l","à´²"],["v","à´µ"],["w","à´µ"],
   ["s","à´¸"],["h","à´¹"],["f","à´«"],["z","à´¸"],["L","à´³"],["N","à´£"],["R","à´°"],
-];
+]);
 
-const KANNADA_MAP: [string, string][] = [
+const KANNADA_MAP: [string, string][] = decodePhonemeMap([
   ["aa","à²†"],["ii","à²ˆ"],["uu","à²Š"],["ee","à²ˆ"],["ai","à²"],["oo","à²“"],["au","à²”"],
   ["a","à²…"],["i","à²‡"],["u","à²‰"],["e","à²Ž"],["o","à²’"],
   ["kh","à²–"],["gh","à²˜"],["ch","à²š"],["jh","à²"],["th","à²¥"],["dh","à²§"],
@@ -535,9 +595,9 @@ const KANNADA_MAP: [string, string][] = [
   ["k","à²•"],["g","à²—"],["c","à²š"],["j","à²œ"],["t","à²Ÿ"],["d","à²¡"],["n","à²¨"],
   ["p","à²ª"],["b","à²¬"],["m","à²®"],["y","à²¯"],["r","à²°"],["l","à²²"],["v","à²µ"],["w","à²µ"],
   ["s","à²¸"],["h","à²¹"],["f","à²«"],["z","à²œ"],["L","à²³"],["N","à²£"],["R","à²°"],["T","à² "],["D","à²¢"],
-];
+]);
 
-const BENGALI_MAP: [string, string][] = [
+const BENGALI_MAP: [string, string][] = decodePhonemeMap([
   ["aa","à¦†"],["ii","à¦ˆ"],["uu","à¦Š"],["ee","à¦ˆ"],["oo","à¦“"],["ai","à¦"],["au","à¦”"],
   ["a","à¦…"],["i","à¦‡"],["u","à¦‰"],["e","à¦"],["o","à¦“"],
   ["kh","à¦–"],["gh","à¦˜"],["ch","à¦š"],["jh","à¦"],["th","à¦¥"],["dh","à¦§"],
@@ -546,7 +606,7 @@ const BENGALI_MAP: [string, string][] = [
   ["k","à¦•"],["g","à¦—"],["c","à¦š"],["j","à¦œ"],["t","à¦¤"],["d","à¦¦"],["n","à¦¨"],
   ["p","à¦ª"],["b","à¦¬"],["m","à¦®"],["y","à¦¯"],["r","à¦°"],["l","à¦²"],["v","à¦­"],["w","à¦“"],
   ["s","à¦¸"],["h","à¦¹"],["f","à¦«"],["z","à¦œ"],["N","à¦£"],["T","à¦Ÿ"],["D","à¦¡"],["R","à¦¡à¦¼"],
-];
+]);
 
 type PhonemeMap = [string, string][];
 

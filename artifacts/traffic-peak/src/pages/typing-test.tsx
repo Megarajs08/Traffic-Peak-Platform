@@ -11,8 +11,9 @@ import { Button } from "@/components/ui/button";
 import { useSubmitTest, useGenerateCertificate } from "@workspace/api-client-react";
 import { useAuth } from "@/contexts/auth-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { RotateCcw, Award, RefreshCw } from "lucide-react";
+import { RotateCcw, Award, RefreshCw, Volume2, VolumeX } from "lucide-react";
 import { top1000Words } from "@/lib/words";
+import { useTypingSounds } from "@/hooks/use-typing-sounds";
 
 // Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Types Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
@@ -987,6 +988,13 @@ export default function TypingTest() {
   const textParaRef     = useRef<HTMLParagraphElement>(null);
 
   const { isAuthenticated } = useAuth();
+  const {
+    enabled: soundEnabled,
+    setEnabled: setSoundEnabled,
+    playKeySound,
+    playErrorSound,
+    playBackspaceSound,
+  } = useTypingSounds();
   const submitTest  = useSubmitTest();
   const generateCert = useGenerateCertificate();
 
@@ -1102,6 +1110,7 @@ export default function TypingTest() {
       if (key === "Backspace") {
         e.preventDefault();
         if (currentIndex === 0) return;
+        playBackspaceSound();
         setChars((prev) => {
           const next = [...prev];
           next[currentIndex]     = { ...next[currentIndex],     state: "pending"  };
@@ -1125,6 +1134,9 @@ export default function TypingTest() {
       }
 
       const isCorrect = key === expectedChar;
+      if (isCorrect) playKeySound(key === " " ? "space" : "key");
+      else playErrorSound();
+
       setTotalTyped((t) => t + 1);
       if (isCorrect) setCorrectChars((c) => c + 1);
       else           setErrors((err) => err + 1);
@@ -1145,7 +1157,7 @@ export default function TypingTest() {
         setFinished(true);
       }
     },
-    [finished, started, currentIndex, chars]
+    [finished, started, currentIndex, chars, playBackspaceSound, playErrorSound, playKeySound]
   );
 
   // Ã¢"â‚¬Ã¢"â‚¬ Live stats Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
@@ -1387,6 +1399,20 @@ export default function TypingTest() {
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>restart</span>
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setSoundEnabled((v) => !v);
+                inputRef.current?.focus();
+              }}
+              className="flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm text-muted-foreground/40 hover:text-foreground/80 hover:bg-muted/30 transition-colors duration-150 select-none"
+              data-testid="button-sound-toggle"
+              tabIndex={-1}
+              title={soundEnabled ? "Mute typing sound" : "Enable typing sound"}
+            >
+              {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+              <span>{soundEnabled ? "sound on" : "sound off"}</span>
             </button>
             <span className="text-xs text-muted-foreground/20 select-none font-mono">tab + enter</span>
           </div>

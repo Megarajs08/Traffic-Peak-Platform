@@ -23,6 +23,15 @@ export default function Login() {
   const { isAuthenticated } = useAuth();
   const queryClient = useQueryClient();
   const login = useLogin();
+  const searchParams = new URLSearchParams(window.location.search);
+  const oauthError = searchParams.get("error");
+
+  const oauthErrorText: Record<string, string> = {
+    google_not_configured: "Google login is not configured yet. Please set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in the API server environment.",
+    google_cancelled: "Google login was cancelled.",
+    google_no_email: "Google account did not return an email address.",
+    google_failed: "Google login failed. Please try again.",
+  };
 
   useEffect(() => {
     if (isAuthenticated) setLocation("/dashboard");
@@ -59,6 +68,12 @@ export default function Login() {
             <h1 className="text-2xl font-bold" data-testid="login-heading">Welcome back</h1>
             <p className="text-muted-foreground text-sm mt-1">Sign in to your TypingPeak account</p>
           </div>
+
+          {oauthError && oauthErrorText[oauthError] && (
+            <div className="mb-4 rounded-lg border border-amber-300/60 bg-amber-50 px-3 py-2 text-xs text-amber-800" data-testid="google-oauth-error">
+              {oauthErrorText[oauthError]}
+            </div>
+          )}
 
           {/* Google Sign-In */}
           <a

@@ -19,6 +19,8 @@ import Profile from "@/pages/profile";
 import Settings from "@/pages/settings";
 import Login from "@/pages/login";
 import Register from "@/pages/register";
+import ForgotPassword from "@/pages/forgot-password";
+import ResetPassword from "@/pages/reset-password";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import PrivacyPolicy from "@/pages/privacy-policy";
@@ -32,7 +34,6 @@ import HrDashboard from "@/pages/hr/index";
 import AssessmentForm from "@/pages/hr/assessment-form";
 import AssessmentDetail from "@/pages/hr/assessment-detail";
 import CandidateAssessment from "@/pages/assessment/index";
-import MultilingualTyping from "@/pages/multilingual";
 import WeeklyVoucher from "@/pages/weekly-voucher";
 
 const queryClient = new QueryClient({
@@ -61,6 +62,8 @@ function Router() {
       <Route path="/settings" component={Settings} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/forgot-password" component={ForgotPassword} />
+      <Route path="/reset-password" component={ResetPassword} />
       {/* Info & Legal */}
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
@@ -81,7 +84,6 @@ function Router() {
       {/* Public Candidate Assessment */}
       <Route path="/assessment/:token" component={CandidateAssessment} />
       {/* Tools */}
-      <Route path="/tools/multilingual" component={MultilingualTyping} />
       <Route path="/weekly-voucher" component={WeeklyVoucher} />
       <Route component={NotFound} />
     </Switch>

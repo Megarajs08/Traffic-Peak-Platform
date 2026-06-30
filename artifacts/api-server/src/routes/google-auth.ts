@@ -6,18 +6,43 @@ import { createSession } from "../lib/session";
 
 const router: IRouter = Router();
 
-const CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
-const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
-const REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || "http://localhost:4173/api/auth/google/callback";
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:4173";
+type GoogleOAuthConfig = {
+  clientId: string;
+  clientSecret: string;
+  redirectUri: string;
+  frontendUrl: string;
+};
 
-function getOAuthClient() {
-  return new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+function getFrontendUrl(req: Parameters<IRouter["get"]>[1] extends (req: infer T, ...args: any[]) => any ? T : any) {
+  if (process.env.FRONTEND_URL) return process.env.FRONTEND_URL;
+  const proto = req.headers["x-forwarded-proto"]?.toString().split(",")[0] || req.protocol || "http";
+  const host = req.headers.host || "localhost:3004";
+  return `${proto}://${host}`;
+}
+
+function getGoogleOAuthConfig(req: any): GoogleOAuthConfig {
+  const frontendUrl = getFrontendUrl(req);
+  return {
+    clientId: process.env.GOOGLE_CLIENT_ID || "",
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    redirectUri: process.env.GOOGLE_REDIRECT_URI || `${frontendUrl}/api/auth/google/callback`,
+    frontendUrl,
+  };
+}
+
+function getOAuthClient(config: GoogleOAuthConfig) {
+  return new OAuth2Client(config.clientId, config.clientSecret, config.redirectUri);
 }
 
 // Step 1 — redirect browser to Google consent screen
-router.get("/auth/google", (_req, res) => {
-  const client = getOAuthClient();
+router.get("/auth/google", (req, res) => {
+  const config = getGoogleOAuthConfig(req);
+  if (!config.clientId || !config.clientSecret) {
+    res.redirect(`${config.frontendUrl}/login?error=google_not_configured`);
+    return;
+  }
+
+  const client = getOAuthClient(config);
   const url = client.generateAuthUrl({
     access_type: "offline",
     scope: ["openid", "email", "profile"],
@@ -28,25 +53,31 @@ router.get("/auth/google", (_req, res) => {
 
 // Step 2 — Google redirects back here with ?code=...
 router.get("/auth/google/callback", async (req, res) => {
+  const config = getGoogleOAuthConfig(req);
+  if (!config.clientId || !config.clientSecret) {
+    res.redirect(`${config.frontendUrl}/login?error=google_not_configured`);
+    return;
+  }
+
   const code = req.query.code as string | undefined;
   if (!code) {
-    res.redirect(`${FRONTEND_URL}/login?error=google_cancelled`);
+    res.redirect(`${config.frontendUrl}/login?error=google_cancelled`);
     return;
   }
 
   try {
-    const client = getOAuthClient();
+    const client = getOAuthClient(config);
     const { tokens } = await client.getToken(code);
     client.setCredentials(tokens);
 
     const ticket = await client.verifyIdToken({
       idToken: tokens.id_token!,
-      audience: CLIENT_ID,
+      audience: config.clientId,
     });
 
     const payload = ticket.getPayload();
     if (!payload || !payload.email) {
-      res.redirect(`${FRONTEND_URL}/login?error=google_no_email`);
+      res.redirect(`${config.frontendUrl}/login?error=google_no_email`);
       return;
     }
 
@@ -101,10 +132,10 @@ router.get("/auth/google/callback", async (req, res) => {
     }
 
     await createSession(user.id, res);
-    res.redirect(`${FRONTEND_URL}/dashboard`);
+    res.redirect(`${config.frontendUrl}/dashboard`);
   } catch (err) {
     console.error("Google OAuth error:", err);
-    res.redirect(`${FRONTEND_URL}/login?error=google_failed`);
+    res.redirect(`${config.frontendUrl}/login?error=google_failed`);
   }
 });
 

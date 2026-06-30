@@ -158,6 +158,20 @@ export default function MultilingualTyping() {
   const [currentWord, setCurrentWord] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const commitTamilWordAtBoundary = useCallback((text: string, cursorAtEnd: boolean) => {
+    if (lang.code !== "ta" || !cursorAtEnd) return text;
+
+    // Convert only when a roman word is completed with a boundary key (space/newline/punctuation).
+    const match = text.match(/([a-zA-Z]+)([\s.,!?;:()\[\]{}"'`-]+)$/);
+    if (!match) return text;
+
+    const [, romanWord, trailing] = match;
+    const tamilWord = transliterate(romanWord, "ta");
+    if (!tamilWord || tamilWord === romanWord) return text;
+
+    return text.slice(0, text.length - romanWord.length - trailing.length) + tamilWord + trailing;
+  }, [lang.code]);
+
   // Transliterate on every keystroke
   const transliterated = transliterate(rawText, lang.code);
 
@@ -176,14 +190,16 @@ export default function MultilingualTyping() {
   }, [lang.code]);
 
   const handleTextChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const val = e.target.value;
+    const isCursorAtEnd = (e.target.selectionStart ?? e.target.value.length) === e.target.value.length;
+    const val = commitTamilWordAtBoundary(e.target.value, isCursorAtEnd);
     setRawText(val);
     updateSuggestions(val);
-  }, [updateSuggestions]);
+  }, [commitTamilWordAtBoundary, updateSuggestions]);
 
   const applySuggestion = useCallback((roman: string, tamil: string) => {
     // Replace the current word at end of rawText with the selected suggestion
-    const newRaw = rawText.replace(/([a-zA-Z]+)$/, roman + " ");
+    const replacement = lang.code === "ta" ? tamil + " " : roman + " ";
+    const newRaw = rawText.replace(/([a-zA-Z]+)$/, replacement);
     setRawText(newRaw);
     setSuggestions([]);
     setCurrentWord("");
@@ -194,7 +210,7 @@ export default function MultilingualTyping() {
       const ta = textareaRef.current;
       if (ta) { ta.selectionStart = ta.selectionEnd = ta.value.length; }
     }, 0);
-  }, [rawText]);
+  }, [lang.code, rawText]);
 
   const wordCount = transliterated.trim() === "" ? 0 : transliterated.trim().split(/\s+/).length;
   const charCount = transliterated.replace(/\s/g, "").length;
@@ -367,7 +383,7 @@ export default function MultilingualTyping() {
                 placeholder={`Type phonetically in English...\ne.g. "vanakkam" â†’ ${transliterate("vanakkam", lang.code)}`}
                 autoFocus
                 spellCheck={false}
-                className="flex-1 w-full bg-transparent px-5 py-4 text-foreground text-base font-mono resize-none outline-none placeholder:text-muted-foreground/40 leading-relaxed"
+                className={`flex-1 w-full bg-transparent px-5 py-4 text-foreground text-base resize-none outline-none placeholder:text-muted-foreground/40 leading-relaxed ${lang.fontClass}`}
                 style={{ minHeight: "52vh" }}
               />
             </div>
@@ -390,7 +406,7 @@ export default function MultilingualTyping() {
                 {transliterated || currentWord ? (
                   <p
                     style={textStyle}
-                    className="whitespace-pre-wrap break-words text-foreground leading-[1.9]"
+                    className={`whitespace-pre-wrap break-words text-foreground leading-[1.9] ${lang.fontClass}`}
                   >
                     {transliterated}
                     {/* Live partial preview of word being typed */}

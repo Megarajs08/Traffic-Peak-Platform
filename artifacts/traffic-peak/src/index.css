@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -194,6 +194,30 @@
 @layer utilities {
   .font-typing {
     font-family: 'Glacial Indifference', 'Inter', sans-serif;
+  }
+
+  .font-tamil {
+    font-family: 'Noto Sans Tamil', 'Latha', 'Vijaya', 'Arial Unicode MS', sans-serif;
+  }
+
+  .font-devanagari {
+    font-family: 'Noto Sans Devanagari', 'Mangal', 'Nirmala UI', sans-serif;
+  }
+
+  .font-telugu {
+    font-family: 'Noto Sans Telugu', 'Nirmala UI', sans-serif;
+  }
+
+  .font-malayalam {
+    font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif;
+  }
+
+  .font-kannada {
+    font-family: 'Noto Sans Kannada', 'Nirmala UI', sans-serif;
+  }
+
+  .font-bengali {
+    font-family: 'Noto Sans Bengali', 'Nirmala UI', sans-serif;
   }
 
   /* Monkeytype character colours */

@@ -1,4 +1,4 @@
-﻿import { Link } from "wouter";
+import { Link } from "wouter";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useRef, MouseEvent, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -296,28 +296,6 @@ export default function Home() {
         keywords="typing speed test, WPM test, typing practice online, learn to type, typing test free, keyboard speed"
       />
       <Navbar />
-
-      {/* Voucher teaser banner */}
-      <Link href="/weekly-voucher">
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="w-full cursor-pointer group"
-          style={{ background: "linear-gradient(90deg, hsl(38 88% 52% / 0.10) 0%, hsl(38 88% 52% / 0.06) 100%)", borderBottom: "1px solid hsl(38 88% 52% / 0.18)" }}
-        >
-          <div className="max-w-5xl mx-auto px-4 py-2.5 flex items-center justify-center gap-3">
-            <span className="text-base">🎁</span>
-            <span className="text-sm font-medium" style={{ color: "hsl(38 88% 42%)" }}>
-              Win weekly gift vouchers — top typists get rewarded every Sunday
-            </span>
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-full group-hover:gap-2 transition-all"
-              style={{ background: "hsl(38 88% 52% / 0.15)", color: "hsl(38 88% 42%)" }}>
-              See how &rarr;
-            </span>
-          </div>
-        </motion.div>
-      </Link>
 
       {/* Hero */}
       <section className="relative flex-1 flex flex-col items-center justify-center px-4 py-28 text-center overflow-hidden">
