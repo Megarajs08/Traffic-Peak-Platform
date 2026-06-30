@@ -81,6 +81,10 @@ export default function AssessmentDetail() {
   const avgWpm = total > 0
     ? Math.round((data?.candidates ?? []).reduce((s, c) => s + (c.wpm ?? 0), 0) / total)
     : 0;
+  const expiresOn = data?.expiresAt ? new Date(data.expiresAt).toLocaleDateString() : null;
+  const validityLabel = data?.expiresAt
+    ? `Expires on ${expiresOn}`
+    : "No expiry set";
 
   function SortIcon({ k }: { k: SortKey }) {
     if (sortKey !== k) return null;
@@ -109,6 +113,7 @@ export default function AssessmentDetail() {
                   <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{Math.round(data.durationSeconds / 60)} min</span>
                   <span className="flex items-center gap-1"><TrendingUp className="w-3 h-3" />Pass: {data.passingWpm} WPM</span>
                   <span className="flex items-center gap-1"><Target className="w-3 h-3" />{data.minAccuracy}% accuracy</span>
+                  <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{validityLabel}</span>
                   <span className={`px-2 py-0.5 rounded-full font-medium ${data.active ? "bg-green-500/10 text-green-400" : "bg-muted text-muted-foreground"}`}>
                     {data.active ? "Active" : "Inactive"}
                   </span>

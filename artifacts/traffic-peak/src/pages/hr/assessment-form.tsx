@@ -30,8 +30,20 @@ type FormState = {
   minAccuracy: number;
   maxAttempts: number;
   active: boolean;
-  expiresAt: string;
+  linkValidityDays: number;
 };
+
+function getValidityLabel(days: number) {
+  if (days <= 0) return "No expiry";
+  if (days === 1) return "1 day";
+  return `${days} days`;
+}
+
+function formatExpiry(days: number) {
+  if (days <= 0) return null;
+  const expiresAt = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+  return expiresAt.toLocaleDateString();
+}
 
 const DEFAULT: FormState = {
   name: "",
@@ -47,7 +59,7 @@ const DEFAULT: FormState = {
   minAccuracy: 90,
   maxAttempts: 1,
   active: true,
-  expiresAt: "",
+  linkValidityDays: 7,
 };
 
 const DURATIONS = [
@@ -68,6 +80,8 @@ export default function AssessmentForm() {
   const { toast } = useToast();
   const [form, setForm] = useState<FormState>(DEFAULT);
   const [saving, setSaving] = useState(false);
+  const [createdLink, setCreatedLink] = useState("");
+  const [createdAssessmentId, setCreatedAssessmentId] = useState<number | null>(null);
 
   const { data: existing } = useGetHrAssessment(editId, {
     query: { enabled: isEdit && editId > 0, queryKey: getGetHrAssessmentQueryKey(editId) },
@@ -89,7 +103,9 @@ export default function AssessmentForm() {
         minAccuracy: existing.minAccuracy,
         maxAttempts: existing.maxAttempts ?? 1,
         active: existing.active ?? true,
-        expiresAt: existing.expiresAt ? existing.expiresAt.slice(0, 10) : "",
+        linkValidityDays: existing.expiresAt
+          ? Math.max(1, Math.ceil((new Date(existing.expiresAt).getTime() - Date.now()) / (24 * 60 * 60 * 1000)))
+          : 0,
       });
     }
   }, [existing]);
@@ -111,7 +127,7 @@ export default function AssessmentForm() {
     try {
       const payload = {
         ...form,
-        expiresAt: form.expiresAt ? new Date(form.expiresAt).toISOString() : null,
+        expiresAt: form.linkValidityDays > 0 ? new Date(Date.now() + form.linkValidityDays * 24 * 60 * 60 * 1000).toISOString() : null,
         customText: form.customText || null,
         description: form.description || null,
       };
@@ -120,10 +136,12 @@ export default function AssessmentForm() {
         toast({ title: "Assessment updated" });
       } else {
         const created = await create({ data: payload });
-        toast({ title: "Assessment created!", description: `Share link: /assessment/${created.token}` });
+        const shareLink = `${window.location.origin}/assessment/${created.token}`;
+        setCreatedLink(shareLink);
+        setCreatedAssessmentId(created.id ?? null);
+        toast({ title: "Assessment created!", description: "Share link is ready below." });
         qc.invalidateQueries({ queryKey: getListHrAssessmentsQueryKey() });
         qc.invalidateQueries({ queryKey: getGetHrDashboardStatsQueryKey() });
-        navigate(`/hr/assessments/${created.id}`);
         return;
       }
       qc.invalidateQueries({ queryKey: getListHrAssessmentsQueryKey() });
@@ -144,6 +162,7 @@ export default function AssessmentForm() {
   );
 
   const title = isEdit ? "Edit Assessment" : "Create Assessment";
+  const expiryPreview = formatExpiry(form.linkValidityDays);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -151,6 +170,43 @@ export default function AssessmentForm() {
       <main className="flex-1 container mx-auto px-4 py-10 max-w-2xl">
         <Breadcrumb items={[{ label: "HR Panel", href: "/hr" }, { label: title }]} />
         <h1 className="text-2xl font-bold mb-8">{title}</h1>
+
+        {!isEdit && createdLink && (
+          <section className="mb-8 rounded-2xl border border-primary/20 bg-primary/5 p-5 space-y-3">
+            <div>
+              <p className="text-sm font-semibold text-primary">Assessment created successfully</p>
+              <p className="text-sm text-muted-foreground mt-1">Share this link with candidates. They will open it, enter their details, and start typing directly.</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+              <input
+                readOnly
+                value={createdLink}
+                className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono text-foreground"
+              />
+              <Button
+                type="button"
+                onClick={() => navigator.clipboard.writeText(createdLink).then(() => toast({ title: "Link copied" }))}
+                className="shrink-0"
+              >
+                Copy Share Link
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
+              <span className="rounded-full border border-border px-2.5 py-1">Duration: {Math.round(form.durationSeconds / 60)} min</span>
+              <span className="rounded-full border border-border px-2.5 py-1">Difficulty: {form.difficulty}</span>
+              <span className="rounded-full border border-border px-2.5 py-1">Valid for: {getValidityLabel(form.linkValidityDays)}</span>
+              {expiryPreview && <span className="rounded-full border border-border px-2.5 py-1">Expires on: {expiryPreview}</span>}
+            </div>
+            <div className="flex gap-3">
+              <Link href="/hr"><Button type="button" variant="outline">Back to HR Panel</Button></Link>
+              {createdAssessmentId != null && (
+                <Link href={`/hr/assessments/${createdAssessmentId}`}>
+                  <Button type="button" variant="ghost">View Assessment</Button>
+                </Link>
+              )}
+            </div>
+          </section>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Info */}
@@ -257,9 +313,24 @@ export default function AssessmentForm() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-1.5">Expiry Date (optional)</label>
-                <input type="date" value={form.expiresAt} onChange={e => set("expiresAt", e.target.value)}
-                  className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary" />
+                <label className="block text-sm font-medium mb-1.5">Link validity</label>
+                <select
+                  value={form.linkValidityDays}
+                  onChange={e => set("linkValidityDays", parseInt(e.target.value))}
+                  className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                >
+                  <option value={0}>No expiry</option>
+                  <option value={1}>1 day</option>
+                  <option value={3}>3 days</option>
+                  <option value={7}>7 days</option>
+                  <option value={14}>14 days</option>
+                  <option value={30}>30 days</option>
+                </select>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {form.linkValidityDays > 0
+                    ? `Link will expire on ${expiryPreview} after being created.`
+                    : "The link stays active until you deactivate or delete the assessment."}
+                </p>
               </div>
               <div className="flex items-end pb-1">
                 <label className="flex items-center gap-3 cursor-pointer">
