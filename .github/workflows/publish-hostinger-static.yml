@@ -1,0 +1,42 @@
+name: Publish static site for Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the Vite frontend
+        working-directory: artifacts/traffic-peak
+        run: pnpm exec vite build --config vite.config.ts
+
+      - name: Publish static files branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan hostinger-static
+          git rm -rf .
+          cp -R artifacts/traffic-peak/dist/public/. .
+          touch .nojekyll
+          git add .
+          git commit -m "Deploy static site from ${GITHUB_SHA}"
+          git push --force origin hostinger-static
