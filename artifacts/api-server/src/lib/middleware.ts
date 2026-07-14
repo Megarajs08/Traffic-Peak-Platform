@@ -1,6 +1,14 @@
 import type { Request, Response, NextFunction } from "express";
 import { getSessionUser } from "./session";
 
+// Helper to safely convert dates to ISO string
+export function toISOString(value: unknown): string | null {
+  if (!value) return null;
+  if (typeof value === "string") return value;
+  if (value instanceof Date) return value.toISOString();
+  return null;
+}
+
 export async function requireAuth(req: Request, res: Response, next: NextFunction) {
   const user = await getSessionUser(req);
   if (!user) {

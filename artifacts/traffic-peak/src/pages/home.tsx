@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "wouter";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useRef, MouseEvent, useEffect, useState } from "react";
@@ -153,12 +154,35 @@ function TypingDemo() {
       }, 22);
       return () => clearTimeout(t);
     }
+    return;
   }, [chars, cursorIdx, phase]);
 
   // wpm / accuracy counters — fake live numbers
   const progress = chars.length > 0 ? cursorIdx / chars.length : 0;
   const fakeWpm = Math.round(phase === "clearing" ? 0 : progress * 94);
   const fakeAcc = phase === "clearing" ? 100 : Math.round(96 + progress * 3);
+
+  // Small live speedometer synced to the fake WPM counter.
+  const maxWpm = 150;
+  const pct = Math.min(fakeWpm / maxWpm, 1);
+  const cx = 28;
+  const cy = 28;
+  const r = 20;
+  const startAngle = 215;
+  const sweep = 110;
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const arcX = (a: number) => cx + r * Math.cos(toRad(a));
+  const arcY = (a: number) => cy + r * Math.sin(toRad(a));
+  const trackD = `M ${arcX(startAngle)} ${arcY(startAngle)} A ${r} ${r} 0 0 1 ${arcX(startAngle + sweep)} ${arcY(startAngle + sweep)}`;
+  const fillSweep = sweep * pct;
+  const fillD =
+    fillSweep > 0
+      ? `M ${arcX(startAngle)} ${arcY(startAngle)} A ${r} ${r} 0 ${fillSweep > 180 ? 1 : 0} 1 ${arcX(startAngle + fillSweep)} ${arcY(startAngle + fillSweep)}`
+      : "";
+  const needleAngle = startAngle + sweep * pct;
+  const nx = cx + (r - 5) * Math.cos(toRad(needleAngle));
+  const ny = cy + (r - 5) * Math.sin(toRad(needleAngle));
+  const color = pct < 0.4 ? "#5cb85c" : pct < 0.75 ? "#e2b714" : "#ca4754";
 
   return (
     <motion.div
@@ -175,9 +199,35 @@ function TypingDemo() {
           <span className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
         </div>
         <div className="flex items-center gap-5 text-xs text-muted-foreground tabular-nums">
-          <span>
-            <span className="text-foreground font-semibold">{fakeWpm}</span>
-            <span className="ml-1">wpm</span>
+          <span className="inline-flex items-center gap-2">
+            <svg width="56" height="40" viewBox="0 0 56 42" fill="none" aria-hidden>
+              <path d={trackD} stroke="currentColor" strokeOpacity="0.12" strokeWidth="4" strokeLinecap="round" fill="none" />
+              {fillD && (
+                <path
+                  d={fillD}
+                  stroke={color}
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  fill="none"
+                  style={{ transition: "all 0.3s ease" }}
+                />
+              )}
+              <line
+                x1={cx}
+                y1={cy}
+                x2={nx}
+                y2={ny}
+                stroke={color}
+                strokeWidth="2"
+                strokeLinecap="round"
+                style={{ transition: "all 0.3s ease" }}
+              />
+              <circle cx={cx} cy={cy} r="2.5" fill={color} style={{ transition: "fill 0.3s ease" }} />
+            </svg>
+            <span>
+              <span className="text-foreground font-semibold">{fakeWpm}</span>
+              <span className="ml-1">wpm</span>
+            </span>
           </span>
           <span>
             <span className="text-foreground font-semibold">{fakeAcc}</span>
@@ -298,14 +348,24 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative flex-1 flex flex-col items-center justify-center px-4 py-28 text-center overflow-hidden">
+      <section className="relative flex min-h-[770px] flex-col items-center justify-center overflow-hidden px-4 pb-9 pt-16 text-center md:min-h-[790px]">
+        {/* Original product visual, kept deliberately soft so the page copy stays readable. */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/typing-hero-keyboard.png')" }}
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(250,252,255,0.42)_0%,rgba(250,252,255,0.1)_34%,rgba(247,250,255,0.28)_100%)]"
+          aria-hidden
+        />
         {/* 3D perspective grid background */}
         <div
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%]"
           style={{
             backgroundImage: `
-              linear-gradient(hsl(213 94% 68% / 0.04) 1px, transparent 1px),
-              linear-gradient(90deg, hsl(213 94% 68% / 0.04) 1px, transparent 1px)
+              linear-gradient(hsl(213 94% 68% / 0.13) 1px, transparent 1px),
+              linear-gradient(90deg, hsl(213 94% 68% / 0.13) 1px, transparent 1px)
             `,
             backgroundSize: "48px 48px",
             transform: "perspective(600px) rotateX(55deg) scaleY(1.8) translateY(10%)",
@@ -325,9 +385,9 @@ export default function Home() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
-          className="relative max-w-xl mx-auto"
+          className="relative z-10 mx-auto max-w-xl"
         >
-          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-5">
+          <p className="mb-5 text-xs uppercase tracking-[0.22em] text-slate-600">
             typing speed platform
           </p>
           <h1
@@ -345,7 +405,7 @@ export default function Home() {
             Type faster.<br />
             <span className="text-primary">Get better.</span>
           </h1>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 max-w-md mx-auto leading-relaxed" data-testid="hero-subheading">
+          <p className="mx-auto mb-8 max-w-md text-sm leading-relaxed text-slate-700 md:text-base" data-testid="hero-subheading">
             Practice, compete, learn, and get certified. The typing platform built for people who take their speed seriously.
           </p>
           <div className="flex flex-col sm:flex-row gap-2 justify-center" data-testid="hero-cta">
@@ -359,12 +419,14 @@ export default function Home() {
           </div>
         </motion.div>
 
-        <TypingDemo />
+        <div className="relative z-10 w-full">
+          <TypingDemo />
+        </div>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.4 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground/30"
+          className="absolute bottom-5 left-1/2 z-10 -translate-x-1/2 text-slate-500/50"
         >
           <ChevronDown className="w-4 h-4 animate-bounce" />
         </motion.div>

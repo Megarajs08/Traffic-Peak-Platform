@@ -31,6 +31,7 @@ export default function Login() {
     google_cancelled: "Google login was cancelled.",
     google_no_email: "Google account did not return an email address.",
     google_failed: "Google login failed. Please try again.",
+    certificate_login_required: "Please sign in first to generate a certificate.",
   };
 
   useEffect(() => {

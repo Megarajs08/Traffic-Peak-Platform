@@ -2,9 +2,7 @@ import { Link, useLocation } from "wouter";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/auth-context";
-import { useLogout, useGetStatsSummary, getGetStatsSummaryQueryKey } from "@workspace/api-client-react";
-import { useQueryClient } from "@tanstack/react-query";
-import { getGetMeQueryKey } from "@workspace/api-client-react";
+import { useGetStatsSummary, getGetStatsSummaryQueryKey } from "@workspace/api-client-react";
 import { Menu, X, ShieldCheck, ChevronDown, Award, BadgeCheck, Gift, ClipboardList, Settings, Flame, Zap } from "lucide-react";
 
 const toolLinks = [
@@ -64,15 +62,13 @@ const navLinks: { href: string; label: string; highlight?: boolean }[] = [
 ];
 
 export function Navbar() {
-  const [location, navigate] = useLocation();
+  const [location] = useLocation();
   const [open, setOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [showFeatureBar, setShowFeatureBar] = useState(true);
   const toolsMenuRef = useRef<HTMLDivElement | null>(null);
 
   const { user, isAuthenticated } = useAuth();
-  const queryClient = useQueryClient();
-  const logout = useLogout();
   const isAdmin = user?.role === "admin";
   const { data: summary } = useGetStatsSummary({
     query: {
@@ -82,20 +78,6 @@ export function Navbar() {
       refetchOnWindowFocus: true,
     },
   });
-
-  function handleLogout() {
-    logout.mutate(undefined, {
-      onSuccess: () => {
-        queryClient.setQueryData(getGetMeQueryKey(), null);
-        queryClient.invalidateQueries({ queryKey: getGetMeQueryKey() });
-        navigate("/");
-      },
-      onError: () => {
-        queryClient.setQueryData(getGetMeQueryKey(), null);
-        navigate("/");
-      },
-    });
-  }
 
   const active = (href: string) =>
     location === href || (href !== "/" && location.startsWith(href));
@@ -230,15 +212,6 @@ export function Navbar() {
                   {user?.username?.[0]?.toUpperCase()}
                 </div>
               </Link>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleLogout}
-                className="text-muted-foreground hover:text-foreground text-sm"
-                data-testid="button-logout"
-              >
-                Logout
-              </Button>
             </div>
           ) : (
             <div className="hidden md:flex items-center gap-1">
@@ -345,7 +318,6 @@ export function Navbar() {
                 <Link href="/admin" className="block px-3 py-2 rounded text-sm text-primary" onClick={() => setOpen(false)}>Admin Panel</Link>
               )}
               <Link href="/dashboard" className="block px-3 py-2 rounded text-sm text-muted-foreground hover:text-foreground hover:bg-muted/40" onClick={() => setOpen(false)}>Dashboard</Link>
-              <button onClick={() => { handleLogout(); setOpen(false); }} className="block w-full text-left px-3 py-2 rounded text-sm text-muted-foreground hover:text-foreground hover:bg-muted/40">Logout</button>
             </div>
           ) : (
             <div className="border-t border-border/50 pt-2 mt-2 flex flex-col gap-1">

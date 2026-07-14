@@ -3,6 +3,7 @@ import { eq, desc, and, sql } from "drizzle-orm";
 import { db, testResultsTable } from "@workspace/db";
 import { SubmitTestBody, GetTestParams, ListTestsQueryParams } from "@workspace/api-zod";
 import { getSessionUser } from "../lib/session";
+import { toISOString } from "../lib/middleware";
 
 const router: IRouter = Router();
 
@@ -28,7 +29,7 @@ router.get("/tests", async (req, res) => {
   res.json(
     results.map((r) => ({
       ...r,
-      createdAt: r.createdAt.toISOString(),
+      createdAt: toISOString(r.createdAt),
     }))
   );
 });
@@ -52,7 +53,7 @@ router.post("/tests", async (req, res) => {
 
   res.status(201).json({
     ...result,
-    createdAt: result.createdAt.toISOString(),
+    createdAt: toISOString(result.createdAt),
   });
 });
 
@@ -76,7 +77,7 @@ router.get("/tests/:id", async (req, res) => {
 
   res.json({
     ...result,
-    createdAt: result.createdAt.toISOString(),
+    createdAt: toISOString(result.createdAt),
   });
 });
 

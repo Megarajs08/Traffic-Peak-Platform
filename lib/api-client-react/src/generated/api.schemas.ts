@@ -164,6 +164,16 @@ export interface CertificateInput {
   recipientName: string;
 }
 
+export type CertificateLevel = typeof CertificateLevel[keyof typeof CertificateLevel];
+
+
+export const CertificateLevel = {
+  Novice: 'Novice',
+  Beginner: 'Beginner',
+  Intermediate: 'Intermediate',
+  Advanced: 'Advanced',
+} as const;
+
 export interface Certificate {
   id: number;
   certificateId: string;
@@ -176,6 +186,7 @@ export interface Certificate {
   accuracy: number;
   duration: number;
   mode: string;
+  level: CertificateLevel;
   issuedAt: string;
 }
 
@@ -447,6 +458,27 @@ export const GetMyRankPeriod = {
   weekly: 'weekly',
   monthly: 'monthly',
 } as const;
+
+export type CheckCertificateEligibilityBody = {
+  testResultId: number;
+};
+
+export type CheckCertificateEligibility200Reasons = {[key: string]: string};
+
+export type CheckCertificateEligibility200Stats = {
+  wpm?: number;
+  accuracy?: number;
+  duration?: number;
+  minWpm?: number;
+  minDuration?: number;
+};
+
+export type CheckCertificateEligibility200 = {
+  eligible?: boolean;
+  errors?: string[];
+  reasons?: CheckCertificateEligibility200Reasons;
+  stats?: CheckCertificateEligibility200Stats;
+};
 
 export type ListPostsParams = {
 category?: string;

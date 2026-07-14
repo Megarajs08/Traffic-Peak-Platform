@@ -1,4 +1,4 @@
-﻿import {
+﻿import React, {
   useState,
   useEffect,
   useRef,
@@ -8,10 +8,10 @@
 } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Button } from "@/components/ui/button";
-import { useSubmitTest, useGenerateCertificate } from "@workspace/api-client-react";
+import { useSubmitTest, useGenerateCertificate, type Certificate } from "@workspace/api-client-react";
 import { useAuth } from "@/contexts/auth-context";
 import { motion, AnimatePresence } from "framer-motion";
-import { RotateCcw, Award, RefreshCw, Volume2, VolumeX } from "lucide-react";
+import { RotateCcw, Award, RefreshCw, Volume2, VolumeX, Download, X } from "lucide-react";
 import { top1000Words } from "@/lib/words";
 import { useTypingSounds } from "@/hooks/use-typing-sounds";
 
@@ -922,41 +922,43 @@ const RocketSvg = () => (
 interface SpeedTier {
   title: string;
   message: (wpm: number, cpm: number, acc: number) => string;
-  Svg: () => JSX.Element;
+  Svg: () => React.ReactElement;
 }
 
 function getSpeedTier(wpm: number): SpeedTier {
   if (wpm <= 20) return {
     title: "Rising Typist",
-    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. Every expert was once a beginner â€” keep pushing!`,
+    message: (w, c, a) => `${w} WPM | ${c} CPM | ${a}% accuracy. Every expert was once a beginner - keep pushing!`,
     Svg: SnailSvg,
   };
   if (wpm <= 40) return {
     title: "T-Rex Typist",
-    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. You're stomping through the keys â€” unstoppable momentum!`,
+    message: (w, c, a) => `${w} WPM | ${c} CPM | ${a}% accuracy. You're stomping through the keys - unstoppable momentum!`,
     Svg: TRexSvg,
   };
   if (wpm <= 60) return {
     title: "Fast Fingers",
-    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. Your fingers are flying â€” well above average!`,
+    message: (w, c, a) => `${w} WPM | ${c} CPM | ${a}% accuracy. Your fingers are flying - well above average!`,
     Svg: RabbitSvg,
   };
   if (wpm <= 80) return {
     title: "Elite Typist",
-    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. Elite speed â€” you're outpacing 90% of typists!`,
+    message: (w, c, a) => `${w} WPM | ${c} CPM | ${a}% accuracy. Elite speed - you're outpacing 90% of typists!`,
     Svg: CheetahSvg,
   };
   if (wpm <= 100) return {
     title: "Precision Pro",
-    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. Effortless precision at blazing speed â€” seriously impressive!`,
+    message: (w, c, a) => `${w} WPM | ${c} CPM | ${a}% accuracy. Effortless precision at blazing speed - seriously impressive!`,
     Svg: EagleSvg,
   };
   return {
     title: "Lightning Fingers",
-    message: (w, c, a) => `${w} WPM Â· ${c} CPM Â· ${a}% accuracy. LEGENDARY. You type faster than most people think!`,
+    message: (w, c, a) => `${w} WPM | ${c} CPM | ${a}% accuracy. LEGENDARY. You type faster than most people think!`,
     Svg: LightningSvg,
   };
 }
+
+
 
 // Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬ Main component Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
 
@@ -975,8 +977,11 @@ export default function TypingTest() {
   const [startTime, setStartTime]       = useState(0);
   const [elapsedMs, setElapsedMs]       = useState(0);
   const [showCertModal, setShowCertModal] = useState(false);
+  const [generatedCertificate, setGeneratedCertificate] = useState<Certificate | null>(null);
   const [certName, setCertName]           = useState("");
   const [submittedTestId, setSubmittedTestId] = useState<number | null>(null);
+  const [certError, setCertError] = useState("");
+  const [pendingCertAfterSave, setPendingCertAfterSave] = useState(false);
 
   const [lineOffset, setLineOffset] = useState(0);
   const wpmHistoryRef = useRef<number[]>([]);
@@ -997,6 +1002,23 @@ export default function TypingTest() {
   } = useTypingSounds();
   const submitTest  = useSubmitTest();
   const generateCert = useGenerateCertificate();
+
+  const downloadCertificate = useCallback((certificateId: string) => {
+    const link = document.createElement("a");
+    link.href = `/api/certificates/${certificateId}/download`;
+    link.download = `typingpeak-certificate-${certificateId}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }, []);
+
+  // Keep the preview in sync with the API result even if the mutation finishes after its dialog closes.
+  useEffect(() => {
+    if (generateCert.isSuccess && generateCert.data) {
+      setShowCertModal(false);
+      setGeneratedCertificate(generateCert.data);
+    }
+  }, [generateCert.data, generateCert.isSuccess]);
 
   // Ã¢"â‚¬Ã¢"â‚¬ Init chars Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   useEffect(() => {
@@ -1021,6 +1043,11 @@ export default function TypingTest() {
   const reset = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     wpmHistoryRef.current = [];
+    setCertError("");
+    setGeneratedCertificate(null);
+    setSubmittedTestId(null);
+    setShowCertModal(false);
+    setPendingCertAfterSave(false);
     setText(generateText(mode));
   }, [mode]);
 
@@ -1063,10 +1090,24 @@ export default function TypingTest() {
     const accuracy = totalTyped > 0 ? Math.round((correctChars / (correctChars + errors)) * 100) : 0;
     submitTest.mutate(
       { data: { wpm, cpm, accuracy, duration, mode, errorCount: errors, charCount: correctChars } },
-      { onSuccess: (r) => setSubmittedTestId(r.id) }
+      {
+        onSuccess: (r) => setSubmittedTestId(r.id),
+        onError: () => {
+          setPendingCertAfterSave(false);
+          setCertError("Failed to save this result. Please try again.");
+        },
+      }
     );
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finished]);
+
+  useEffect(() => {
+    if (pendingCertAfterSave && submittedTestId) {
+      setPendingCertAfterSave(false);
+      setCertError("");
+      setShowCertModal(true);
+    }
+  }, [pendingCertAfterSave, submittedTestId]);
 
   // Ã¢"â‚¬Ã¢"â‚¬ Line-snap: scroll up when caret moves onto line 3 Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬Ã¢"â‚¬
   // Uses offsetTop (layout position, unaffected by translateY) so the
@@ -1311,7 +1352,7 @@ export default function TypingTest() {
                 {(() => {
                   const maxWpm = 150;
                   const pct = Math.min(liveWpm / maxWpm, 1);
-                  // Arc from 210Â° to 330Â° (150Â° sweep) â€” left-to-right
+                  // Arc from 210° to 330° (150° sweep) - left-to-right
                   const cx = 28, cy = 28, r = 20;
                   const startAngle = 215;
                   const sweep = 110;
@@ -1383,7 +1424,7 @@ export default function TypingTest() {
             {!started && (
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <p className="text-sm text-muted-foreground/30 tracking-widest uppercase font-mono">
-                  start typingâ€¦
+                  start typing...
                 </p>
               </div>
             )}
@@ -1624,19 +1665,44 @@ export default function TypingTest() {
                           <RotateCcw className="w-3 h-3" />
                           Try Again
                         </Button>
-                        {isAuthenticated && submittedTestId && (
-                          <Button
-                            size="sm"
-                            onClick={() => setShowCertModal(true)}
-                            className="gap-1.5 text-xs"
-                            data-testid="button-get-certificate"
-                          >
-                            <Award className="w-3 h-3" />
-                            Certificate
-                          </Button>
-                        )}
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            setCertError("");
+                            if (!isAuthenticated) {
+                              window.location.href = "/login?error=certificate_login_required";
+                              return;
+                            }
+                            if (!submittedTestId) {
+                              if (submitTest.isPending) {
+                                setPendingCertAfterSave(true);
+                                setCertError("Saving result... certificate form will open automatically.");
+                              } else {
+                                setCertError("Could not find this result yet. Please try again.");
+                              }
+                              return;
+                            }
+                            setShowCertModal(true);
+                          }}
+                          className="gap-1.5 text-xs"
+                          data-testid="button-get-certificate"
+                        >
+                          <Award className="w-3 h-3" />
+                          {!isAuthenticated
+                            ? "Sign in for Certificate"
+                            : submitTest.isPending && !submittedTestId
+                            ? "Saving..."
+                            : "Certificate"}
+                        </Button>
                       </div>
                     </div>
+                    {certError && (
+                      <div className="px-5 pb-4">
+                        <div className="rounded-md border border-amber-300/60 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+                          {certError}
+                        </div>
+                      </div>
+                    )}
                   </>
                 );
               })()}
@@ -1691,16 +1757,135 @@ export default function TypingTest() {
                   className="flex-1 text-sm"
                   disabled={!certName.trim() || generateCert.isPending}
                   onClick={() => {
+                    setCertError("");
                     if (submittedTestId && certName.trim()) {
+                      const recipientName = certName.trim();
+                      setShowCertModal(false);
+                      setGeneratedCertificate({
+                        id: 0,
+                        certificateId: "",
+                        recipientName,
+                        wpm: finalWpm,
+                        accuracy: liveAccuracy,
+                        duration,
+                        mode,
+                        level: finalWpm >= 100 ? "Advanced" : finalWpm >= 60 ? "Intermediate" : finalWpm >= 40 ? "Beginner" : "Novice",
+                        issuedAt: new Date().toISOString(),
+                      });
                       generateCert.mutate(
-                        { data: { testResultId: submittedTestId, recipientName: certName.trim() } },
-                        { onSuccess: () => setShowCertModal(false) }
+                        { data: { testResultId: submittedTestId, recipientName } },
+                        {
+                          onSuccess: (certificate) => {
+                            setShowCertModal(false);
+                            setGeneratedCertificate(certificate);
+                          },
+                          onError: (error: any) => {
+                            setGeneratedCertificate(null);
+                            const errorData =
+                              error?.data && typeof error.data === "object"
+                                ? error.data
+                                : error?.response?.data && typeof error.response.data === "object"
+                                ? error.response.data
+                                : null;
+                            const reasons = errorData?.reasons;
+                            if (reasons && typeof reasons === "object") {
+                              const reasonText = Object.values(reasons)
+                                .filter((v): v is string => typeof v === "string" && v.length > 0)
+                                .join(" ");
+                              if (reasonText) {
+                                setCertError(reasonText);
+                                setShowCertModal(false);
+                                return;
+                              }
+                            }
+                            const message = errorData?.error;
+                            if (typeof message === "string") {
+                              setCertError(message);
+                            } else {
+                              const status = typeof error?.status === "number" ? error.status : undefined;
+                              const detail = typeof error?.message === "string" ? error.message : "Failed to generate certificate. Please try again.";
+                              setCertError(status ? `Certificate request failed (${status}). ${detail}` : detail);
+                            }
+                            setShowCertModal(false);
+                          },
+                        }
                       );
                     }
                   }}
                   data-testid="button-cert-generate"
                 >
                   {generateCert.isPending ? "GeneratingÃ¢â‚¬Â¦" : "Generate"}
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Immediate preview and download controls for the newly generated certificate. */}
+      <AnimatePresence>
+        {generatedCertificate && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/55 p-4 backdrop-blur-sm"
+            data-testid="generated-certificate-preview"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 16 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-[#fdfbf5] p-3 shadow-2xl sm:p-5"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setGeneratedCertificate(null)}
+                className="absolute right-5 top-5 z-10 rounded-full bg-slate-900/5 p-2 text-slate-600 transition-colors hover:bg-slate-900/10"
+                aria-label="Close certificate preview"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <div className="relative overflow-hidden border-[10px] border-double border-[#1e64c8]/70 bg-[radial-gradient(circle_at_50%_0%,#ffffff_0%,#f8f4e8_68%,#eef5ff_100%)] px-6 py-10 text-center sm:px-14 sm:py-14">
+                <div className="pointer-events-none absolute inset-3 border border-[#d8b25a]/60" />
+                <div className="relative">
+                  <svg viewBox="0 0 200 38" className="mx-auto mb-5 h-8 w-[170px]" aria-label="TypingPeak">
+                    <text x="0" y="28" fontFamily="Inter, sans-serif" fontWeight="700" fontSize="26" fill="#0b172a" letterSpacing="-0.5">typing</text>
+                    <rect x="88" y="14" width="32" height="19" rx="3" stroke="#1e64c8" strokeWidth="1.5" fill="none" />
+                    {[0, 1, 2, 3].map((column) => <rect key={`top-${column}`} x={91 + column * 7} y="17" width="5" height="4" rx="1" fill="#1e64c8" opacity="0.7" />)}
+                    {[0, 1, 2, 3].map((column) => <rect key={`bottom-${column}`} x={91 + column * 7} y="23" width="5" height="4" rx="1" fill="#1e64c8" opacity="0.5" />)}
+                    <text x="125" y="28" fontFamily="Inter, sans-serif" fontWeight="400" fontSize="22" fill="#1e64c8" letterSpacing="-0.3">peak</text>
+                  </svg>
+                  <h2 className="mt-3 font-serif text-3xl font-bold text-slate-900 sm:text-5xl">Certificate of Achievement</h2>
+                  <p className="mt-6 text-sm text-slate-500">This certificate is proudly presented to</p>
+                  <p className="mt-2 font-serif text-3xl font-semibold text-[#1759b5] sm:text-5xl">{generatedCertificate.recipientName}</p>
+                  <div className="mx-auto my-6 h-px w-44 bg-[#d8b25a]" />
+                  <p className="mx-auto max-w-lg text-sm leading-relaxed text-slate-600">
+                    for demonstrating excellent typing performance with speed, precision, and consistency.
+                  </p>
+                  <div className="mx-auto mt-8 grid max-w-md grid-cols-3 divide-x divide-[#d8b25a]/50 border-y border-[#d8b25a]/50 py-4">
+                    <div><p className="text-2xl font-bold text-[#1e64c8]">{Math.round(generatedCertificate.wpm)}</p><p className="text-[10px] uppercase tracking-wider text-slate-500">WPM</p></div>
+                    <div><p className="text-2xl font-bold text-slate-800">{Math.round(generatedCertificate.accuracy)}%</p><p className="text-[10px] uppercase tracking-wider text-slate-500">Accuracy</p></div>
+                    <div><p className="text-lg font-bold text-slate-800">{generatedCertificate.level}</p><p className="text-[10px] uppercase tracking-wider text-slate-500">Level</p></div>
+                  </div>
+                  <div className="mt-7 flex flex-col items-center justify-between gap-3 text-xs text-slate-500 sm:flex-row">
+                    <span>Issued {new Date(generatedCertificate.issuedAt).toLocaleDateString()}</span>
+                    <span className="font-mono">{generatedCertificate.certificateId ? `ID: ${generatedCertificate.certificateId}` : "Generating certificate ID..."}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                <Button variant="outline" onClick={() => setGeneratedCertificate(null)}>Close</Button>
+                <Button
+                  onClick={() => downloadCertificate(generatedCertificate.certificateId)}
+                  disabled={!generatedCertificate.certificateId}
+                  className="gap-2"
+                  data-testid="button-download-generated-certificate"
+                >
+                  <Download className="h-4 w-4" />
+                  {generatedCertificate.certificateId ? "Download PDF" : "Generating..."}
                 </Button>
               </div>
             </motion.div>

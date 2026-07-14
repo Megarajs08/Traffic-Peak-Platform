@@ -3,6 +3,7 @@ import { eq, and } from "drizzle-orm";
 import { db, lessonsTable, lessonProgressTable } from "@workspace/db";
 import { GetLessonParams, ListLessonsQueryParams, SaveLessonProgressBody, SaveLessonProgressParams } from "@workspace/api-zod";
 import { getSessionUser } from "../lib/session";
+import { toISOString } from "../lib/middleware";
 
 const router: IRouter = Router();
 
@@ -27,7 +28,7 @@ router.get("/lessons/progress/all", async (req, res) => {
       accuracy: p.accuracy,
       bestWpm: p.bestWpm,
       completed: p.completed,
-      completedAt: p.completedAt?.toISOString() ?? null,
+      completedAt: toISOString(p.completedAt),
     }))
   );
 });
@@ -126,7 +127,7 @@ router.post("/lessons/:id/progress", async (req, res) => {
         accuracy,
         completed: completed || existing.completed,
         bestWpm: Math.max(existing.bestWpm, wpm),
-        completedAt: completed && !existing.completed ? new Date().toISOString() : existing.completedAt,
+        completedAt: completed && !existing.completed ? new Date().toISOString() : toISOString(existing.completedAt),
         updatedAt: new Date().toISOString(),
       })
       .where(eq(lessonProgressTable.id, existing.id))
@@ -157,7 +158,7 @@ router.post("/lessons/:id/progress", async (req, res) => {
     accuracy: progressRow.accuracy,
     bestWpm: progressRow.bestWpm,
     completed: progressRow.completed,
-    completedAt: progressRow.completedAt?.toISOString() ?? null,
+    completedAt: toISOString(progressRow.completedAt),
   });
 });
 

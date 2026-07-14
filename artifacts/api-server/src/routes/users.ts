@@ -3,6 +3,7 @@ import { eq, max, avg, count } from "drizzle-orm";
 import { db, usersTable, testResultsTable } from "@workspace/db";
 import { GetUserProfileParams, UpdateMyProfileBody } from "@workspace/api-zod";
 import { getSessionUser } from "../lib/session";
+import { toISOString } from "../lib/middleware";
 
 const router: IRouter = Router();
 
@@ -19,7 +20,7 @@ router.get("/users/me/profile", async (req, res) => {
     name: user.name,
     avatarUrl: user.avatarUrl,
     role: user.role,
-    createdAt: user.createdAt || new Date().toISOString(),
+    createdAt: toISOString(user.createdAt) || new Date().toISOString(),
   });
 });
 
@@ -49,7 +50,7 @@ router.patch("/users/me/profile", async (req, res) => {
     name: updated.name,
     avatarUrl: updated.avatarUrl,
     role: updated.role,
-    createdAt: updated.createdAt.toISOString(),
+    createdAt: toISOString(updated.createdAt),
   });
 });
 
@@ -89,7 +90,7 @@ router.get("/users/:username", async (req, res) => {
     avgWpm: Math.round(Number(stats?.avgWpm ?? 0) * 10) / 10,
     avgAccuracy: Math.round(Number(stats?.avgAccuracy ?? 0) * 10) / 10,
     totalTests: Number(stats?.totalTests ?? 0),
-    createdAt: user.createdAt || new Date().toISOString(),
+    createdAt: toISOString(user.createdAt) || new Date().toISOString(),
   });
 });
 

@@ -1,16 +1,38 @@
-﻿import { useRoute } from "wouter";
+import { useLocation, useRoute } from "wouter";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
-import { useGetUserProfile, getGetUserProfileQueryKey } from "@workspace/api-client-react";
-import { Zap, Target, BarChart2, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/auth-context";
+import { useGetUserProfile, useLogout, getGetMeQueryKey, getGetUserProfileQueryKey } from "@workspace/api-client-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Zap, Target, BarChart2, Calendar, LogOut } from "lucide-react";
 
 export default function Profile() {
+  const [, navigate] = useLocation();
   const [, params] = useRoute("/profile/:username");
   const username = params?.username ?? "";
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+  const logout = useLogout();
+  const isOwnProfile = user?.username === username;
 
   const { data: profile, isLoading, isError } = useGetUserProfile(username, {
     query: { enabled: !!username, queryKey: getGetUserProfileQueryKey(username) },
   });
+
+  function handleLogout() {
+    logout.mutate(undefined, {
+      onSuccess: () => {
+        queryClient.setQueryData(getGetMeQueryKey(), null);
+        queryClient.invalidateQueries({ queryKey: getGetMeQueryKey() });
+        navigate("/");
+      },
+      onError: () => {
+        queryClient.setQueryData(getGetMeQueryKey(), null);
+        navigate("/");
+      },
+    });
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -28,12 +50,11 @@ export default function Profile() {
           </div>
         ) : (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} data-testid="user-profile">
-            {/* Avatar */}
             <div className="flex items-center gap-5 mb-10">
               <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center text-3xl font-extrabold text-primary">
                 {profile.username[0].toUpperCase()}
               </div>
-              <div>
+              <div className="flex-1">
                 <h1 className="text-2xl font-bold" data-testid="profile-username">{profile.username}</h1>
                 {profile.name && <p className="text-muted-foreground">{profile.name}</p>}
                 <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
@@ -41,9 +62,21 @@ export default function Profile() {
                   Joined {new Date(profile.createdAt).toLocaleDateString()}
                 </div>
               </div>
+              {isOwnProfile && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleLogout}
+                  disabled={logout.isPending}
+                  className="gap-2 text-muted-foreground hover:text-destructive hover:border-destructive/40"
+                  data-testid="button-profile-logout"
+                >
+                  <LogOut className="w-4 h-4" />
+                  {logout.isPending ? "Logging out..." : "Logout"}
+                </Button>
+              )}
             </div>
 
-            {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { icon: Zap, label: "Best WPM", value: Math.round(profile.bestWpm), color: "text-primary" },

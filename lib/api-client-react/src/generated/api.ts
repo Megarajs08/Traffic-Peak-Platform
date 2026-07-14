@@ -31,6 +31,8 @@ import type {
   CandidateSession,
   Certificate,
   CertificateInput,
+  CheckCertificateEligibility200,
+  CheckCertificateEligibilityBody,
   GetLeaderboardParams,
   GetMyRankParams,
   GetProgressParams,
@@ -1536,12 +1538,83 @@ export const useGenerateCertificate = <TError = ErrorType<unknown>,
       return useMutation(getGenerateCertificateMutationOptions(options));
     }
 
+export const getCheckCertificateEligibilityUrl = () => {
+
+
+
+
+  return `/api/certificates/check-eligibility`
+}
+
+/**
+ * @summary Check if a test result is eligible for a certificate
+ */
+export const checkCertificateEligibility = async (checkCertificateEligibilityBody: CheckCertificateEligibilityBody, options?: RequestInit): Promise<CheckCertificateEligibility200> => {
+
+  return customFetch<CheckCertificateEligibility200>(getCheckCertificateEligibilityUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      checkCertificateEligibilityBody,)
+  }
+);}
+
+
+
+
+export const getCheckCertificateEligibilityMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof checkCertificateEligibility>>, TError,{data: BodyType<CheckCertificateEligibilityBody>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof checkCertificateEligibility>>, TError,{data: BodyType<CheckCertificateEligibilityBody>}, TContext> => {
+
+const mutationKey = ['checkCertificateEligibility'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof checkCertificateEligibility>>, {data: BodyType<CheckCertificateEligibilityBody>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  checkCertificateEligibility(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CheckCertificateEligibilityMutationResult = NonNullable<Awaited<ReturnType<typeof checkCertificateEligibility>>>
+    export type CheckCertificateEligibilityMutationBody = BodyType<CheckCertificateEligibilityBody>
+    export type CheckCertificateEligibilityMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Check if a test result is eligible for a certificate
+ */
+export const useCheckCertificateEligibility = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof checkCertificateEligibility>>, TError,{data: BodyType<CheckCertificateEligibilityBody>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof checkCertificateEligibility>>,
+        TError,
+        {data: BodyType<CheckCertificateEligibilityBody>},
+        TContext
+      > => {
+      return useMutation(getCheckCertificateEligibilityMutationOptions(options));
+    }
+
 export const getVerifyCertificateUrl = (certificateId: string,) => {
 
 
 
 
-  return `/api/certificates/verify/${certificateId}`
+  return `/api/certificates/${certificateId}`
 }
 
 /**
@@ -1564,7 +1637,7 @@ export const verifyCertificate = async (certificateId: string, options?: Request
 
 export const getVerifyCertificateQueryKey = (certificateId: string,) => {
     return [
-    `/api/certificates/verify/${certificateId}`
+    `/api/certificates/${certificateId}`
     ] as const;
     }
 
@@ -1601,6 +1674,83 @@ export function useVerifyCertificate<TData = Awaited<ReturnType<typeof verifyCer
  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getVerifyCertificateQueryOptions(certificateId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getDownloadCertificatePdfUrl = (certificateId: string,) => {
+
+
+
+
+  return `/api/certificates/${certificateId}/download`
+}
+
+/**
+ * @summary Download certificate as PDF
+ */
+export const downloadCertificatePdf = async (certificateId: string, options?: RequestInit): Promise<Blob> => {
+
+  return customFetch<Blob>(getDownloadCertificatePdfUrl(certificateId),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getDownloadCertificatePdfQueryKey = (certificateId: string,) => {
+    return [
+    `/api/certificates/${certificateId}/download`
+    ] as const;
+    }
+
+
+export const getDownloadCertificatePdfQueryOptions = <TData = Awaited<ReturnType<typeof downloadCertificatePdf>>, TError = ErrorType<void>>(certificateId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof downloadCertificatePdf>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getDownloadCertificatePdfQueryKey(certificateId);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof downloadCertificatePdf>>> = ({ signal }) => downloadCertificatePdf(certificateId, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: !!(certificateId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof downloadCertificatePdf>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type DownloadCertificatePdfQueryResult = NonNullable<Awaited<ReturnType<typeof downloadCertificatePdf>>>
+export type DownloadCertificatePdfQueryError = ErrorType<void>
+
+
+/**
+ * @summary Download certificate as PDF
+ */
+
+export function useDownloadCertificatePdf<TData = Awaited<ReturnType<typeof downloadCertificatePdf>>, TError = ErrorType<void>>(
+ certificateId: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof downloadCertificatePdf>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getDownloadCertificatePdfQueryOptions(certificateId,options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 

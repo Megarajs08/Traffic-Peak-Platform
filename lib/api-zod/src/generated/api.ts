@@ -311,6 +311,7 @@ export const ListCertificatesResponseItem = zod.object({
   "accuracy": zod.number(),
   "duration": zod.number(),
   "mode": zod.string(),
+  "level": zod.enum(['Novice', 'Beginner', 'Intermediate', 'Advanced']),
   "issuedAt": zod.string()
 })
 export const ListCertificatesResponse = zod.array(ListCertificatesResponseItem)
@@ -322,6 +323,27 @@ export const ListCertificatesResponse = zod.array(ListCertificatesResponseItem)
 export const GenerateCertificateBody = zod.object({
   "testResultId": zod.number(),
   "recipientName": zod.string()
+})
+
+
+/**
+ * @summary Check if a test result is eligible for a certificate
+ */
+export const CheckCertificateEligibilityBody = zod.object({
+  "testResultId": zod.number()
+})
+
+export const CheckCertificateEligibilityResponse = zod.object({
+  "eligible": zod.boolean().optional(),
+  "errors": zod.array(zod.string()).optional(),
+  "reasons": zod.record(zod.string(), zod.string()).optional(),
+  "stats": zod.object({
+  "wpm": zod.number().optional(),
+  "accuracy": zod.number().optional(),
+  "duration": zod.number().optional(),
+  "minWpm": zod.number().optional(),
+  "minDuration": zod.number().optional()
+}).optional()
 })
 
 
@@ -342,7 +364,16 @@ export const VerifyCertificateResponse = zod.object({
   "accuracy": zod.number(),
   "duration": zod.number(),
   "mode": zod.string(),
+  "level": zod.enum(['Novice', 'Beginner', 'Intermediate', 'Advanced']),
   "issuedAt": zod.string()
+})
+
+
+/**
+ * @summary Download certificate as PDF
+ */
+export const DownloadCertificatePdfParams = zod.object({
+  "certificateId": zod.coerce.string()
 })
 
 

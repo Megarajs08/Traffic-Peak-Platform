@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 import { eq, desc, and, count, avg, sql } from "drizzle-orm";
 import { db, hrAssessmentsTable, assessmentCandidatesTable, assessmentResultsTable, usersTable } from "@workspace/db";
 import { getSessionUser } from "../lib/session";
+import { toISOString } from "../lib/middleware";
 import { randomBytes } from "crypto";
 
 const router: IRouter = Router();
@@ -121,7 +122,7 @@ router.post("/hr/assessments", async (req, res) => {
     minAccuracy: minAccuracy ?? 90,
     maxAttempts: maxAttempts ?? 1,
     active: active ?? true,
-    expiresAt: expiresAt ? new Date(expiresAt) : null,
+    expiresAt: expiresAt ? new Date(expiresAt).toISOString() : null,
   }).returning();
 
   res.status(201).json(serializeAssessment({ ...row, candidateCount: 0, passCount: 0 }));
@@ -174,15 +175,15 @@ router.get("/hr/assessments/:id", async (req, res) => {
       email: c.email,
       phone: c.phone ?? null,
       tabSwitches: c.tabSwitches,
-      startedAt: c.startedAt?.toISOString() ?? null,
-      submittedAt: c.submittedAt?.toISOString() ?? null,
+      startedAt: toISOString(c.startedAt),
+      submittedAt: toISOString(c.submittedAt),
       wpm: c.wpm ?? null,
       cpm: c.cpm ?? null,
       accuracy: c.accuracy ?? null,
       errorCount: c.errorCount ?? null,
       passed: c.passed ?? null,
       rank: i + 1,
-      completedAt: c.resultCreatedAt?.toISOString() ?? null,
+      completedAt: toISOString(c.resultCreatedAt),
     })),
   });
 });
@@ -288,7 +289,7 @@ router.get("/hr/assessments/:id/results", async (req, res) => {
     errorCount: r.errorCount ?? 0,
     passed: r.passed ?? false,
     rank: i + 1,
-    completedAt: r.completedAt?.toISOString() ?? null,
+    completedAt: toISOString(r.completedAt),
   }));
 
   const { status, search } = req.query;

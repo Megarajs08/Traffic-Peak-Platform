@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash TEXT NOT NULL,
   avatar_url TEXT,
   role TEXT NOT NULL DEFAULT 'user',
+  google_id TEXT UNIQUE,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -63,7 +64,8 @@ CREATE TABLE IF NOT EXISTS certificates (
   accuracy REAL NOT NULL,
   duration INTEGER NOT NULL,
   mode TEXT NOT NULL,
-  issued_at TEXT NOT NULL DEFAULT (datetime('now'))
+  issued_at TEXT NOT NULL DEFAULT (datetime('now')),
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
 CREATE TABLE IF NOT EXISTS blog_posts (

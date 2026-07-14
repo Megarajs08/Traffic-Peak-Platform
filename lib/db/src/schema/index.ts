@@ -5,3 +5,4 @@ export * from "./certificates";
 export * from "./blog";
 export * from "./sessions";
 export * from "./assessments";
+export * from "./follows";

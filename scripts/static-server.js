@@ -1,15 +1,25 @@
 import http from "http";
 import https from "https";
+import fsSync from "fs";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const workspaceRoot = path.resolve(__dirname, "..");
+const envPath = path.join(workspaceRoot, ".env");
+
+if (typeof process.loadEnvFile === "function" && fsSync.existsSync(envPath)) {
+  process.loadEnvFile(envPath);
+}
+
+const frontendUrl = process.env.FRONTEND_URL;
+const frontendUrlPort = frontendUrl ? Number(new URL(frontendUrl).port || 80) : undefined;
 
 const root = path.resolve(
   process.env.STATIC_ROOT || path.join(__dirname, "..", "artifacts", "traffic-peak", "dist", "public"),
 );
-const port = Number(process.env.PORT || 4173);
+const port = Number(process.env.FRONTEND_PORT || process.env.PORT || frontendUrlPort || 3000);
 const apiPort = Number(process.env.API_PORT || 4000);
 
 const mime = {

@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 import { eq, and } from "drizzle-orm";
 import { db, hrAssessmentsTable, assessmentCandidatesTable, assessmentResultsTable } from "@workspace/db";
+import { toISOString } from "../lib/middleware";
 
 const router: IRouter = Router();
 
@@ -35,7 +36,7 @@ router.get("/assessment/:token", async (req, res) => {
     passingWpm: assessment.passingWpm,
     minAccuracy: assessment.minAccuracy,
     maxAttempts: assessment.maxAttempts,
-    expiresAt: assessment.expiresAt ? assessment.expiresAt.toISOString() : null,
+    expiresAt: toISOString(assessment.expiresAt),
   });
 });
 

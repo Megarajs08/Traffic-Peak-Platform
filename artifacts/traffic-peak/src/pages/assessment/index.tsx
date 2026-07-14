@@ -272,7 +272,7 @@ export default function CandidateAssessment() {
       <main className="flex-1 flex items-center justify-center">
         <div className="space-y-3 text-center">
           <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm text-muted-foreground">Loading assessmentâ€¦</p>
+          <p className="text-sm text-muted-foreground">Loading assessment...</p>
         </div>
       </main>
       <Footer />
@@ -304,7 +304,7 @@ export default function CandidateAssessment() {
               <Keyboard className="w-7 h-7 text-primary" />
             </div>
             <h1 className="text-2xl font-bold">{info?.name}</h1>
-            <p className="text-muted-foreground text-sm mt-1">{info?.companyName} Â· {info?.jobPosition}</p>
+            <p className="text-muted-foreground text-sm mt-1">{info?.companyName} | {info?.jobPosition}</p>
             {info?.description && <p className="text-sm text-muted-foreground/80 mt-3 max-w-sm mx-auto">{info.description}</p>}
           </div>
 
@@ -376,7 +376,7 @@ export default function CandidateAssessment() {
           </div>
 
           <Button className="w-full" onClick={beginTest}>
-            I Understand â€” Start Test
+            I Understand - Start Test
           </Button>
         </motion.div>
       </main>
@@ -412,7 +412,7 @@ export default function CandidateAssessment() {
                 <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span className="text-sm font-medium">
                   {autoSubmitWarning
-                    ? "3 tab switches detected. Auto-submitting in 4 secondsâ€¦"
+                    ? "3 tab switches detected. Auto-submitting in 4 seconds..."
                     : `Warning ${tabWarnings}/3: Do not switch tabs! Next switch will auto-submit.`}
                 </span>
               </motion.div>
@@ -426,11 +426,11 @@ export default function CandidateAssessment() {
               <div className="text-xs text-muted-foreground">time left</div>
             </div>
             <div className="text-center">
-              <div className="text-xl font-bold font-mono">{testStarted ? liveWpm : "â€”"}</div>
+              <div className="text-xl font-bold font-mono">{testStarted ? liveWpm : "-"}</div>
               <div className="text-xs text-muted-foreground">WPM</div>
             </div>
             <div className="text-center">
-              <div className="text-xl font-bold font-mono">{testStarted ? `${errors}` : "â€”"}</div>
+              <div className="text-xl font-bold font-mono">{testStarted ? `${errors}` : "-"}</div>
               <div className="text-xs text-muted-foreground">errors</div>
             </div>
             <div className="text-center">
@@ -477,14 +477,14 @@ export default function CandidateAssessment() {
             className="mt-2 text-center text-xs text-muted-foreground cursor-pointer"
             onClick={() => inputRef.current?.focus()}
           >
-            Click here if the test stops responding Â· Tab disabled
+            Click here if the test stops responding | Tab disabled
           </div>
 
           {/* Submit button */}
           {testStarted && (
             <div className="flex justify-center mt-6">
               <Button variant="outline" onClick={() => setTestEnded(true)} disabled={submitting}>
-                {submitting ? "Submittingâ€¦" : "Submit Early"}
+                {submitting ? "Submitting..." : "Submit Early"}
               </Button>
             </div>
           )}

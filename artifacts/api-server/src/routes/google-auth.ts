@@ -16,16 +16,24 @@ type GoogleOAuthConfig = {
 function getFrontendUrl(req: Parameters<IRouter["get"]>[1] extends (req: infer T, ...args: any[]) => any ? T : any) {
   if (process.env.FRONTEND_URL) return process.env.FRONTEND_URL;
   const proto = req.headers["x-forwarded-proto"]?.toString().split(",")[0] || req.protocol || "http";
-  const host = req.headers.host || "localhost:3004";
+  const host = req.headers.host || "localhost:3000";
+  return `${proto}://${host}`;
+}
+
+function getApiBaseUrl(req: Parameters<IRouter["get"]>[1] extends (req: infer T, ...args: any[]) => any ? T : any) {
+  if (process.env.API_BASE_URL) return process.env.API_BASE_URL;
+  const proto = req.headers["x-forwarded-proto"]?.toString().split(",")[0] || req.protocol || "http";
+  const host = req.headers.host || "localhost:4000";
   return `${proto}://${host}`;
 }
 
 function getGoogleOAuthConfig(req: any): GoogleOAuthConfig {
   const frontendUrl = getFrontendUrl(req);
+  const apiBaseUrl = getApiBaseUrl(req);
   return {
     clientId: process.env.GOOGLE_CLIENT_ID || "",
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    redirectUri: process.env.GOOGLE_REDIRECT_URI || `${frontendUrl}/api/auth/google/callback`,
+    redirectUri: process.env.GOOGLE_REDIRECT_URI || `${apiBaseUrl}/api/auth/google/callback`,
     frontendUrl,
   };
 }

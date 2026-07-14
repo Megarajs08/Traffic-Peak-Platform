@@ -21,7 +21,7 @@ router.post("/users/:username/follow", async (req, res) => {
 
   await db
     .insert(followsTable)
-    .values({ followerId: user.id, followingId: target.id, createdAt: new Date().toISOString() })
+    .values({ followerId: user.id, followingId: target.id })
     .onConflictDoNothing();
 
   res.json({ following: true });

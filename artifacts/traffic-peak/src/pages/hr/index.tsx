@@ -55,6 +55,13 @@ export default function HrDashboard() {
     toast({ title: "Link copied!", description: url });
   }
 
+  const totalAssessments = stats?.totalAssessments ?? 0;
+  const activeAssessments = stats?.activeAssessments ?? 0;
+  const totalCandidates = stats?.totalCandidates ?? 0;
+  const avgWpm = stats?.avgWpm ?? 0;
+  const avgAccuracy = stats?.avgAccuracy ?? 0;
+  const passRate = stats?.passRate ?? 0;
+
   if (!user) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -87,12 +94,12 @@ export default function HrDashboard() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
-          <StatCard icon={Clipboard} label="Total Assessments" value={stats?.totalAssessments ?? "â€”"} color="bg-blue-500/10 text-blue-400" />
-          <StatCard icon={ToggleRight} label="Active" value={stats?.activeAssessments ?? "â€”"} color="bg-green-500/10 text-green-400" />
-          <StatCard icon={Users} label="Candidates" value={stats?.totalCandidates ?? "â€”"} color="bg-purple-500/10 text-purple-400" />
-          <StatCard icon={TrendingUp} label="Avg WPM" value={stats?.avgWpm ? `${stats.avgWpm}` : "â€”"} color="bg-orange-500/10 text-orange-400" />
-          <StatCard icon={Target} label="Avg Accuracy" value={stats?.avgAccuracy ? `${stats.avgAccuracy}%` : "â€”"} color="bg-yellow-500/10 text-yellow-400" />
-          <StatCard icon={CheckCircle2} label="Pass Rate" value={stats?.passRate !== undefined ? `${stats.passRate}%` : "â€”"} color="bg-teal-500/10 text-teal-400" />
+          <StatCard icon={Clipboard} label="Total Assessments" value={totalAssessments} sub="Test templates created" color="bg-blue-500/10 text-blue-400" />
+          <StatCard icon={ToggleRight} label="Active" value={activeAssessments} sub="Share links currently live" color="bg-green-500/10 text-green-400" />
+          <StatCard icon={Users} label="Candidates" value={totalCandidates} sub="Applicants invited so far" color="bg-purple-500/10 text-purple-400" />
+          <StatCard icon={TrendingUp} label="Avg WPM" value={avgWpm > 0 ? `${avgWpm}` : "0"} sub="Average typing speed" color="bg-orange-500/10 text-orange-400" />
+          <StatCard icon={Target} label="Avg Accuracy" value={avgAccuracy > 0 ? `${avgAccuracy}%` : "0%"} sub="Precision across attempts" color="bg-yellow-500/10 text-yellow-400" />
+          <StatCard icon={CheckCircle2} label="Pass Rate" value={`${passRate}%`} sub="Candidates meeting cut-off" color="bg-teal-500/10 text-teal-400" />
         </div>
 
         {/* Assessments Table */}
@@ -137,10 +144,10 @@ export default function HrDashboard() {
                           {isExpired ? "Expired" : a.active ? "Active" : "Inactive"}
                         </span>
                       </div>
-                      <div className="text-xs text-muted-foreground">{a.companyName} Â· {a.jobPosition}</div>
+                      <div className="text-xs text-muted-foreground">{a.companyName} | {a.jobPosition}</div>
                       <div className="text-xs text-muted-foreground/60 mt-0.5">
-                        {Math.round(a.durationSeconds / 60)} min Â· {a.passingWpm} WPM Â· {a.minAccuracy}% acc required
-                        {(a.candidateCount ?? 0) > 0 && ` Â· ${a.candidateCount} candidates Â· ${passRate}% pass`}
+                        {Math.round(a.durationSeconds / 60)} min | {a.passingWpm} WPM | {a.minAccuracy}% acc required
+                        {(a.candidateCount ?? 0) > 0 && ` | ${a.candidateCount} candidates | ${passRate}% pass`}
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
