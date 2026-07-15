@@ -446,7 +446,7 @@ export async function generateCertificatePDF(cert: Certificate): Promise<Buffer>
   const stats = [
     { value: `${Math.round(cert.wpm)}`, label: "WPM", size: 27 },
     { value: `${Math.round(cert.accuracy)}%`, label: "ACCURACY", size: 27 },
-    { value: cert.level, label: "LEVEL", size: 18 },
+    { value: cert.level ?? "Intermediate", label: "LEVEL", size: 18 },
   ];
   stats.forEach((stat, index) => {
     const centerX = left + statWidth * index + statWidth / 2;

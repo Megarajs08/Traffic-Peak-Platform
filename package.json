@@ -6,8 +6,14 @@
     "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
     "local:ensure": "powershell -ExecutionPolicy Bypass -File ./scripts/ensure-local-stack.ps1",
     "build": "cd artifacts/traffic-peak && pnpm exec vite build --config vite.config.ts",
+    "build:api": "pnpm --filter @workspace/api-server run build",
+    "start:api": "pnpm --filter @workspace/api-server run start",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+  },
+  "packageManager": "pnpm@11.0.8",
+  "engines": {
+    "node": ">=20"
   },
   "private": true,
   "devDependencies": {

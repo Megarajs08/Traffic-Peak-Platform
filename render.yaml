@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: typing-peak-api
+    runtime: node
+    rootDir: .
+    buildCommand: pnpm install --frozen-lockfile --filter @workspace/api-server... && pnpm run build:api
+    startCommand: pnpm run start:api
+    healthCheckPath: /api/healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: /var/data/typingpeak.db
+      - key: FRONTEND_URL
+        sync: false
+      - key: API_BASE_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        sync: false
+    disk:
+      name: typing-peak-data
+      mountPath: /var/data
+      sizeGB: 1

@@ -9,6 +9,9 @@
     "start": "node --enable-source-maps ./dist/index.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "@swc/helpers": "^0.5.23",
     "@workspace/api-zod": "workspace:*",
