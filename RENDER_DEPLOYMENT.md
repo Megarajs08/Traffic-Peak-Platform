@@ -10,7 +10,7 @@ application is intentionally not built or served by this service.
 | Root Directory | Leave blank (repository root, or `.`) |
 | Runtime | Node |
 | Build Command | `pnpm install --frozen-lockfile --filter @workspace/api-server... && pnpm run build:api` |
-| Start Command | `pnpm run start:api` |
+| Start Command | `node --enable-source-maps artifacts/api-server/dist/index.mjs` |
 | Health Check Path | `/api/healthz` |
 
 `render.yaml` contains the same configuration and can be used with Render's

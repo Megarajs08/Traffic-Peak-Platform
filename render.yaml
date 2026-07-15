@@ -4,7 +4,7 @@ services:
     runtime: node
     rootDir: .
     buildCommand: pnpm install --frozen-lockfile --filter @workspace/api-server... && pnpm run build:api
-    startCommand: pnpm run start:api
+    startCommand: node --enable-source-maps artifacts/api-server/dist/index.mjs
     healthCheckPath: /api/healthz
     envVars:
       - key: NODE_ENV

@@ -7,7 +7,7 @@
     "local:ensure": "powershell -ExecutionPolicy Bypass -File ./scripts/ensure-local-stack.ps1",
     "build": "cd artifacts/traffic-peak && pnpm exec vite build --config vite.config.ts",
     "build:api": "pnpm --filter @workspace/api-server run build",
-    "start:api": "pnpm --filter @workspace/api-server run start",
+    "start:api": "node --enable-source-maps artifacts/api-server/dist/index.mjs",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
