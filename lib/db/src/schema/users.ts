@@ -1,9 +1,9 @@
-import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
+import { pgTable, serial, text } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
-export const usersTable = sqliteTable("users", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+export const usersTable = pgTable("users", {
+  id: serial("id").primaryKey(),
   email: text("email").notNull().unique(),
   username: text("username").notNull().unique(),
   name: text("name"),

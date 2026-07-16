@@ -25,7 +25,7 @@ A full-stack typing speed platform — practice, compete, learn, and get certifi
 |-----------|--------------------------------------------------|
 | Frontend  | React 19, Vite, Tailwind CSS 4, Framer Motion   |
 | Backend   | Node.js, Express, TypeScript                    |
-| Database  | SQLite via Drizzle ORM                          |
+| Database  | Supabase PostgreSQL via Drizzle ORM              |
 | Monorepo  | pnpm workspaces                                 |
 | Process   | PM2                                             |
 
@@ -62,16 +62,16 @@ cp .env.example .env
 # Edit .env with your values
 ```
 
-### 3. Set up the database
+### 3. Set up the Supabase database
 
 ```bash
-node scripts/setup-db.mjs
+DATABASE_URL='your_supabase_postgresql_connection_string' pnpm run migrate:db
 ```
 
 ### 4. Seed the admin account
 
 ```bash
-DATABASE_URL=./lib/db/db/dev.db \
+DATABASE_URL='your_supabase_postgresql_connection_string' \
 ADMIN_EMAIL=you@example.com \
 ADMIN_PASSWORD=YourPassword \
 node scripts/seed-admin.mjs

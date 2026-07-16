@@ -8,6 +8,7 @@
     "build": "cd artifacts/traffic-peak && pnpm exec vite build --config vite.config.ts",
     "build:api": "pnpm --filter @workspace/api-server run build",
     "start:api": "node --enable-source-maps artifacts/api-server/dist/index.mjs",
+    "migrate:db": "pnpm --filter @workspace/db run migrate",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },

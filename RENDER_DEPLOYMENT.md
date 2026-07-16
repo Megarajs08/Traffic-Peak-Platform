@@ -9,23 +9,17 @@ application is intentionally not built or served by this service.
 | --- | --- |
 | Root Directory | Leave blank (repository root, or `.`) |
 | Runtime | Node |
-| Build Command | `pnpm install --frozen-lockfile --filter @workspace/api-server... && pnpm run build:api` |
+| Build Command | `pnpm install --frozen-lockfile --filter @workspace/api-server... && pnpm run migrate:db && pnpm run build:api` |
 | Start Command | `node --enable-source-maps artifacts/api-server/dist/index.mjs` |
 | Health Check Path | `/api/healthz` |
 
 `render.yaml` contains the same configuration and can be used with Render's
 Blueprint flow.
 
-## Persistent SQLite storage
+## Supabase PostgreSQL
 
-Attach a Persistent Disk at `/var/data` and set:
-
-```text
-DATABASE_URL=/var/data/typingpeak.db
-```
-
-Without a persistent disk, SQLite data is erased whenever Render replaces the
-service instance or deploys a new version.
+Set `DATABASE_URL` to the Supabase PostgreSQL connection string. A Render disk
+is not required because Supabase hosts the database.
 
 ## Environment variables
 
@@ -33,7 +27,7 @@ Required:
 
 ```text
 NODE_ENV=production
-DATABASE_URL=/var/data/typingpeak.db
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@db.YOUR_PROJECT_REF.supabase.co:5432/postgres?sslmode=require
 FRONTEND_URL=https://your-frontend.example.com
 API_BASE_URL=https://your-render-service.onrender.com
 ```

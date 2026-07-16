@@ -72,7 +72,6 @@ allowBuilds:
   '@swc/core': true
   # Native runtime modules required by the Express API.
   bcrypt: true
-  better-sqlite3: true
   esbuild: true
   msw: true
   spawn-sync: true

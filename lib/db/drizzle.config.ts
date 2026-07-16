@@ -1,17 +1,16 @@
 import { defineConfig } from "drizzle-kit";
-import path from "path";
+const databaseUrl = process.env.DATABASE_URL;
 
-const databaseUrl = process.env.DATABASE_URL ?? "./dev.db";
-const isSqlite =
-  databaseUrl.startsWith("sqlite:") ||
-  databaseUrl.startsWith("file:") ||
-  !databaseUrl.includes("://");
+if (!databaseUrl?.startsWith("postgres")) {
+  throw new Error("DATABASE_URL must be a PostgreSQL connection string.");
+}
 
 const schemaPath = `${__dirname.replace(/\\/g, "/")}/src/schema/**/*.ts`;
 
 export default defineConfig({
   schema: schemaPath,
-  dialect: isSqlite ? "sqlite" : "postgresql",
+  out: "./drizzle",
+  dialect: "postgresql",
   dbCredentials: {
     url: databaseUrl,
   },

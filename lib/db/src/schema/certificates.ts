@@ -1,11 +1,11 @@
-import { sqliteTable, integer, real, text } from "drizzle-orm/sqlite-core";
+import { pgTable, serial, integer, real, text } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 import { usersTable } from "./users";
 import { testResultsTable } from "./test_results";
 
-export const certificatesTable = sqliteTable("certificates", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+export const certificatesTable = pgTable("certificates", {
+  id: serial("id").primaryKey(),
   certificateId: text("certificate_id").notNull().unique(),
   userId: integer("user_id").references(() => usersTable.id),
   testResultId: integer("test_result_id").references(() => testResultsTable.id),

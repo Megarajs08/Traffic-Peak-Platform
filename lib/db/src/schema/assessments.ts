@@ -1,10 +1,10 @@
-import { sqliteTable, integer, real, text } from "drizzle-orm/sqlite-core";
+import { pgTable, serial, integer, real, text, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 import { usersTable } from "./users";
 
-export const hrAssessmentsTable = sqliteTable("hr_assessments", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+export const hrAssessmentsTable = pgTable("hr_assessments", {
+  id: serial("id").primaryKey(),
   token: text("token").notNull().unique(),
   createdById: integer("created_by_id").notNull().references(() => usersTable.id),
   name: text("name").notNull(),
@@ -19,14 +19,14 @@ export const hrAssessmentsTable = sqliteTable("hr_assessments", {
   passingWpm: integer("passing_wpm").notNull().default(40),
   minAccuracy: real("min_accuracy").notNull().default(90),
   maxAttempts: integer("max_attempts").notNull().default(1),
-  active: integer("active", { mode: "boolean" }).notNull().default(true),
+  active: boolean("active").notNull().default(true),
   expiresAt: text("expires_at"),
   createdAt: text("created_at").notNull().default(""),
   updatedAt: text("updated_at").notNull().default(""),
 });
 
-export const assessmentCandidatesTable = sqliteTable("assessment_candidates", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+export const assessmentCandidatesTable = pgTable("assessment_candidates", {
+  id: serial("id").primaryKey(),
   assessmentId: integer("assessment_id").notNull().references(() => hrAssessmentsTable.id),
   fullName: text("full_name").notNull(),
   email: text("email").notNull(),
@@ -41,8 +41,8 @@ export const assessmentCandidatesTable = sqliteTable("assessment_candidates", {
   createdAt: text("created_at").notNull().default(""),
 });
 
-export const assessmentResultsTable = sqliteTable("assessment_results", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
+export const assessmentResultsTable = pgTable("assessment_results", {
+  id: serial("id").primaryKey(),
   candidateId: integer("candidate_id").notNull().references(() => assessmentCandidatesTable.id),
   assessmentId: integer("assessment_id").notNull().references(() => hrAssessmentsTable.id),
   wpm: real("wpm").notNull(),
@@ -51,7 +51,7 @@ export const assessmentResultsTable = sqliteTable("assessment_results", {
   errorCount: integer("error_count").notNull(),
   charCount: integer("char_count").notNull(),
   durationSeconds: integer("duration_seconds").notNull(),
-  passed: integer("passed", { mode: "boolean" }).notNull(),
+  passed: boolean("passed").notNull(),
   rank: integer("rank"),
   createdAt: text("created_at").notNull().default(""),
 });
